@@ -1,59 +1,175 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# **Get Strong**
 
-Welcome hjtb,
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use.
+## **Goal for this project**
 
-## Gitpod Reminders
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+<a></a>
 
-`python3 -m http.server`
+## Table of contents 
+* [UX](#ux)
+    * [Site Objective](#site-objectives)
+    * [User Stories](#user-stories)
+    * [Design](#design)
+        * [Fonts](#fonts)
+        * [Colors](#colors)
+        * [Structure](#structure)
+* [Wireframes](#wireframes)
+    * [Database Structure](#database-structure)
+* [Features](#features)
+    * [Current Features](#current-features)
+    * [Ideas for more Features](#ideas-for-more-features)
+* [Technologies used](#technologies-used)
+    * [Languages](#languages)
+    * [Libraries and Frameworks](#libraries-and-frameworks)
+    * [Tools](#tools)
+* [Testing](#testing)
+* [Deployment](#deployment)
+    * [Local Deployment](#local-deployment)
+    * [Heroku Deployment](#heroku-deployment)
+* [Credits](#credits)
 
-A blue button should appear to click: _Make Public_,
+--- 
 
-Another blue button should appear to click: _Open Browser_.
+<a name="ux"></a>
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+## **UX**
 
-A blue button should appear to click: _Make Public_,
+### **Site Objectives**
 
-Another blue button should appear to click: _Open Browser_.
+### **User Stories**
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+[Back to Top](#table-of-contents)
 
-To log into the Heroku toolbelt CLI:
+<a></a>
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+### **Design**
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidently make it public then you can create a new one with _Regenerate API Key_.
+[Back to Top](#table-of-contents)
 
-## Updates Since The Instructional Video
+<a></a>
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+#### Colors
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+[Back to Top](#table-of-contents)
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+<a></a>
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+#### Fonts
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+[Back to Top](#table-of-contents)
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+<a></a>
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+#### Structure
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+[Back to Top](#table-of-contents)
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+<a></a>
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+## **Wireframes**
 
----
+#### Desktop Wireframes
 
-Happy coding!
+#### Tablet Wireframes
+
+#### Mobile Wireframes
+
+### **Database Structure**
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+## **Features**
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+### **Current Features**
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+### **Ideas for more Features**
+
+
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+## **Technologies used**
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+### **Languages**
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+### **Libraries and Frameworks**
+
+
+### **Tools**
+
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+
+## **Testing**
+
+#### As a user, I want to 
+
+* **Goals**    
+
+* **Method**   
+
+* **Test**   
+
+* **Results**    
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+## **Bugs**
+
+* **Bug**  
+
+* **Fix**
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+## **Deployment**
+
+### Local Deployment
+    
+### Deployment on Heroku: 
+   
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+## **Credits**
+
+[Back to Top](#table-of-contents)
+
+<a></a>
+
+
+
+
+
+
+
