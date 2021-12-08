@@ -36,14 +36,14 @@ Users will be able to review their progress over time and customise their workou
 ### **Site Objectives**
 
 ### **User Stories**
-As a user, I would like to create a profile with my email and use it to login
-As a user, I would like to create and customise my profile
-As a user, I would like to create and customise my own workout regime
-As a user, I would like to log workouts easily
-As a user, I would like to see my progress over time by viewing my previous workouts
-As a user, I would like to delete workouts/logs/my profile
-As a user, I would like to see other users workouts
-As a user, I would like to search exercises to add to my workout and add my own
+As a user, I would like to create a profile with my email and use it to login  
+As a user, I would like to create and customise my profile  
+As a user, I would like to create and customise my own workout regime  
+As a user, I would like to log workouts easily  
+As a user, I would like to see my progress over time by viewing my previous workouts  
+As a user, I would like to delete workouts/logs/my profile  
+As a user, I would like to see other users workouts  
+As a user, I would like to search exercises to add to my workout and add my own  
 
 [Back to Top](#table-of-contents)
 
