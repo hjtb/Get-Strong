@@ -1,9 +1,17 @@
 # **Get Strong**
 
+Get Strong is a training companion designed to assist you in creating, 
+logging and reviewing your training regime.  
+For years, I have been searching for a web app that allows me easily create a workout, 
+review my progress and most importantly, 
+log my workout easily while working out.  
+I never found it!  
+So, I will create it here.
 
 ## **Goal for this project**
 
-
+To create an easy to use workout logging app which allows the creation of personalised workouts.
+Users will be able to review their progress over time and customise their workouts to fit their own objectives.
 <a></a>
 
 ## Table of contents 
@@ -11,22 +19,12 @@
     * [Site Objective](#site-objectives)
     * [User Stories](#user-stories)
     * [Design](#design)
-        * [Fonts](#fonts)
-        * [Colors](#colors)
-        * [Structure](#structure)
 * [Wireframes](#wireframes)
-    * [Database Structure](#database-structure)
+* [Database Structure](#database-structure)
 * [Features](#features)
-    * [Current Features](#current-features)
-    * [Ideas for more Features](#ideas-for-more-features)
 * [Technologies used](#technologies-used)
-    * [Languages](#languages)
-    * [Libraries and Frameworks](#libraries-and-frameworks)
-    * [Tools](#tools)
 * [Testing](#testing)
 * [Deployment](#deployment)
-    * [Local Deployment](#local-deployment)
-    * [Heroku Deployment](#heroku-deployment)
 * [Credits](#credits)
 
 --- 
@@ -38,6 +36,14 @@
 ### **Site Objectives**
 
 ### **User Stories**
+As a user, I would like to create a profile with my email and use it to login
+As a user, I would like to create and customise my profile
+As a user, I would like to create and customise my own workout regime
+As a user, I would like to log workouts easily
+As a user, I would like to see my progress over time by viewing my previous workouts
+As a user, I would like to delete workouts/logs/my profile
+As a user, I would like to see other users workouts
+As a user, I would like to search exercises to add to my workout and add my own
 
 [Back to Top](#table-of-contents)
 
