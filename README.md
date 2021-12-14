@@ -59,7 +59,7 @@ As a user, I would like to search exercises to add to my workout and add my own
 
 I used a simple color scheme to create contrast and also not to make the site look cluttered.  
 I went with these colors as I will use a dark background image for the login page and this will keep with the color theme I'm aiming for.  
-I generated the color palette with ![Coolers](https://coolors.co/3b413c-70161e).  
+I generated the color palette with [Coolers](https://coolors.co/3b413c-70161e).  
 ![Color Scheme](/static/images/color_scheme.png).  
 
 [Back to Top](#table-of-contents)
