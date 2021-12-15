@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def get_strong():
+def starting():
     return "piping up"
 
 
