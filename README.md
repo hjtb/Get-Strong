@@ -59,8 +59,7 @@ As a user, I would like to search exercises to add to my workout and add my own
 
 I used a simple color scheme to create contrast and also not to make the site look cluttered.  
 I went with these colors as I will use a dark background image for the login page and this will keep with the color theme I'm aiming for.  
-I generated the color palette with [Coolers](https://coolors.co/3b413c-70161e).  
-![Color Scheme](/static/images/color_scheme.png).  
+I utilised the color palette included in the materialise framework and chose two contrasting colors of  for the scheme
 
 [Back to Top](#table-of-contents)
 
@@ -97,6 +96,9 @@ I decided on the Iceberg font on google fonts for everything else, as it's easy 
 <a></a>
 
 ## **Features**
+
+#### Navbar
+For the navbar icon I used a free logo from [www.vhv.rs](https://www.vhv.rs/) as they have a great selection of free logos for personal use
 
 [Back to Top](#table-of-contents)
 
