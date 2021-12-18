@@ -21,10 +21,11 @@
 <header>
     <nav class="nav-extended deep-orange accent-3 z-depth-3">
         <div class="nav-wrapper">
-            <a href="#!" class="brand-logo center"><img class="responsive-img" src="static/images/get_strong_logo.png" alt="get strong logo"></a>
+            <a href="{{ url_for('get_strong') }}"><h4 id="title">GET STRONG</h4></a>
+            <a href="{{ url_for('get_strong') }}" class="brand-logo right"><img class="responsive-img" src="static/images/get_strong_logo.png" alt="get strong logo"></a>
             <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
             <ul class="left hide-on-med-and-down">
-                <li><a href="#">Profile</a></li>
+                <li><a href="{{ url_for('get_strong') }}">Profile</a></li>
                 <li><a href="#">Workouts</a></li>
                 <li><a href="#">Logout</a></li>
                 <li><a href="#">Login</a></li>
@@ -34,7 +35,7 @@
     </nav>
         
     <ul class="sidenav deep-orange accent-3 flow-text" id="mobile-nav">
-        <li><a href="#">Profile</a></li>
+        <li><a href="{{ url_for('get_strong') }}">Profile</a></li>
         <li><a href="#">Workouts</a></li>
         <li><a href="#">Logout</a></li>
         <li><a href="#">Login</a></li>
