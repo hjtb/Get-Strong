@@ -13,7 +13,11 @@ nav {
 nav li>a{
     font-family: iceberg;    
     font-size: 1.4rem;
-    color: white;
+    color: white; 
+}
+
+nav li>a:hover{
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 
 .sidenav li>a {

@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Login</h1><br>
+    {{ login_form.csrf_token }}
+    {{ login_form.username }}
+    {{ login_form}}
+{% endblock %}
