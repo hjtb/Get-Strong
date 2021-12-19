@@ -26,6 +26,10 @@ nav li>a:hover{
     color: white;
 }
 
+.sidenav li>a:hover{
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
 .brand-logo img {
     height: auto;
     width: auto;
@@ -40,4 +44,14 @@ nav li>a:hover{
     color: #3B413C !important;
     position: absolute;
     right: 100px;
+}
+
+.footer-copyright {
+    padding-inline: 50px !important;
+}
+
+@media (max-width: 400px) {
+    .footer-copyright a {
+        display: none;
+    }
 }

@@ -1,8 +1,12 @@
 import os
-from flask import (Flask, flash, render_template, redirect, request, session, url_for)
+from flask import (
+    Flask, flash, render_template, 
+    redirect, request, session, url_for
+    )
 from flask_pymongo import PyMongo
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, Stringfield
+from wtforms import PasswordField, StringField, EmailField, RadioField, SelectField, TextAreaField
+from wtforms.validators import InputRequired, Length, AnyOf, Email
 if os.path.exists("env.py"):
     import env
 from bson.objectid import ObjectId
@@ -15,9 +19,14 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+
 class LoginForm(FlaskForm):
-    username = Stringfield('username')
-    password = PasswordField('password')
+    """Login form class for our login page"""
+    email = EmailField('Email', validators=[InputRequired(),
+    Length(min=6, max=30)])
+    password = PasswordField('Password', validators=[InputRequired(),
+    Length(min=6, max=30), AnyOf(values=['password', 'secret'])])
+
 
 @app.route("/")
 @app.route("/get_strong")
@@ -25,10 +34,24 @@ def get_strong():
     workouts = mongo.db.workouts.find()
     return render_template("get_strong.html", workouts=workouts)
 
-@app.route("/login", methods=['GET','POST']) 
+
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    return render_template("register.html")
+
+
+@app.route("/login", methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
+
+    if login_form.validate_on_submit():
+        return 'Email: {}.  Password: {}.'.format(login_form.email.data, login_form.password.data)
     return render_template("login.html", login_form=login_form)
+
+
+@app.route("/logout", methods=['GET', 'POST']) 
+def logout():
+    return render_template("logout.html")
 
 
 if __name__ == "__main__":
