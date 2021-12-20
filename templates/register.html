@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <form method="POST" class="col s10 offset-s1 m8 offset-m2 l6 offset-l3" action="{{ url_for('login') }}">
+        {{ registration_form.csrf_token }}
+        <div class="card-panel">
+            <h1 class="center">Register</h1><br>
+            <div class="row">
+                <div>{{ render_field(registration_form.email, placeholder=registration_form.email.label.text) }}</div>
+                <i class="far fa-envelope blue-grey-text text-darken-3 prefix"></i>
+            </div>
+            <div class="row">
+                <div>{{ render_field(registration_form.password, placeholder=registration_form.password.label.text) }}</div>
+                <i class="fas fa-unlock blue-grey-text text-darken-3 prefix"></i>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn waves-effect waves-light blue-grey darken-3 z-depth-3 col s6 offset-s3" name="action">
+                    Register <i class="fas fa-user-plus"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

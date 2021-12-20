@@ -20,6 +20,14 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+class RegistrationForm(FlaskForm):
+    """Registration form class for our registration page"""
+    email = EmailField('Email', validators=[InputRequired(),
+    Length(min=6, max=30)])
+    password = PasswordField('Password', validators=[InputRequired(),
+    Length(min=6, max=30), AnyOf(values=['password', 'secret'])])
+
+
 class LoginForm(FlaskForm):
     """Login form class for our login page"""
     email = EmailField('Email', validators=[InputRequired(),
@@ -37,7 +45,11 @@ def get_strong():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    return render_template("register.html")
+    registration_form = RegistrationForm()
+
+    if registration_form.validate_on_submit():
+        return 'Email: {}.  Password: {}.'.format(registration_form.email.data, registration_form.password.data)
+    return render_template("register.html", registration_form=registration_form)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -58,5 +70,3 @@ if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
             debug=True)
-
-# todo - fix submit button icon

@@ -22,7 +22,7 @@
 <header>
     <nav class="nav-extended deep-orange accent-3 z-depth-3">
         <div class="nav-wrapper">
-            <a href="{{ url_for('get_strong') }}"><h4 id="title">GET STRONG</h4></a>
+            <a href="{{ url_for('get_strong') }}"><h4 class="blue-grey-text text-darken-3" id="title">GET STRONG</h4></a>
             <a href="{{ url_for('get_strong') }}" class="brand-logo right"><img class="responsive-img" src="static/images/get_strong_logo.png" alt="get strong logo"></a>
             <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
             <ul class="left hide-on-med-and-down">
@@ -30,7 +30,7 @@
                 <li><a href="#">Workouts</a></li>
                 <li><a href="#">Logout</a></li>
                 <li><a href="{{ url_for('login') }}">Login</a></li>
-                <li><a href="#">Register</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
             </ul>
         </div>
     </nav>
@@ -40,10 +40,9 @@
         <li><a href="#">Workouts</a></li>
         <li><a href="#">Logout</a></li>
         <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="#">Register</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
     </ul>
 </header>
-    <h1>Base Template</h1>
     {% block content %}
     {% endblock %}
     <footer class="page-footer white">

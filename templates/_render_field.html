@@ -1,6 +1,5 @@
 {% macro render_field(field) %}
-<div class="input-field col s10 center">
-    <label for="{{ field.name }}">{{ field.label.text }}</label>
+<div class="input-field col s10 offset-s1 l8 offset-l2">
     {{ field(class_='validate', **kwargs)|safe }}
     <ul>
         {% for error in field.errors %}

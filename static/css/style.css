@@ -41,7 +41,6 @@ nav li>a:hover{
 #title {
     font-family: condiment;
     text-shadow: 1px 1px 2px rgba(255,255,255);
-    color: #3B413C !important;
     position: absolute;
     right: 100px;
 }
