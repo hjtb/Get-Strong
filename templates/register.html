@@ -7,11 +7,9 @@
             <h1 class="center">Register</h1><br>
             <div class="row">
                 <div>{{ render_field(registration_form.email, placeholder=registration_form.email.label.text) }}</div>
-                <i class="far fa-envelope blue-grey-text text-darken-3 prefix"></i>
             </div>
             <div class="row">
                 <div>{{ render_field(registration_form.password, placeholder=registration_form.password.label.text) }}</div>
-                <i class="fas fa-unlock blue-grey-text text-darken-3 prefix"></i>
             </div>
             <div class="row">
                 <button type="submit" class="btn waves-effect waves-light blue-grey darken-3 z-depth-3 col s6 offset-s3" name="action">
