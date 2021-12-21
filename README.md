@@ -85,9 +85,18 @@ I decided on the Iceberg font on google fonts for everything else, as it's easy 
 
 #### Desktop Wireframes
 
+[Dashboard desktop](static/wireframes/dashboard_desktop.png)
+[Log workout desktop](static/wireframes/log_workout_desktop.png)
+
 #### Tablet Wireframes
 
+[Dashboard tablet](static/wireframes/dashboard_tablet.png)
+[Log workout tablet](static/wireframes/log_workout_tablet.png)
+
 #### Mobile Wireframes
+
+[Dashboard mobile](static/wireframes/dashboard_mobile.png)
+[Log workout mobile](static/wireframes/log_workout_mobile.png)
 
 ### **Database Structure**
 
