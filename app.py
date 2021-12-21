@@ -25,7 +25,7 @@ class RegistrationForm(FlaskForm):
     email = EmailField('Email', validators=[InputRequired(),
     Length(min=6, max=30)])
     password = PasswordField('Password', validators=[InputRequired(),
-    Length(min=6, max=30), AnyOf(values=['password', 'secret'])])
+    Length(min=6, max=30)])
 
 
 class LoginForm(FlaskForm):
@@ -46,9 +46,12 @@ def get_strong():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     registration_form = RegistrationForm()
-
     if registration_form.validate_on_submit():
+        existing_user = mongo.db.users.find_one({"email": request.form.get("email").lower()})
         return 'Email: {}.  Password: {}.'.format(registration_form.email.data, registration_form.password.data)
+        if existing_user:
+            flash("An account with this email already exists, please login")
+            return redirect(url_for("login"))
     return render_template("register.html", registration_form=registration_form)
 
 
