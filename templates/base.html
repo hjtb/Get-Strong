@@ -20,7 +20,7 @@
 </head>
 <body>
 <header>
-    <nav class="nav-extended deep-orange accent-3 z-depth-3">
+    <nav class="nav-extended deep-orange accent-3">
         <div class="nav-wrapper">
             <a href="{{ url_for('get_strong') }}"><h4 class="blue-grey-text text-darken-3" id="title">GET STRONG</h4></a>
             <a href="{{ url_for('get_strong') }}" class="brand-logo right"><img class="responsive-img" src="static/images/get_strong_logo.png" alt="get strong logo"></a>
@@ -43,9 +43,22 @@
         <li><a href="#">Logout</a></li>
     </ul>
 </header>
-{% block content %}
-{% endblock %}
-<footer class="page-footer deep-orange accent-3">
+<section>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash card-panel blue-grey darken-3">
+                        <h2 class="white-text center-align flow-text">{{ message }}</h2>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+</section>
+<main class="container">
+    {% block content %}
+    {% endblock %}
+</main>
+<footer class="page-footer deep-orange accent-3 blue-grey-text text-darken-3">
     <div class="footer-copyright">
         <small id="copyright"></small>
         <a target="_blank" class="grey-text text-lighten-4 right" href="https://www.facebook.com/">

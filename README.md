@@ -106,14 +106,19 @@ I decided on the Iceberg font on google fonts for everything else, as it's easy 
 
 ## **Features**
 
-#### Navbar
-For the navbar icon I used a free logo from [www.vhv.rs](https://www.vhv.rs/) as they have a great selection of free logos for personal use
-
 [Back to Top](#table-of-contents)
 
 <a></a>
 
 ### **Current Features**
+
+#### Navbar
+For the navbar icon I used a free logo from [www.vhv.rs](https://www.vhv.rs/) as they have a great selection of free logos for personal use. 
+I also used this [stackoverflow](https://stackoverflow.com/questions/16116319/how-to-create-white-css-box-shadow) article to incorporate a white shadow and to ensure it works on all browsers.  
+
+#### Flash Messages
+For the flash messages I coded along very closely with the code institute example to incorporate them and and added someshadow and styling to make them stand out a bit more. 
+I used this same [stackoverflow](https://stackoverflow.com/questions/16116319/how-to-create-white-css-box-shadow) article for the shadow. 
 
 [Back to Top](#table-of-contents)
 

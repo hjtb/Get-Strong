@@ -3,6 +3,7 @@ from flask import (
     Flask, flash, render_template, 
     redirect, request, session, url_for
     )
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_pymongo import PyMongo
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, StringField, EmailField, RadioField, SelectField, TextAreaField
@@ -48,10 +49,17 @@ def register():
     registration_form = RegistrationForm()
     if registration_form.validate_on_submit():
         existing_user = mongo.db.users.find_one({"email": request.form.get("email").lower()})
-        return 'Email: {}.  Password: {}.'.format(registration_form.email.data, registration_form.password.data)
         if existing_user:
-            flash("An account with this email already exists, please login")
+            flash("An account with this email already exists!! Please login!")
             return redirect(url_for("login"))
+        register_new = {
+            "email": request.form.get("email").lower(),
+            "password": generate_password_hash(request.form.get("password"))
+        }
+        mongo.db.users.insert_one(register_new)
+
+        session["user"] = request.form.get("email").lower()
+        flash("Sign up Successful!")
     return render_template("register.html", registration_form=registration_form)
 
 
