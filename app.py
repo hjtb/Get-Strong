@@ -34,9 +34,10 @@ class LoginForm(FlaskForm):
     email = EmailField('Email', validators=[InputRequired(),
     Length(min=6, max=30)])
     password = PasswordField('Password', validators=[InputRequired(),
-    Length(min=6, max=30), AnyOf(values=['password', 'secret'])])
+    Length(min=6, max=30)])
 
 
+# Profile Page
 @app.route("/")
 @app.route("/get_strong")
 def get_strong():
@@ -44,6 +45,7 @@ def get_strong():
     return render_template("get_strong.html", workouts=workouts)
 
 
+# Register Page
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     registration_form = RegistrationForm()
@@ -52,26 +54,38 @@ def register():
         if existing_user:
             flash("An account with this email already exists!! Please login!")
             return redirect(url_for("login"))
-        register_new = {
+        new_user = {
             "email": request.form.get("email").lower(),
             "password": generate_password_hash(request.form.get("password"))
         }
-        mongo.db.users.insert_one(register_new)
+        mongo.db.users.insert_one(new_user)
 
         session["user"] = request.form.get("email").lower()
         flash("Sign up Successful!")
     return render_template("register.html", registration_form=registration_form)
 
 
+# Login Page
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
-
     if login_form.validate_on_submit():
-        return 'Email: {}.  Password: {}.'.format(login_form.email.data, login_form.password.data)
+        # Check for existing user in DB
+        existing_user = mongo.db.users.find_one({"email": request.form.get("email").lower()})
+        if existing_user:
+            # Check the password hash matches
+            if check_password_hash(existing_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("email").lower()
+                flash("Login for {} was successful!".format(request.form.get("email")))
+                return redirect(url_for("get_strong"))
+        else:
+            # Username not found
+            flash("Login Failed!")
+            return redirect(url_for("login"))
+
     return render_template("login.html", login_form=login_form)
 
-
+# Logout
 @app.route("/logout", methods=['GET', 'POST']) 
 def logout():
     return render_template("logout.html")
