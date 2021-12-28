@@ -3,6 +3,7 @@
 }
 
 nav {
+    margin-bottom: 20px;
     text-shadow: 3px 5px 3px rgba(0,0,0,0.6);
     -webkit-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
     -moz-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
@@ -49,12 +50,14 @@ nav li>a:hover{
 }
 
 .flash {
+    margin: auto;
+    padding: 2px !important;
     font-family: condiment, Arial, Helvetica, sans-serif;
     max-width: 60%;
     border-radius: 5px;
-    -webkit-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
-    -moz-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
-    box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
+    -webkit-box-shadow: -1px 6px 13px 2px rgba(255, 255, 255, 0.44);
+    -moz-box-shadow: -1px 6px 13px 2px rgba(255, 255, 255, 0.44);
+    box-shadow: -1px 6px 13px 2px rgba(255, 255, 255, 0.44);
 }
 
 body {

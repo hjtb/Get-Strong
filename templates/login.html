@@ -8,16 +8,16 @@
             <div class="row">
                 <div>{{ render_field(login_form.email, placeholder=login_form.email.label.text) }}</div>
             </div>
-            <div class="row">
+                <div class="row">
                 <div>{{ render_field(login_form.password, placeholder=login_form.password.label.text) }}</div>
             </div>
             <div class="row">
                 <button type="submit" class="btn waves-effect waves-light blue-grey darken-3 z-depth-3 col s6 offset-s3" name="action">
-                    Login <i class="fas fa-paper-plane prefix"></i>
+                    Login <i class="fas fa-sign-in-alt"></i>
                 </button>
             </div>
             <div class="row">
-                <div class="col s-12 m10 offset-m3 l8 offset-l3 blue-grey-text text-darken-3">
+                <div class="col s12 blue-grey-text text-darken-3 center">
                     Not Registered yet??
                     <a class="deep-orange-text text-accent-3 " href="{{ url_for('register') }}">Sign up</a>
                 </div>

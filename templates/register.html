@@ -6,6 +6,9 @@
         <div class="card-panel">
             <h1 class="center">Register</h1><br>
             <div class="row">
+                <div>{{ render_field(registration_form.username, placeholder=registration_form.username.label.text) }}</div>
+            </div>
+            <div class="row">
                 <div>{{ render_field(registration_form.email, placeholder=registration_form.email.label.text) }}</div>
             </div>
             <div class="row">
@@ -17,7 +20,7 @@
                 </button>
             </div>
             <div class="row">
-                <div class="col s-12 m10 offset-m3 l8 offset-l3 blue-grey-text text-darken-3">
+                <div class="col s12 blue-grey-text text-darken-3 center">
                     Already Registered??
                     <a class="deep-orange-text text-accent-3 " href="{{ url_for('login') }}">Login</a>
                 </div>

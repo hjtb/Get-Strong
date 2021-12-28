@@ -85,20 +85,57 @@ I decided on the Iceberg font on google fonts for everything else, as it's easy 
 
 #### Desktop Wireframes
 
-[Dashboard desktop](static/wireframes/dashboard_desktop.png)
+[Dashboard desktop](static/wireframes/dashboard_desktop.png)  
 [Log workout desktop](static/wireframes/log_workout_desktop.png)
 
 #### Tablet Wireframes
 
-[Dashboard tablet](static/wireframes/dashboard_tablet.png)
+[Dashboard tablet](static/wireframes/dashboard_tablet.png)  
 [Log workout tablet](static/wireframes/log_workout_tablet.png)
 
 #### Mobile Wireframes
 
-[Dashboard mobile](static/wireframes/dashboard_mobile.png)
+[Dashboard mobile](static/wireframes/dashboard_mobile.png)   
 [Log workout mobile](static/wireframes/log_workout_mobile.png)
 
 ### **Database Structure**
+
+The types of data that are stored in the  database.
+- ObjectID
+- String
+- Boolean
+- Object
+- Array
+- Binary
+
+Workouts Collection:
+**Title**|**Key in Collection**|**Data Type**
+:-----:|:-----:|:-----:
+Beer Id|_id|ObjectId
+Name|name|String
+Brewery|brewery|String
+Type|type|String
+Excerpt|excerpt|String
+Notes|notes|String
+Abv|abv|String
+Image|image|String
+Reviews|reviews|Array
+
+Exercises Collection:
+**Title**|**Key in Collection**|**Data Type**
+:-----:|:-----:|:-----:
+Type ID|_id|ObjectID
+Exercise|exercise|String
+
+Users Collection:
+**Title**|**Key in Collection**|**Data Type**
+:-----:|:-----:|:-----:
+User ID|_id|ObjectID
+Name|name|String
+Password|password|Binary
+Admin|admin|boolean
+Workouts|workouts|array
+
 
 [Back to Top](#table-of-contents)
 
