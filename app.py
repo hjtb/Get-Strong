@@ -5,13 +5,11 @@ from flask import (
     )
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_pymongo import PyMongo
-from flask_wtf import FlaskForm
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from wtforms import PasswordField, StringField, IntegerField, EmailField, RadioField, SelectField, TextAreaField
-from wtforms.validators import InputRequired, Length, AnyOf, Email
 if os.path.exists("env.py"):
     import env
 from bson.objectid import ObjectId
+from forms import (LoginForm, RegistrationForm)
 
 app = Flask(__name__)
 
@@ -33,7 +31,6 @@ class User(UserMixin):
     expects user objects to have.
     """
     def __init__(self, user_mongo):
-        #self.user_json = user_json
         self.id = user_mongo.get("_id")
         self.email = user_mongo.get('email')
         self.username = user_mongo.get('username')
@@ -59,26 +56,26 @@ def load_user(user_id):
 
 
 # Create forms.py and move these into it
-class RegistrationForm(FlaskForm):
-    """
-    Registration form class for our registration page
-    """
-    username = StringField('Username', validators=[InputRequired(),
-    Length(min=6, max=30)])
-    email = EmailField('Email', validators=[InputRequired(),
-    Length(min=6, max=30)])
-    password = PasswordField('Password', validators=[InputRequired(),
-    Length(min=6, max=30)])
+# class RegistrationForm(FlaskForm):
+#     """
+#     Registration form class for our registration page
+#     """
+#     username = StringField('Username', validators=[InputRequired(),
+#     Length(min=6, max=30)])
+#     email = EmailField('Email', validators=[InputRequired(),
+#     Length(min=6, max=30)])
+#     password = PasswordField('Password', validators=[InputRequired(),
+#     Length(min=6, max=30)])
 
 
-class LoginForm(FlaskForm):
-    """
-    Login form class for our login page
-    """
-    email = EmailField('Email', validators=[InputRequired(),
-    Length(min=6, max=30)])
-    password = PasswordField('Password', validators=[InputRequired(),
-    Length(min=6, max=30)])
+# class LoginForm(FlaskForm):
+#     """
+#     Login form class for our login page
+#     """
+#     email = EmailField('Email', validators=[InputRequired(),
+#     Length(min=6, max=30)])
+#     password = PasswordField('Password', validators=[InputRequired(),
+#     Length(min=6, max=30)])
 
 
 # Profile Page
@@ -99,7 +96,7 @@ def get_strong():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     """
-    Let new users to register
+    Let new users register
     """
     if current_user.is_authenticated:
         return redirect(url_for('get_strong'))

@@ -23,24 +23,30 @@
     <nav class="nav-extended deep-orange accent-3">
         <div class="nav-wrapper">
             <a href="{{ url_for('get_strong') }}"><h4 class="blue-grey-text text-darken-3" id="title">GET STRONG</h4></a>
-            <a href="{{ url_for('get_strong') }}" class="brand-logo right"><img class="responsive-img" src="{{ url_for('static', filename='images/get_strong_logo.png') }}" alt="get strong logo"></a>
+            <a href="{{ url_for('get_strong') }}" class="brand-logo center"><img class="responsive-img" src="{{ url_for('static', filename='images/get_strong_logo.png') }}" alt="get strong logo"></a>
             <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
-            <ul class="left hide-on-med-and-down">
-                <li><a href="{{ url_for('get_strong', email=session['user']) }}">Profile</a></li>
-                <li><a href="#">Workouts</a></li>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
-                <li><a href="{{ url_for('register') }}">Register</a></li>
-                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            <ul class="right hide-on-med-and-down">
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('get_strong', email=session['user']) }}">Profile</a></li>
+                    <li><a href="#">Workouts</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                {% endif %} 
             </ul>
         </div>
     </nav>
         
     <ul class="sidenav deep-orange accent-3 flow-text" id="mobile-nav">
-        <li><a href="{{ url_for('get_strong', email=session['user']) }}">Profile</a></li>
-        <li><a href="#">Workouts</a></li>
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('register') }}">Register</a></li>
-        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('get_strong', email=session['user']) }}">Profile</a></li>
+            <li><a href="#">Workouts</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+        {% endif %} 
     </ul>
 </header>
 <section>
@@ -48,9 +54,9 @@
             {% if messages %}
                 {% for message in messages %}
                     <div class="row">
-                        <div class="flash card-panel blue-grey darken-3">
-                            <span class="white-text">
-                                <h1 class="deep-orange-text text-accent-3 center-align">{{ message }}</h1>
+                        <div class="flash blue-grey darken-3">
+                            <span>
+                                <h2 class="deep-orange-text text-accent-3 center-align flow-text">{{ message }}</h2>
                             </span>
                         </div>
                     </div>
@@ -58,7 +64,7 @@
             {% endif %}
         {% endwith %}
 </section>
-<main class="container">
+<main>
     {% block content %}
     {% endblock %}
 </main>
