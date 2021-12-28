@@ -1,7 +1,7 @@
 import os
 from flask import (
     Flask, flash, render_template, 
-    redirect, request, session, url_for
+    redirect, request, url_for
     )
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_pymongo import PyMongo
@@ -26,19 +26,22 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 
+# Create models.py and move this in
 class User(UserMixin):
     """
     This provides default implementations for the methods that Flask-Login
     expects user objects to have.
     """
-    def __init__(self, user_json):
-        self.user_json = user_json
-        self.username = user_json.get('username')
-        self.library = user_json.get('library')
-        self.is_admin = user_json.get('is_admin')
+    def __init__(self, user_mongo):
+        #self.user_json = user_json
+        self.id = user_mongo.get("_id")
+        self.email = user_mongo.get('email')
+        self.username = user_mongo.get('username')
+        self.workouts = user_mongo.get('workouts')
+        self.is_admin = user_mongo.get('is_admin')
 
     def get_id(self):
-        object_id = self.user_json.get("_id")
+        object_id = self.id
         return str(object_id)
 
 
@@ -49,13 +52,19 @@ def load_user(user_id):
     login manager returns a user object and ID to login a user
     """
     user_obj = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    if not user_obj:
+        user_obj = dict(email=None,username=None,_id=None)
+    print(user_id)
     return User(user_obj)
 
 
+# Create forms.py and move these into it
 class RegistrationForm(FlaskForm):
     """
     Registration form class for our registration page
     """
+    username = StringField('Username', validators=[InputRequired(),
+    Length(min=6, max=30)])
     email = EmailField('Email', validators=[InputRequired(),
     Length(min=6, max=30)])
     password = PasswordField('Password', validators=[InputRequired(),
@@ -74,15 +83,15 @@ class LoginForm(FlaskForm):
 
 # Profile Page
 @app.route("/")
-@app.route("/get_strong/<email>")
+@app.route("/get_strong")
 @login_required
-def get_strong(email):
+def get_strong():
     """
     Displays the users profile
     """
-    email = mongo.db.users.find_one({"email": session["user"]})["email"]
-    username = mongo.db.users.find_one({"username": session["user"]})["username"]
-    workouts = mongo.db.workouts.find({"workouts": session["user"]})["workouts"]
+    email = current_user.email
+    username = current_user.username
+    workouts = current_user.workouts
     return render_template("get_strong.html", workouts=workouts, email=email, username=username)
 
 
@@ -94,10 +103,13 @@ def register():
     """
     if current_user.is_authenticated:
         return redirect(url_for('get_strong'))
+
     registration_form = RegistrationForm()
+
     if registration_form.validate_on_submit():
         existing_user = mongo.db.users.find_one({"email": request.form.get("email").lower()})
         username_taken = mongo.db.users.find_one({"username": request.form.get("username").lower()})
+
         if existing_user or username_taken:
             flash("An account with this email/username already exists!!")
             return redirect(url_for("register"))
@@ -107,13 +119,14 @@ def register():
             "email": request.form.get("email").lower(),
             "password": generate_password_hash(request.form.get("password")),
             "workouts": [],
-            "is_admin": False
+            "is_admin": False,
+            "is_active": True
         }
+
         mongo.db.users.insert_one(new_user)
 
-        session["user"] = request.form.get("email").lower()
         flash("Sign up Successful!")
-        return redirect(url_for("get_strong", email=session["user"]))
+        return redirect(url_for("get_strong"))
         
     return render_template("register.html", registration_form=registration_form)
 
@@ -136,11 +149,14 @@ def login():
         if existing_user:
             # Check the password hash matches
             if check_password_hash(existing_user["password"], request.form.get("password")):
-                session["user"] = request.form.get("email").lower()
                 flash("Login for {} was successful!".format(request.form.get("email")))
                 loginUser = User(existing_user)
                 login_user(loginUser)
-                return redirect(url_for("get_strong", email=session["user"]))
+                return redirect(url_for("get_strong"))
+            else:
+                # Username not found
+                flash("Login unsuccessful!")
+                return redirect(url_for("login"))
         else:
             # Username not found
             flash("Login Failed!")
@@ -151,7 +167,9 @@ def login():
 # Logout
 @app.route("/logout", methods=['GET', 'POST']) 
 def logout():
-    return render_template("logout.html")
+    flash(f"{current_user.username} Logged out!")
+    logout_user()
+    return redirect(url_for("login"))
 
 
 if __name__ == "__main__":
