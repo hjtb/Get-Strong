@@ -29,6 +29,7 @@
                 {% if current_user.is_authenticated %}
                     <li><a href="{{ url_for('get_strong') }}">Profile</a></li>
                     <li><a href="{{ url_for('add_workout') }}">Add Workouts</a></li>
+                    <li><a href="{{ url_for('add_exercise') }}">Add Exercise</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% else %}
                     <li><a href="{{ url_for('login') }}">Login</a></li>
@@ -42,6 +43,7 @@
         {% if current_user.is_authenticated %}
             <li><a href="{{ url_for('get_strong') }}">Profile</a></li>
             <li><a href="{{ url_for('add_workout') }}">Add Workouts</a></li>
+            <li><a href="{{ url_for('add_exercise') }}">Add Exercises</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
         {% else %}
             <li><a href="{{ url_for('login') }}">Login</a></li>
