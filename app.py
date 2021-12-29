@@ -10,6 +10,7 @@ if os.path.exists("env.py"):
     import env
 from bson.objectid import ObjectId
 from forms import (LoginForm, RegistrationForm)
+from models import User 
 
 app = Flask(__name__)
 
@@ -24,25 +25,6 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 
-# Create models.py and move this in
-class User(UserMixin):
-    """
-    This provides default implementations for the methods that Flask-Login
-    expects user objects to have.
-    """
-    def __init__(self, user_mongo):
-        self.id = user_mongo.get("_id")
-        self.email = user_mongo.get('email')
-        self.username = user_mongo.get('username')
-        self.workouts = user_mongo.get('workouts')
-        self.is_admin = user_mongo.get('is_admin')
-
-    def get_id(self):
-        object_id = self.id
-        return str(object_id)
-
-
-
 @login_manager.user_loader
 def load_user(user_id):
     """
@@ -53,29 +35,6 @@ def load_user(user_id):
         user_obj = dict(email=None,username=None,_id=None)
     print(user_id)
     return User(user_obj)
-
-
-# Create forms.py and move these into it
-# class RegistrationForm(FlaskForm):
-#     """
-#     Registration form class for our registration page
-#     """
-#     username = StringField('Username', validators=[InputRequired(),
-#     Length(min=6, max=30)])
-#     email = EmailField('Email', validators=[InputRequired(),
-#     Length(min=6, max=30)])
-#     password = PasswordField('Password', validators=[InputRequired(),
-#     Length(min=6, max=30)])
-
-
-# class LoginForm(FlaskForm):
-#     """
-#     Login form class for our login page
-#     """
-#     email = EmailField('Email', validators=[InputRequired(),
-#     Length(min=6, max=30)])
-#     password = PasswordField('Password', validators=[InputRequired(),
-#     Length(min=6, max=30)])
 
 
 # Profile Page
