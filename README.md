@@ -81,7 +81,9 @@ I decided on the Iceberg font on google fonts for everything else, as it's easy 
 
 <a></a>
 
+
 ## **Wireframes**
+
 
 #### Desktop Wireframes
 
@@ -96,9 +98,11 @@ I decided on the Iceberg font on google fonts for everything else, as it's easy 
 #### Mobile Wireframes
 
 [Dashboard mobile](static/wireframes/dashboard_mobile.png)   
-[Log workout mobile](static/wireframes/log_workout_mobile.png)
+[Log workout mobile](static/wireframes/log_workout_mobile.png)  
 
-### **Database Structure**
+
+
+## **Database Structure**
 
 The types of data that are stored in the  database.
 - ObjectID
@@ -108,18 +112,18 @@ The types of data that are stored in the  database.
 - Array
 - Binary
 
+
 Workouts Collection:
 **Title**|**Key in Collection**|**Data Type**
 :-----:|:-----:|:-----:
-Beer Id|_id|ObjectId
-Name|name|String
-Brewery|brewery|String
-Type|type|String
-Excerpt|excerpt|String
-Notes|notes|String
-Abv|abv|String
-Image|image|String
-Reviews|reviews|Array
+Workout Id|_id|ObjectId
+Workout Name|name|String
+Exercise|exercise|Select
+Set|set|Integer
+Reps|reps|Integer
+Weight|weight|Integer
+Comments|comments|String
+
 
 Exercises Collection:
 **Title**|**Key in Collection**|**Data Type**
@@ -127,14 +131,15 @@ Exercises Collection:
 Type ID|_id|ObjectID
 Exercise|exercise|String
 
+
 Users Collection:
 **Title**|**Key in Collection**|**Data Type**
 :-----:|:-----:|:-----:
 User ID|_id|ObjectID
 Name|name|String
 Password|password|Binary
-Admin|admin|boolean
 Workouts|workouts|array
+Admin|admin|boolean
 
 
 [Back to Top](#table-of-contents)
@@ -154,7 +159,7 @@ For the navbar icon I used a free logo from [www.vhv.rs](https://www.vhv.rs/) as
 I also used this [stackoverflow](https://stackoverflow.com/questions/16116319/how-to-create-white-css-box-shadow) article to incorporate a white shadow and to ensure it works on all browsers.  
 
 #### Flash Messages
-For the flash messages I coded along very closely with the code institute example to incorporate them and and added someshadow and styling to make them stand out a bit more. 
+For the flash messages I used and added some shadow and styling to make them stand out a bit more. 
 I used this same [stackoverflow](https://stackoverflow.com/questions/16116319/how-to-create-white-css-box-shadow) article for the shadow. 
 
 [Back to Top](#table-of-contents)

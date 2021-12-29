@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <h1 class="white-text">Logged in as: {{ username }}</h1>
+</div>
+<section>
+    <div class="container">
+        <h1 class="form-header">Add Workout</h1>
+        <form method="POST" action="{{ url_for('add_workout') }}">
+            {{ add_workout_form.csrf_token }}
+            <div class="row">
+                <div class="input-field col s6">
+                    {{ form.workout_name }}
+                    <label for="workout_name">Workout Name:</label>
+                </div>
+            </div>
+            <div class="row exercise-row">
+                <p class="add-finisher-paragraph">Add exercises to your workout:</p>
+                <div class="input-field col m6 s12">
+                    {{ form.exercise(class="validate") }}
+                    <label for="exercise">Exercise 1:</label>
+                </div>
+                <div class="input-field col m3 s6">
+                    {{ form.reps(class="validate") }}
+                    <label for="reps">for:</label>
+                </div>
+                <div class="input-field col m3 s6">
+                    <select id="exercise_1">
+                        <option value="reps">reps</option>
+                        <option value="weight">weight</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    {{ form.comments }}
+                    <label for="comments">Comments:</label>
+                </div>
+            </div>
+            <button type="submit" class="btn-large orange-btn">Add finisher</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

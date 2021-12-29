@@ -1,6 +1,7 @@
 from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+import mongoengine
 
 
 class User(UserMixin):
@@ -18,3 +19,7 @@ class User(UserMixin):
     def get_id(self):
         object_id = self.id
         return str(object_id)
+
+
+class Exercise:
+    exercise_name = mongoengine.StringField(required=True)

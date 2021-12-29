@@ -27,4 +27,22 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired(),
         Length(min=6, max=30)])
 
-    submit = SubmitField("Login")
+
+class AddWorkoutForm(FlaskForm):
+    """
+    Form class to add new workouts
+    """
+    workout_name = validators = [InputRequired(), Length(
+        min=4, max=30, message='Length must be 4-30 characters long')]
+    exercise = SelectField('Exercise:', validators=[InputRequired()])
+    reps = IntegerField('Reps:', validators=[InputRequired(), NumberRange()])
+    weight = IntegerField('Weight (kg):', validators=[InputRequired()])
+    comments = TextAreaField('Comments:', validators=[InputRequired(), Length(
+        min=8, max=300, message='Must be 8-300 characters long')])
+
+
+class AddExercise(FlaskForm):
+    exercise_name = StringField(
+        'Exercise name:', validators=[InputRequired(), Length(
+            min=3, max=50,
+            message='Must be between 5 and 50 characters long')])

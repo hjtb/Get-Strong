@@ -45,10 +45,11 @@ def get_strong():
     """
     Displays the users profile
     """
-    email = current_user.email
+
     username = current_user.username
     workouts = current_user.workouts
-    return render_template("get_strong.html", workouts=workouts, email=email, username=username)
+
+    return render_template("get_strong.html", workouts=workouts, username=username)
 
 
 # Sign up Page
@@ -76,7 +77,6 @@ def register():
             "password": generate_password_hash(request.form.get("password")),
             "workouts": [],
             "is_admin": False,
-            "is_active": True
         }
 
         mongo.db.users.insert_one(new_user)
@@ -119,6 +119,31 @@ def login():
             return redirect(url_for("login"))
 
     return render_template("login.html", login_form=login_form)
+
+
+# Add workout page Page
+@app.route("/add_workout")
+@login_required
+def add_workout():
+    """
+    Enables the user to enter new workouts
+    """
+
+    new_workout = {
+        "workout_name": request.form.get("workout_name").lower(),
+        "exercises": [],
+        "comments": request.form.get("comments")
+    }
+
+    mongo.db.users.insert_one(new_workout)
+
+    flash("Workout added successfully!")
+    return redirect(url_for("workouts"))
+
+    username = current_user.username
+    
+    return render_template("add_workout.html",  username=username)
+
 
 # Logout
 @app.route("/logout", methods=['GET', 'POST']) 
