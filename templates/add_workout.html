@@ -17,16 +17,24 @@
                                 <label for="workout_name">Workout Name:</label>
                             </div>
                         </div>
-                        <div class="row exercise-row">
+                        <div class="exercise_wrapper">
+                            <div>
+                                <input type="text" name="field_name[]" value=""/>
+                                <a href="javascript:void(0);" class="add_button" title="Add field">
+                                    <i class="fas fa-plus-circle"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="input-field col m3 s6">
                                 {{ add_workout_form.exercise_name(class="validate") }}
                                 <label for="exercise"></label>
                             </div>
                             <div class="input-field col s12">
                                 <select>
-                                    <option value="exercises" disabled selected>Choose an Exercise</option>
+                                    <option value="exercises" selected>Choose an Exercise</option>
                                     {% for exercise in exercises %}
-                                        <option value="1">Option 1</option>
+                                        <option value="1">{{ exercise.exercise_name|title }}</option>
                                     {% endfor %}
                                 </select>
                             <label for="exercise">Materialize Select</label>
