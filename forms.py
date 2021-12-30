@@ -37,8 +37,7 @@ class AddWorkout(FlaskForm):
    
     workout_name = StringField('Workout name:', validators=[InputRequired(), Length(
         min=4, max=30, message='Length must be 4-30 characters long')])
-    exercise = SelectField('exercise:',
-        choices=[('1', 'push ups'), ('2', 'pull ups')], validators=[InputRequired()])
+    exercise_name = StringField('exercise:', validators=[InputRequired()])
     sets = IntegerField('sets:', validators=[InputRequired(),
         NumberRange(1, 20, message='Choose a value between 1 and 20')])
     reps = IntegerField('reps:', validators=[InputRequired(),

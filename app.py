@@ -116,8 +116,8 @@ def login():
                 existing_user["password"], request.form.get("password")):
                 flash(
                     f"Login for {existing_user['username']} was successful!".format(request.form.get("email")
-                    )
                 )
+            )
                 loginUser = User(existing_user)
                 login_user(loginUser)
                 return redirect(url_for("get_strong"))
@@ -134,7 +134,7 @@ def login():
 
 
 # Add Workout Page
-@app.route("/add_workout")
+@app.route("/add_workout", methods=['GET', 'POST'])
 @login_required
 def add_workout():
     """
@@ -144,21 +144,41 @@ def add_workout():
     username = current_user.username
     exercises = list(mongo.db.exercises.exercise_name.find())
     add_workout_form = AddWorkout()
+    new_workout = {}
 
-    new_workout = {
-        "workout_name": add_workout_form.workout_name.data,
-        "exercise": add_workout_form.exercise.data,
-        "sets": add_workout_form.sets.data,
-        "reps": add_workout_form.reps.data,
-        "weight": add_workout_form.weight.data,
-        "comments": add_workout_form.comments.data,
-        "user": username
-    }
+    # Credit this code in readme
+    # https://www.linkedin.com/pulse/integrate-mongodb-flask-creating-simple-student-data-form-phatate
+
+    if request.method == "POST":
+        new_workout['workout_name'] = request.form['workout_name']
+        new_workout['comments'] = request.form['comments']
+        new_workout["user"] = username
+        exercises = []
+        for i in range(20):
+            try:
+                if request.form['exercise' + i] != "":
+                    exercises.append(request.form['exercise' + i])
+            except Exception as e:
+                pass
+        new_workout['Exercises'] = exercises
+
+    #     "workout_name": add_workout_form.workout_name.data,
+    #     "exercises": [
+    #         {
+    #             "exercise_name": add_workout_form.exercise_name.data,
+    #             "sets": add_workout_form.sets.data,
+    #             "reps": add_workout_form.reps.data,
+    #             "weight": add_workout_form.weight.data
+    #         }
+    #     ],
+    #     "comments": add_workout_form.comments.data,
+    #     
+    # }
 
     if add_workout_form.validate_on_submit():
-        mongo.db.users.insert_one(new_workout)
+        mongo.db.workouts.insert_one(new_workout)
 
-        flash(f"Workout {new_workout.workout_name} added successfully!")
+        flash(f"Workout {new_workout['workout_name']} added successfully!")
         return redirect(url_for("add_workout"))
 
     return render_template(

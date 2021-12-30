@@ -19,12 +19,17 @@
                         </div>
                         <div class="row exercise-row">
                             <div class="input-field col m3 s6">
-                                <label for="exercise">Choose an Exercise</label>
-                                <select name="exercise">
+                                {{ add_workout_form.exercise_name(class="validate") }}
+                                <label for="exercise"></label>
+                            </div>
+                            <div class="input-field col s12">
+                                <select>
+                                    <option value="exercises" disabled selected>Choose an Exercise</option>
                                     {% for exercise in exercises %}
-                                        <option value="{{ exercise['_id'] }}">{{ add_workout_form.exercise['exercise_name']|title(class="validate") }}</option>
+                                        <option value="1">Option 1</option>
                                     {% endfor %}
                                 </select>
+                            <label for="exercise">Materialize Select</label>
                             </div>
                             <div class="input-field col m3 s6">
                                 {{ add_workout_form.sets(class="validate") }}
