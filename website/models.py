@@ -11,7 +11,7 @@ class User(db.Document, UserMixin):
     This provides default implementations for the methods that Flask-Login
     expects user objects to have.
     """
-
+    __tablename__ = 'users'    
     email = db.StringField(max_length=60)
     username = db.StringField(max_length=60)
 

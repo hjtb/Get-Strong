@@ -20,7 +20,8 @@ class Config:
     # Now the secret and machine specific ones from environment variables - see .env
     #
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    MONGO_URI = os.environ.get('MONGO_URI')
+    #MONGO_URI = os.environ.get('MONGO_URI')
+    MONGODB_SETTINGS = dict(host = os.environ.get('MONGO_URI'))
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
     # database_password = os.environ.get('database_password')
     # And the dependant on environment variables

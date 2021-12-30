@@ -13,7 +13,8 @@ from website.models import User
 @app.route("/index")
 def index():
     user = User(email="a", username="b")
+    user.save()
     users = User.objects.all()
     for user in users:
-        print(user)
+        print(user.email)
     return "hello"
