@@ -4,6 +4,7 @@ from wtforms import (
     PasswordField, StringField, IntegerField, EmailField, HiddenField, 
     SelectField, TextAreaField, BooleanField, FloatField, SubmitField)
 from wtforms.validators import InputRequired, Length, Email, ValidationError, NumberRange
+#from app import mongo
 
 
 class RegistrationForm(FlaskForm):
@@ -32,9 +33,12 @@ class AddWorkout(FlaskForm):
     """
     Form class to add new workouts
     """
+    #exercises = exercises = list(mongo.db.exercises.exercise_name.find())
+   
     workout_name = StringField('Workout name:', validators=[InputRequired(), Length(
         min=4, max=30, message='Length must be 4-30 characters long')])
-    exercise = SelectField('exercise:', validators=[InputRequired()])
+    exercise = SelectField('exercise:',
+        choices=[('1', 'push ups'), ('2', 'pull ups')], validators=[InputRequired()])
     sets = IntegerField('sets:', validators=[InputRequired(),
         NumberRange(1, 20, message='Choose a value between 1 and 20')])
     reps = IntegerField('reps:', validators=[InputRequired(),

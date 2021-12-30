@@ -115,7 +115,7 @@ def login():
             if check_password_hash(
                 existing_user["password"], request.form.get("password")):
                 flash(
-                    "Login for {} was successful!".format(request.form.get("email")
+                    f"Login for {existing_user['username']} was successful!".format(request.form.get("email")
                     )
                 )
                 loginUser = User(existing_user)
@@ -147,7 +147,10 @@ def add_workout():
 
     new_workout = {
         "workout_name": add_workout_form.workout_name.data,
-        "exercises": [],
+        "exercise": add_workout_form.exercise.data,
+        "sets": add_workout_form.sets.data,
+        "reps": add_workout_form.reps.data,
+        "weight": add_workout_form.weight.data,
         "comments": add_workout_form.comments.data,
         "user": username
     }
@@ -171,7 +174,7 @@ def add_exercise():
     """
     page for admin user to add new exercises to database
     """
-    exercises = list(mongo.db.exercises.exercise_name.find())
+    exercises = list(mongo.db.exercises.find())
     add_exercise_form = AddExercise()
 
     # check if current user is_admin
