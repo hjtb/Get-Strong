@@ -4,40 +4,53 @@
     <h1 class="white-text">Logged in as: {{ username }}</h1>
 </div>
 <section>
-    <div class="container">
-        <h1 class="form-header">Add Workout</h1>
-        <form method="POST" action="{{ url_for('add_workout') }}">
-            {{ add_workout_form.csrf_token }}
-            <div class="row">
-                <div class="input-field col s6">
-                    {{ form.workout_name }}
-                    <label for="workout_name">Workout Name:</label>
+    <div class="container white-text">
+        <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <h1 class="form-header">Add Workout</h1>
+                    <form method="POST" action="{{ url_for('add_workout') }}">
+                        {{ add_workout_form.csrf_token }}
+                        <div class="row">
+                            <div class="input-field col s6">
+                                {{ add_workout_form.workout_name }}
+                                <label for="workout_name">Workout Name:</label>
+                            </div>
+                        </div>
+                        <div class="row exercise-row">
+                            <div class="input-field col m6 s12">
+                            <label for="exercise">Choose an Exercise</label>
+                                <select name="exercise" id="exercise">
+                                    {% for exercise in exercises %}
+                                        <option value="{{ exercise }}">{{ exercise|title }}</option>
+                                        {% endfor %}
+                                    </select>
+                                {{ add_workout_form.exercise(class="validate") }}
+                            </div>
+                            <div class="input-field col m3 s6">
+                                {{ add_workout_form.sets(class="validate") }}
+                                <label for="sets">Sets:</label>
+                            </div>
+                            <div class="input-field col m3 s6">
+                                {{ add_workout_form.reps(class="validate") }}
+                                <label for="reps">Reps:</label>
+                            </div>
+                            <div class="input-field col m3 s6">
+                                {{ add_workout_form.weight(class="validate") }}
+                                <label for="Weight(kg):">Weight(kg):</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                {{ add_workout_form.comments }}
+                                <label for="comments">Comments:</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-large orange-btn">Add workout</button>
+                    </form>
                 </div>
             </div>
-            <div class="row exercise-row">
-                <div class="input-field col m6 s12">
-                    {{ form.exercise(class="validate") }}
-                    <label for="exercise">Exercise 1:</label>
-                </div>
-                <div class="input-field col m3 s6">
-                    {{ form.reps(class="validate") }}
-                    <label for="reps">for:</label>
-                </div>
-                <div class="input-field col m3 s6">
-                    <select id="exercise_1">
-                        <option value="reps">reps</option>
-                        <option value="weight">weight</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    {{ form.comments }}
-                    <label for="comments">Comments:</label>
-                </div>
-            </div>
-            <button type="submit" class="btn-large orange-btn">Add finisher</button>
-        </form>
+        </div>
     </div>
 </section>
 {% endblock %}

@@ -1,18 +1,18 @@
 import os
 from flask import (
-    Flask, flash, render_template, 
+    Flask, flash, render_template,
     redirect, request, url_for
-    )
+)
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_pymongo import PyMongo
 from flask_login import (
     LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-    )
+)
 if os.path.exists("env.py"):
     import env
 from bson.objectid import ObjectId
 from forms import (LoginForm, RegistrationForm, AddExercise, AddWorkout)
-from models import User 
+from models import User
 
 app = Flask(__name__)
 
@@ -34,7 +34,7 @@ def load_user(user_id):
     """
     user_obj = mongo.db.users.find_one({'_id': ObjectId(user_id)})
     if not user_obj:
-        user_obj = dict(email=None,username=None,_id=None)
+        user_obj = dict(email=None, username=None, _id=None)
     print(user_id)
     return User(user_obj)
 
@@ -54,7 +54,7 @@ def get_strong():
 
     return render_template(
         "get_strong.html", workouts=workouts, username=username
-        )
+    )
 
 
 # Sign up Page
@@ -90,7 +90,7 @@ def register():
 
         flash("Sign up Successful!")
         return redirect(url_for("get_strong"))
-        
+
     return render_template("register.html", registration_form=registration_form)
 
 
@@ -141,26 +141,27 @@ def add_workout():
     Enables the user to enter new workouts
     """
 
+    username = current_user.username
+    exercises = list(mongo.db.exercises.exercise_name.find())
     add_workout_form = AddWorkout()
 
     new_workout = {
-        "workout_name": request.add_workout_form.get(
-            "workout_name").lower(),
+        "workout_name": add_workout_form.workout_name.data,
         "exercises": [],
-        "comments": request.add_workout_form.get("comments"),
-        "user": current_user.username
+        "comments": add_workout_form.comments.data,
+        "user": username
     }
 
-    mongo.db.users.insert_one(new_workout)
+    if add_workout_form.validate_on_submit():
+        mongo.db.users.insert_one(new_workout)
 
-    flash("Workout added successfully!")
-    return redirect(url_for("workouts"))
+        flash(f"Workout {new_workout.workout_name} added successfully!")
+        return redirect(url_for("add_workout"))
 
-    username = current_user.username
-    
     return render_template(
-        "add_workout.html",  username=username, add_workout_form=add_workout_form
-        )
+        "add_workout.html",  username=username,
+        add_workout_form=add_workout_form, exercises=exercises
+    )
 
 
 # Add Exercise Page
@@ -170,7 +171,7 @@ def add_exercise():
     """
     page for admin user to add new exercises to database
     """
-    exercises = list(mongo.db.exercises.find())
+    exercises = list(mongo.db.exercises.exercise_name.find())
     add_exercise_form = AddExercise()
 
     # check if current user is_admin
@@ -180,31 +181,32 @@ def add_exercise():
 
             # check if exercise already exists
             exercise_exists = mongo.db.exercises.find_one(
-                {"exercise_name": request.form.get("exercise_name").lower()}
-                )
+                {"exercise_name": request.form.get("exercise_name")}
+            )
 
             if exercise_exists:
                 flash('Exercise already in database')
                 return redirect(url_for('add_exercise'))
 
             exercise = {
-                "exercise_name":add_exercise_form.exercise_name.data
+                "exercise_name": add_exercise_form.exercise_name.data
             }
 
-            flash("Exercise added to database")
+            flash(f"{exercise['exercise_name']} added to database")
             mongo.db.exercises.insert_one(exercise)
             return redirect(url_for("add_exercise"))
 
     if current_user.is_admin:
         return render_template(
-            "add_exercise.html", add_exercise_form=add_exercise_form, exercises=exercises
-            )
+            "add_exercise.html", add_exercise_form=add_exercise_form,
+            exercises=exercises
+        )
 
     return redirect(url_for("get_strong"))
 
 
 # Logout
-@app.route("/logout", methods=['GET', 'POST']) 
+@app.route("/logout", methods=['GET', 'POST'])
 def logout():
     flash(f"{current_user.username} Logged out!")
     logout_user()

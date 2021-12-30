@@ -2,7 +2,7 @@ from flask import Flask
 from flask_wtf import FlaskForm
 from wtforms import (
     PasswordField, StringField, IntegerField, EmailField, HiddenField, 
-    RadioField, SelectField, TextAreaField, BooleanField, SubmitField)
+    SelectField, TextAreaField, BooleanField, FloatField, SubmitField)
 from wtforms.validators import InputRequired, Length, Email, ValidationError, NumberRange
 
 
@@ -32,12 +32,16 @@ class AddWorkout(FlaskForm):
     """
     Form class to add new workouts
     """
-    workout_name = validators = [InputRequired(), Length(
-        min=4, max=30, message='Length must be 4-30 characters long')]
-    exercise = SelectField('Exercise:', validators=[InputRequired()])
-    reps = IntegerField('Reps:', validators=[InputRequired(), NumberRange()])
-    weight = IntegerField('Weight(kg):', validators=[InputRequired()])
-    comments = TextAreaField('Comments:', validators=[InputRequired(), Length(
+    workout_name = StringField('Workout name:', validators=[InputRequired(), Length(
+        min=4, max=30, message='Length must be 4-30 characters long')])
+    exercise = SelectField('exercise:', validators=[InputRequired()])
+    sets = IntegerField('sets:', validators=[InputRequired(),
+        NumberRange(1, 20, message='Choose a value between 1 and 20')])
+    reps = IntegerField('reps:', validators=[InputRequired(),
+        NumberRange(1, 200, message='Choose a value between 1 and 200')])
+    weight = FloatField('weight:', validators=[InputRequired(),
+        NumberRange(1, 500, message='Choose a value between 1 and 500')])
+    comments = TextAreaField('comments:', validators=[InputRequired(), Length(
         min=8, max=300, message='Must be 8-300 characters long')])
 
 
