@@ -1,9 +1,12 @@
 from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from flask_mongoengine import MongoEngine
+
+db = MongoEngine()
 
 
-class User(UserMixin):
+class User(db.Document, UserMixin):
     """
     This provides default implementations for the methods that Flask-Login
     expects user objects to have.
