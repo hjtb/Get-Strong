@@ -18,40 +18,28 @@
                             </div>
                         </div>
                         <div class="exercise_wrapper">
-                            <div>
-                                <input type="text" name="field_name[]" value=""/>
-                                <a href="javascript:void(0);" class="add_button" title="Add field">
-                                    <i class="fas fa-plus-circle"></i>
-                                </a>
+                            <div class="row">
+                                <div class="input-field col m3 s6">
+                                    {{ add_workout_form.exercise_name(class="validate") }}
+                                    <label for="exercise">Exercise</label>
+                                </div>
+                                <div class="input-field col m3 s6">
+                                    {{ add_workout_form.sets(class="validate") }}
+                                    <label for="sets">Sets:</label>
+                                </div>
+                                <div class="input-field col m3 s6">
+                                    {{ add_workout_form.reps(class="validate") }}
+                                    <label for="reps">Reps:</label>
+                                </div>
+                                <div class="input-field col m3 s6">
+                                    {{ add_workout_form.weight(class="validate") }}
+                                    <label for="Weight(kg):">Weight(kg):</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="input-field col m3 s6">
-                                {{ add_workout_form.exercise_name(class="validate") }}
-                                <label for="exercise"></label>
-                            </div>
-                            <div class="input-field col s12">
-                                <select>
-                                    <option value="exercises" selected>Choose an Exercise</option>
-                                    {% for exercise in exercises %}
-                                        <option value="1">{{ exercise.exercise_name|title }}</option>
-                                    {% endfor %}
-                                </select>
-                            <label for="exercise">Materialize Select</label>
-                            </div>
-                            <div class="input-field col m3 s6">
-                                {{ add_workout_form.sets(class="validate") }}
-                                <label for="sets">Sets:</label>
-                            </div>
-                            <div class="input-field col m3 s6">
-                                {{ add_workout_form.reps(class="validate") }}
-                                <label for="reps">Reps:</label>
-                            </div>
-                            <div class="input-field col m3 s6">
-                                {{ add_workout_form.weight(class="validate") }}
-                                <label for="Weight(kg):">Weight(kg):</label>
-                            </div>
-                        </div>
+                        <a href="javascript:void(0);" class="add_button" title="Add field">
+                            <i class="fas fa-plus-circle"></i>
+                        </a>
                         <div class="row">
                             <div class="input-field col s12">
                                 {{ add_workout_form.comments }}

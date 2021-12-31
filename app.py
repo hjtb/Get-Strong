@@ -1,6 +1,6 @@
 import os
 from flask import (
-    Flask, flash, render_template,
+    Flask, flash, session, render_template,
     redirect, request, url_for
 )
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -104,7 +104,8 @@ def login():
         return redirect(url_for('get_strong'))
 
     login_form = LoginForm()
-
+    #global_exercises = list(mongo.db.exercises.exercise_name.find())
+    #session["global_exercises"] = global_exercises
     if login_form.validate_on_submit():
         # Check for existing user in DB
         existing_user = mongo.db.users.find_one(
@@ -142,24 +143,19 @@ def add_workout():
     """
 
     username = current_user.username
-    exercises = list(mongo.db.exercises.exercise_name.find())
     add_workout_form = AddWorkout()
+    db_list_exercises = list(mongo.db.exercises.find())
+
     new_workout = {}
-
-    # Credit this code in readme
-    # https://www.linkedin.com/pulse/integrate-mongodb-flask-creating-simple-student-data-form-phatate
-
+    #add_workout_form.exercise_name.choices = global_exercises
+    add_workout_form.exercise_name.choices = [
+        (exercise["_id"], exercise["exercise_name"]) for exercise in db_list_exercises
+        ]
     if request.method == "POST":
         new_workout['workout_name'] = request.form['workout_name']
         new_workout['comments'] = request.form['comments']
         new_workout["user"] = username
         exercises = []
-        for i in range(20):
-            try:
-                if request.form['exercise' + i] != "":
-                    exercises.append(request.form['exercise' + i])
-            except Exception as e:
-                pass
         new_workout['Exercises'] = exercises
 
     #     "workout_name": add_workout_form.workout_name.data,
@@ -183,7 +179,7 @@ def add_workout():
 
     return render_template(
         "add_workout.html",  username=username,
-        add_workout_form=add_workout_form, exercises=exercises
+        add_workout_form=add_workout_form
     )
 
 

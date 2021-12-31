@@ -217,6 +217,10 @@ I used this same [stackoverflow](https://stackoverflow.com/questions/16116319/ho
 
 * **Bug**  
 
+ImportError: cannot import name 'AddExercise' from partially initialized module 'forms' (most likely due to a circular import) (/workspace/Get-Strong/forms.py)
+When trying to add exercises dropdown list  
+
+
 * **Fix**
 
 [Back to Top](#table-of-contents)
