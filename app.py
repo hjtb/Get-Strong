@@ -134,51 +134,78 @@ def login():
     return render_template("login.html", login_form=login_form)
 
 
-# Add Workout Page
-@app.route("/add_workout", methods=['GET', 'POST'])
+# Add/Edit Workout Page
+@app.route("/add_edit_workout", methods=['GET', 'POST'])
 @login_required
-def add_workout():
+def add_edit_workout():
     """
     Enables the user to enter new workouts
     """
-
+    
     username = current_user.username
+    user_workouts_names = []
+    user_workouts = list(
+        mongo.db.workouts.find({'user': current_user.username}))
+    for user_workout in user_workouts:
+        user_workouts_names.append(user_workout["workout_name"])
+    
+    print(user_workouts_names)
+
+    # Is this add or edit workout
+    workout_name = request.args.get("workout_name")
+
+    if workout_name:
+        # Check for workout in url args to see if we're editing an existing workout
+        workout = mongo.db.workouts.find_one({ user: username, workout: workout_name.lower()})
+
+    else:
+        workout = dict(workout_name="", exercises=[], comments="", user=username)
+
+    # One way or another, we now have a workout
     add_workout_form = AddWorkout()
+
+    # retrieve the exercises from the db and set them as our choices in the SelectField in our form
     db_list_exercises = list(mongo.db.exercises.find())
-
-    new_workout = {}
-    #add_workout_form.exercise_name.choices = global_exercises
     add_workout_form.exercise_name.choices = [
-        (exercise["_id"], exercise["exercise_name"]) for exercise in db_list_exercises
+        ( exercise["exercise_name"].lower(), exercise["exercise_name"].title()) for exercise in db_list_exercises
         ]
-    if request.method == "POST":
-        new_workout['workout_name'] = request.form['workout_name']
-        new_workout['comments'] = request.form['comments']
-        new_workout["user"] = username
-        exercises = []
-        new_workout['Exercises'] = exercises
-
-    #     "workout_name": add_workout_form.workout_name.data,
-    #     "exercises": [
-    #         {
-    #             "exercise_name": add_workout_form.exercise_name.data,
-    #             "sets": add_workout_form.sets.data,
-    #             "reps": add_workout_form.reps.data,
-    #             "weight": add_workout_form.weight.data
-    #         }
-    #     ],
-    #     "comments": add_workout_form.comments.data,
-    #     
-    # }
 
     if add_workout_form.validate_on_submit():
-        mongo.db.workouts.insert_one(new_workout)
+        new_workout = {}
+        new_workout['workout_name'] = request.form['workout_name'].lower()
+        new_workout['comments'] = request.form['comments']
+        new_workout["user"] = username
+
+        # Check if this workout already exists
+        workout_already_exists = request.form['workout_name'].lower() in (user_workouts_names)
+
+        if workout_already_exists:
+            exercises = list(mongo.db.workouts.find_one(
+            {"workout_name": request.form['workout_name'].lower()}
+            ))
+        else:
+            exercises = []
+
+        exercise_row = {
+                 "exercise_name": add_workout_form.exercise_name.data,
+                 "sets": add_workout_form.sets.data,
+                 "reps": add_workout_form.reps.data,
+                 "weight": add_workout_form.weight.data
+             }
+
+        exercises.append(exercise_row)
+
+        #Add exercises to the new workout dict
+        new_workout["exercises"] = exercises
+
+        # We are updating an existing workout
+        mongo.db.workouts.replace_one(dict(name=new_workout["workout_name"]), new_workout, upsert=True)
 
         flash(f"Workout {new_workout['workout_name']} added successfully!")
-        return redirect(url_for("add_workout"))
+        return redirect(url_for("add_edit_workout"))
 
     return render_template(
-        "add_workout.html",  username=username,
+        "add_edit_workout.html",  username=username,
         add_workout_form=add_workout_form
     )
 

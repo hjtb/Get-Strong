@@ -44,6 +44,7 @@ class AddWorkout(FlaskForm):
         NumberRange(1, 500, message='Choose a value between 1 and 500')])
     comments = TextAreaField('comments:', validators=[InputRequired(), Length(
         min=8, max=300, message='Must be 8-300 characters long')])
+    id = HiddenField("id")
 
 
 class AddExercise(FlaskForm):
