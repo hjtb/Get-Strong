@@ -48,7 +48,7 @@ $(document).ready(function(){
     // Once remove button is clicked
     $(wrapper).on('click', '.remove_button', function(remover){
        remover.preventDefault();
-       $(this).closest('#exercise_input')[0].remove(); //Remove field html
+       $(this).closest('.exercise_input')[0].remove(); //Remove field html
        x--; //Decrement field counter
     });
 });

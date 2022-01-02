@@ -6,34 +6,33 @@
 <section>
     <div class="container white-text">
         <div class="col s12 m6">
-            <div class="card hoverable blue-grey darken-1">
+            <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
-                    <h1 class="form-header">Add Workout</h1>
-                    <form method="POST" action="{{ url_for('add_workout') }}">
-                        {{ add_workout_form.hidden_tag() }}
+                    <h1 class="form-header">Edit Workout</h1>
+                    <form method="POST" action="{{ url_for('edit_workout') }}">
+                        {{ edit_workout_form.hidden_tag() }}
                         <div class="row">
                             <div class="input-field col s6">
-                                {{ add_workout_form.workout_name(class="validate") }}
+                                {{ edit_workout_form.workout_name }}
                                 <label for="workout_name">Workout Name:</label>
-                                <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
                             </div>
                         </div>
                         <div class="exercise_wrapper">
                             <div class="row">
                                 <div class="input-field col m3 s6">
-                                    {{ add_workout_form.exercise_name(class="validate") }}
+                                    {{ edit_workout_form.exercise_name(class="validate") }}
                                     <label for="exercise">Exercise</label>
                                 </div>
                                 <div class="input-field col m3 s6">
-                                    {{ add_workout_form.sets(class="validate") }}
+                                    {{ edit_workout_form.sets(class="validate") }}
                                     <label for="sets">Sets:</label>
                                 </div>
                                 <div class="input-field col m3 s6">
-                                    {{ add_workout_form.reps(class="validate") }}
+                                    {{ edit_workout_form.reps(class="validate") }}
                                     <label for="reps">Reps:</label>
                                 </div>
                                 <div class="input-field col m3 s6">
-                                    {{ add_workout_form.weight(class="validate") }}
+                                    {{ edit_workout_form.weight(class="validate") }}
                                     <label for="Weight(kg):">Weight(kg):</label>
                                 </div>
                             </div>
@@ -44,11 +43,11 @@
                         </a>
                         <div class="row">
                             <div class="input-field col s12">
-                                {{ add_workout_form.comments }}
+                                {{ edit_workout_form.comments }}
                                 <label for="comments">Comments:</label>
                             </div>
                         </div>
-                        <button type="submit" class="btn-large orange-btn">Add workout</button>
+                        <button type="submit" class="btn-large orange-btn">Submit Changes to Workout</button>
                     </form>
                 </div>
             </div>
