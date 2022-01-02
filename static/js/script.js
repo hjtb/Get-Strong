@@ -7,7 +7,7 @@ $(document).ready(function(){
     var wrapper = $('.exercise_wrapper'); //Input field wrapper
     //New input field html 
     var fieldHTML = `
-            <div class="row">
+            <div class="row exercise_input">
             <div class="input-field col m3 s6">
                 <select>
                     <option value="exercises" selected>Choose an Exercise</option>
@@ -45,10 +45,10 @@ $(document).ready(function(){
         }
     });
     
-    //Once remove button is clicked
-    //$(wrapper).on('click', '.remove_button', function(remover){
-    //    remover.preventDefault();
-    //    $(this).parent('div')[0].remove(); //Remove field html
-    //    x--; //Decrement field counter
-    //});
+    // Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function(remover){
+       remover.preventDefault();
+       $(this).closest('#exercise_input')[0].remove(); //Remove field html
+       x--; //Decrement field counter
+    });
 });

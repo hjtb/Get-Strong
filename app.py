@@ -134,10 +134,10 @@ def login():
     return render_template("login.html", login_form=login_form)
 
 
-# Add/Edit Workout Page
-@app.route("/add_edit_workout", methods=['GET', 'POST'])
+# Add Workout Page
+@app.route("/add_workout", methods=['GET', 'POST'])
 @login_required
-def add_edit_workout():
+def add_workout():
     """
     Enables the user to enter new workouts
     """
@@ -181,7 +181,7 @@ def add_edit_workout():
 
         if workout_already_exists:
             exercises = list(mongo.db.workouts.find_one(
-            {"workout_name": request.form['workout_name'].lower()}
+                {"workout_name": request.form['workout_name'].lower()}
             ))
         else:
             exercises = []
@@ -191,7 +191,7 @@ def add_edit_workout():
                  "sets": add_workout_form.sets.data,
                  "reps": add_workout_form.reps.data,
                  "weight": add_workout_form.weight.data
-             }
+            }
 
         exercises.append(exercise_row)
 
@@ -202,10 +202,10 @@ def add_edit_workout():
         mongo.db.workouts.replace_one(dict(name=new_workout["workout_name"]), new_workout, upsert=True)
 
         flash(f"Workout {new_workout['workout_name']} added successfully!")
-        return redirect(url_for("add_edit_workout"))
+        return redirect(url_for("add_workout"))
 
     return render_template(
-        "add_edit_workout.html",  username=username,
+        "add_workout.html", username=username,
         add_workout_form=add_workout_form
     )
 
