@@ -10,8 +10,7 @@
                 <div class="card-content white-text">
                     <h1 class="form-header">Add Exercise</h1>
                     <form method="POST" action="{{ url_for('add_exercise') }}">
-                        {{ add_exercise_form.csrf_token }}
-                        <div class="row">
+                        {{ add_exercise_form.hidden_tag() }}                        <div class="row">
                             <div class="input-field col s6">
                                 {{ add_exercise_form.exercise_name }}
                                 <label for="exercise_name">Exercise Name:</label>

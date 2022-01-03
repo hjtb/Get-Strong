@@ -1,6 +1,6 @@
 {% macro render_field(field) %}
 <div class="input-field col s10 offset-s1">
-    {{ field(class_='validate', **kwargs)|safe }}
+    {{ field(class='validate', **kwargs)|safe }}
     <ul>
         {% for error in field.errors %}
             <li >{{ error }}</li>

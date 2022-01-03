@@ -35,13 +35,13 @@ class AddWorkout(FlaskForm):
 
     workout_name = StringField('Workout name:')
     exercise_name = SelectField('exercise:', validators=[InputRequired()])
-    sets = IntegerField('sets:', validators=[InputRequired(),
+    sets = IntegerField('Sets:', validators=[InputRequired(),
         NumberRange(1, 20, message='Choose a value between 1 and 20')])
-    reps = IntegerField('reps:', validators=[InputRequired(),
+    reps = IntegerField('Reps:', validators=[InputRequired(),
         NumberRange(1, 200, message='Choose a value between 1 and 200')])
-    weight = FloatField('weight:', validators=[InputRequired(),
+    weight = FloatField('Weight:', validators=[InputRequired(),
         NumberRange(1, 500, message='Choose a value between 1 and 500')])
-    comments = TextAreaField('comments:', validators=[InputRequired(), Length(
+    comments = TextAreaField('Comments:', validators=[InputRequired(), Length(
         min=8, max=300, message='Must be 8-300 characters long')])
 
 

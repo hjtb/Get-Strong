@@ -15,14 +15,14 @@
                             <div class="input-field col s6">
                                 {{ add_workout_form.workout_name(class="validate") }}
                                 <label for="workout_name">Workout Name:</label>
-                                <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+                                <span class="helper-text" data-error="wrong" data-success="right"></span>
                             </div>
                         </div>
                         <div class="exercise_wrapper">
-                            <div class="row">
+                            <div id="exercise_row_1" class="row exercise-row">
                                 <div class="input-field col m3 s6">
                                     {{ add_workout_form.exercise_name(class="validate") }}
-                                    <label for="exercise">Exercise</label>
+                                    <label for="exercise">Exercise 1</label>
                                 </div>
                                 <div class="input-field col m3 s6">
                                     {{ add_workout_form.sets(class="validate") }}
@@ -37,11 +37,33 @@
                                     <label for="Weight(kg):">Weight(kg):</label>
                                 </div>
                             </div>
-                            <button type="button">Add Exercise</button>
                         </div>
+
+                        {% for x in range(2, 11, 1) %}
+                            <div id="exercise_row_{{ x }}" class="row exercise-row">
+                                <div id="exercise_{{ x }}" class="input-field col m3 s6">
+                                    {{ add_workout_form.exercise_name(class="validate") }}
+                                    <label for="Exercise {{ x }}">Exercise {{ x }}:</label>
+                                </div>
+                                <div id="sets_{{ x }}" class="input-field col m3 s6">
+                                    {{ add_workout_form.sets(class="validate") }}
+                                    <label for="sets_{{ x }}">Sets:</label>
+                                </div>
+                                <div id="reps_{{ x }}" class="input-field col m3 s6">
+                                    {{ add_workout_form.reps(class="validate") }}
+                                    <label for="reps_{{ x }}">Reps:</label>
+                                </div>
+                                <div id="weight_{{ x }}" class="input-field col m3 s6">
+                                    {{ add_workout_form.weight(class="validate") }}
+                                    <label for="Weight_{{ x }} (kg):">Weight(kg):</label>
+                                </div>
+                            </div>
+                        {% endfor %}
+
                         <a href="javascript:void(0);" class="add_button" title="Add field">
                             <i class="fas fa-plus-circle"></i>
                         </a>
+
                         <div class="row">
                             <div class="input-field col s12">
                                 {{ add_workout_form.comments }}
@@ -49,6 +71,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn-large orange-btn">Add workout</button>
+
                     </form>
                 </div>
             </div>
