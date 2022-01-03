@@ -4,10 +4,14 @@ from wtforms import (
     PasswordField, StringField, IntegerField, EmailField, HiddenField, 
     SelectField, TextAreaField, BooleanField, FloatField, SubmitField)
 from wtforms.validators import InputRequired, Length, Email, ValidationError, NumberRange
-#from app import mongo
+from website.models import Users
+from flask_mongoengine.wtf import model_form
 
 
-class RegistrationForm(FlaskForm):
+RegistrationForm = model_form(Users)
+
+
+class RegistrationFormOld(FlaskForm):
     """
     Registration form class for our registration page
     """

@@ -6,15 +6,148 @@ from flask_login import (
     LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 )
 from flask import current_app as app
+from werkzeug.security import generate_password_hash, check_password_hash
 from website import db
-from website.models import User
+from website.models import Users
+from flask_mongoengine.wtf import model_form
+import datetime
+from website.forms import RegistrationForm
+
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+
+@login_manager.user_loader
+def load_user(id):
+    """
+    login manager returns a user object and ID to login a user
+    """
+    user = Users.objects.get(id=id)
+    # if not user:
+    #     user = dict(email=None, username=None, _id=None)
+    return user
 
 
 @app.route("/index")
 def index():
-    user = User(email="a", username="b")
-    user.save()
-    users = User.objects.all()
+    user = Users(email="a", username="b", date=datetime.datetime.now())
+    written = user.save()
+    print(f"written.username = {written.username}")
+    users = Users.objects.all()
+    for user in users:
+        print(user.id)
+    return "hello"
+
+
+@app.route("/get_strong")
+def get_strong():
+
+    return "hello"
+
+
+@app.route("/add_workout")
+def add_workout():
+
+    return "hello"
+
+
+@app.route("/edit_user")
+def edit_user():
+
+    return "hello from edit user"
+
+
+@app.route("/delete_user")
+def delete_user():
+    try:
+        id = request.args.get("id")
+        user = Users.objects.get(id = id)
+        username = user.username
+        user.delete()
+        flash(f'User {username} has been deleted!', category="success")
+        return redirect(url_for('users'))
+    except Exception as err:
+        flash(f'Error, could not delete user error was {err}', category="error")
+        return redirect(url_for('users'))
+
+@app.route("/add_exercise")
+def add_exercise():
+
+    return "hello"
+
+
+@app.route("/login")
+def login():
+
+    return "hello"
+
+
+@app.route("/logout")
+def logout():
+
+    return "hello"
+
+
+# Sign up Page
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    """
+    Let new users register
+    """
+    if current_user.is_authenticated:
+        return redirect(url_for('get_strong'))
+    registration_form = RegistrationForm()
+
+    if registration_form.validate_on_submit():
+        email = registration_form.email.data
+        username = registration_form.username.data
+        password = registration_form.password.data
+        password = generate_password_hash(request.form.get("password"))
+
+        user = Users(email=email, username=username, password=password)
+        user.save()
+        return redirect(url_for('users'))
+    return render_template('register.html', registration_form=registration_form)
+
+
+
+    registration_form = RegistrationForm()
+
+    if registration_form.validate_on_submit():
+        existing_user = db.users.find_one(
+            {"email": request.form.get("email").lower()})
+        username_taken = db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        if existing_user or username_taken:
+            flash("An account with this email/username already exists!!")
+            return redirect(url_for("register"))
+
+        new_user = {
+            "username": request.form.get("username").lower(),
+            "email": request.form.get("email").lower(),
+            "password": generate_password_hash(request.form.get("password")),
+            "workouts": [],
+            "is_admin": True,
+        }
+
+        db.users.insert_one(new_user)
+
+        flash("Sign up Successful!")
+        return redirect(url_for("get_strong"))
+
+    return render_template("register.html", registration_form=registration_form)
+
+
+
+
+@app.route("/users")
+def users():
+    users = Users.objects.all()
     for user in users:
         print(user.email)
-    return "hello"
+    return render_template('users.html', users=users, current_user=current_user)
+
+

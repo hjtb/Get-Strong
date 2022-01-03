@@ -1,4 +1,4 @@
 $(document).ready(function(){
     $('.sidenav').sidenav();
-    $('.flash').fadeOut(3000);
+    $('.flash').delay(2000).fadeOut(5000);
 });

@@ -6,27 +6,23 @@ from flask_mongoengine import MongoEngine
 db = MongoEngine()
 
 
-class User(db.Document, UserMixin):
+class Users(db.Document, UserMixin):
     """
     This provides default implementations for the methods that Flask-Login
     expects user objects to have.
     """
-    __tablename__ = 'users'    
+ 
     email = db.StringField(max_length=60)
     username = db.StringField(max_length=60)
+    date = db.DateTimeField()
+    workouts = db.ListField(db.StringField())
+    is_admin = db.BooleanField(default=False)
+    password = db.StringField(max_length=200)
 
     def get_id(self):
         object_id = self.id
         return str(object_id)
 
-        
-"""    def __init__(self, user_mongo):
-        self.id = user_mongo.get("_id")
-        self.email = user_mongo.get('email')
-        self.username = user_mongo.get('username')
-        self.workouts = user_mongo.get('workouts')
-        self.is_admin = user_mongo.get('is_admin')
-"""
 
 
 
