@@ -11,7 +11,7 @@ from website import db
 from website.models import Users
 from flask_mongoengine.wtf import model_form
 import datetime
-from website.forms import RegistrationForm
+from website.models import RegistrationForm
 
 
 login_manager = LoginManager()
@@ -32,9 +32,7 @@ def load_user(id):
 
 @app.route("/index")
 def index():
-    user = Users(email="a", username="b", date=datetime.datetime.now())
-    written = user.save()
-    print(f"written.username = {written.username}")
+    user = Users(email="a", username="b", date=datetime.datetime.now)
     users = Users.objects.all()
     for user in users:
         print(user.id)
@@ -98,16 +96,28 @@ def register():
     """
     if current_user.is_authenticated:
         return redirect(url_for('get_strong'))
+
     registration_form = RegistrationForm()
 
     if registration_form.validate_on_submit():
-        email = registration_form.email.data
-        username = registration_form.username.data
-        password = registration_form.password.data
-        password = generate_password_hash(request.form.get("password"))
+        existing_user = Users.objects.get(email = registration_form.email.data)
+        username_taken = Users.objects.get(username = registration_form.username.data)
 
-        user = Users(email=email, username=username, password=password)
-        user.save()
+        if existing_user or username_taken:
+            flash("An account with this email/username already exists!!")
+            return redirect(url_for("register"))
+
+        new_user = {
+            "username": request.form.get("username").lower(),
+            "email": request.form.get("email").lower(),
+            "password": generate_password_hash(request.form.get("password")),
+            "workouts": [],
+            "is_admin": True,
+            "date":datetime.datetime.now
+        }
+
+
+        User(new_user)
         return redirect(url_for('users'))
     return render_template('register.html', registration_form=registration_form)
 
