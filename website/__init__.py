@@ -11,7 +11,7 @@ def create_app():
     with app.app_context():
 
         db.init_app(app)
-        # from website.models import Users
+        # from website.models import User
 
         # import the routes
         from website import routes

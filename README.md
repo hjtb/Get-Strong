@@ -11,7 +11,7 @@ So, I will create it here.
 ## **Goal for this project**
 
 To create an easy to use workout logging app which allows the creation of personalised workouts.
-Users will be able to review their progress over time and customise their workouts to fit their own objectives.
+User will be able to review their progress over time and customise their workouts to fit their own objectives.
 <a></a>
 
 ## Table of contents 
@@ -113,7 +113,7 @@ The types of data that are stored in the  database.
 - Binary
 
 
-Workouts Collection:
+Workout Collection:
 **Title**|**Key in Collection**|**Data Type**
 :-----:|:-----:|:-----:
 Workout Id|_id|ObjectId
@@ -132,13 +132,13 @@ Type ID|_id|ObjectID
 Exercise|exercise|String
 
 
-Users Collection:
+User Collection:
 **Title**|**Key in Collection**|**Data Type**
 :-----:|:-----:|:-----:
 User ID|_id|ObjectID
 Name|name|String
 Password|password|Binary
-Workouts|workouts|array
+Workout|workouts|array
 Admin|admin|boolean
 
 

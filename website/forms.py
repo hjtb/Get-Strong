@@ -4,11 +4,11 @@ from wtforms import (
     PasswordField, StringField, IntegerField, EmailField, HiddenField, 
     SelectField, TextAreaField, BooleanField, FloatField, SubmitField)
 from wtforms.validators import InputRequired, Length, Email, ValidationError, NumberRange
-from website.models import Users
+from website.models import User
 from flask_mongoengine.wtf import model_form
 
 
-RegistrationForm = model_form(Users)
+RegistrationForm = model_form(User)
 
 
 # class RegistrationFormOld(FlaskForm):

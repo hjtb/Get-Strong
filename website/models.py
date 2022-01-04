@@ -26,10 +26,14 @@ class Workout(db.EmbeddedDocument):
     workout_name = db.StringField(max_length=30, min_length=6, required=True)
     exercises = db.EmbeddedDocumentListField(LogExercise)
     comments = StringField(min_length=8)
-#     username = current_user.username
+    username = StringField(default=current_user.username)
+
+    meta = {
+        'collection': 'users'
+    }
 
 
-class Users(db.Document, UserMixin):
+class User(db.Document, UserMixin):
     """
     This provides default implementations for the methods that Flask-Login
     expects user objects to have.
@@ -40,10 +44,14 @@ class Users(db.Document, UserMixin):
     workouts = db.EmbeddedDocumentListField(LogExercise)
     password = db.StringField(max_length=200, required=True)
     is_admin = db.BooleanField(default=False)
-    date = db.DateTimeField()
+    date = db.DateTimeField(default=datetime.datetime.now)
 
     def get_id(self):
         object_id = self.id
         return str(object_id)
+    
+    meta = {
+        'collection': 'users'
+    }
         
-RegistrationForm = model_form(Users)
+RegistrationForm = model_form(User)

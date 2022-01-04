@@ -8,7 +8,7 @@ from flask_login import (
 from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
 from website import db
-from website.models import Users
+from website.models import User
 from flask_mongoengine.wtf import model_form
 import datetime
 from website.models import RegistrationForm
@@ -24,7 +24,7 @@ def load_user(id):
     """
     login manager returns a user object and ID to login a user
     """
-    user = Users.objects.get(id=id)
+    user = User.objects.get(id=id)
     # if not user:
     #     user = dict(email=None, username=None, _id=None)
     return user
@@ -32,8 +32,8 @@ def load_user(id):
 
 @app.route("/index")
 def index():
-    user = Users(email="a", username="b", date=datetime.datetime.now)
-    users = Users.objects.all()
+    user = User(email="a", username="b", date=datetime.datetime.now)
+    users = User.objects.all()
     for user in users:
         print(user.id)
     return "hello"
@@ -60,8 +60,8 @@ def edit_user():
 @app.route("/delete_user")
 def delete_user():
     try:
-        id = request.args.get("id")
-        user = Users.objects.get(id = id)
+        user_id = request.args.get("id")
+        user = User.objects(id = user_id).first()
         username = user.username
         user.delete()
         flash(f'User {username} has been deleted!', category="success")
@@ -100,8 +100,8 @@ def register():
     registration_form = RegistrationForm()
 
     if registration_form.validate_on_submit():
-        existing_user = Users.objects.get(email = registration_form.email.data)
-        username_taken = Users.objects.get(username = registration_form.username.data)
+        existing_user = User.objects(email = registration_form.email.data).first()
+        username_taken = User.objects(username = registration_form.username.data).first()
 
         if existing_user or username_taken:
             flash("An account with this email/username already exists!!")
@@ -155,7 +155,7 @@ def register():
 
 @app.route("/users")
 def users():
-    users = Users.objects.all()
+    users = User.objects.all()
     for user in users:
         print(user.email)
     return render_template('users.html', users=users, current_user=current_user)
