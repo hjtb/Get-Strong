@@ -26,10 +26,10 @@ class Workout(db.EmbeddedDocument):
     workout_name = db.StringField(max_length=30, min_length=6, required=True)
     exercises = db.EmbeddedDocumentListField(LogExercise)
     comments = StringField(min_length=8)
-    username = StringField(default=current_user.username)
+    username = StringField()
 
     meta = {
-        'collection': 'users'
+        'collection': 'workouts'
     }
 
 
@@ -55,3 +55,4 @@ class User(db.Document, UserMixin):
     }
         
 RegistrationForm = model_form(User)
+LoginForm = model_form(User)
