@@ -32,13 +32,14 @@ class Workout(db.EmbeddedDocument):
         'collection': 'workouts'
     }
 
-
+# create the user class
 class User(db.Document, UserMixin):
     """
     This provides default implementations for the methods that Flask-Login
     expects user objects to have.
     """
  
+    # create the user object
     email = db.EmailField(max_length=30, min_length=6, required=True)
     username = db.StringField(max_length=30, min_length=6, required=True)
     workouts = db.EmbeddedDocumentListField(LogExercise)
@@ -53,6 +54,3 @@ class User(db.Document, UserMixin):
     meta = {
         'collection': 'users'
     }
-        
-RegistrationForm = model_form(User)
-LoginForm = model_form(User)

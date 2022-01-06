@@ -37,6 +37,25 @@ def index():
     return "hello"
 
 
+# Profile Page
+@app.route("/")
+@app.route("/get_strong")
+@login_required
+def get_strong():
+    """
+    Displays the users profile
+    """
+
+    username = current_user.username
+    workouts = list(
+
+        )
+
+    return render_template(
+        "get_strong.html", workouts=workouts, username=username
+    )
+
+
 # Sign up Page
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -118,9 +137,17 @@ def logout():
     return redirect(url_for("login"))
 
 
+@app.route("/users")
+def users():
+    users = User.objects.all()
+    for user in users:
+        print(user.email)
+    return render_template('users.html', users=users, current_user=current_user)
+
+
 @app.route("/edit_user")
 def edit_user():
-
+    
     return "hello from edit user"
 
 
@@ -144,23 +171,9 @@ def add_exercise():
     return "hello"
 
 
-@app.route("/get_strong")
-def get_strong():
-
-    return "hello"
-
-
 @app.route("/add_workout")
 def add_workout():
 
     return "hello"
-
-
-@app.route("/users")
-def users():
-    users = User.objects.all()
-    for user in users:
-        print(user.email)
-    return render_template('users.html', users=users, current_user=current_user)
 
 

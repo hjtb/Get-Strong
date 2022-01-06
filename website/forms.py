@@ -8,19 +8,16 @@ from website.models import User
 from flask_mongoengine.wtf import model_form
 
 
-RegistrationForm = model_form(User)
-
-
-# class RegistrationFormOld(FlaskForm):
-#     """
-#     Registration form class for our registration page
-#     """
-#     username = StringField('Username', validators=[InputRequired(),
-#         Length(min=6, max=30)])
-#     email = EmailField('Email', validators=[InputRequired(),
-#         Length(min=6, max=30)])
-#     password = PasswordField('Password', validators=[InputRequired(),
-#         Length(min=6, max=30)])
+class RegistrationForm(FlaskForm):
+    """
+    Registration form class for our registration page
+    """
+    username = StringField('Username', validators=[InputRequired(),
+        Length(min=6, max=30)])
+    email = EmailField('Email', validators=[InputRequired(),
+        Length(min=6, max=30)])
+    password = PasswordField('Password', validators=[InputRequired(),
+        Length(min=6, max=30)])
 
 
 class LoginForm(FlaskForm):
