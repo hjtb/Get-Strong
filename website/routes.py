@@ -1,15 +1,13 @@
 from flask import (
-    Flask, flash, render_template,
+    flash, render_template,
     redirect, request, url_for
 )
 from flask_login import (
-    LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+    LoginManager, login_user, login_required, logout_user, current_user
 )
 from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
-from website import db
 from website.models import User
-from flask_mongoengine.wtf import model_form
 import datetime
 from website.forms import RegistrationForm, LoginForm
 
@@ -20,12 +18,12 @@ login_manager.login_view = 'login'
 
 
 @login_manager.user_loader
-def load_user(id):
+def load_user(email):
     """
     login manager returns a user object and ID to login a user
     """
 
-    user = User.objects.get(id=id)
+    user = User.objects.get(email=email)
 
   
     return user
@@ -154,8 +152,8 @@ def edit_user():
 @app.route("/delete_user")
 def delete_user():
     try:
-        user_id = request.args.get("id")
-        user = User.objects(id = user_id).first()
+        user_email = request.args.get("email")
+        user = User.objects(email = user_email).first()
         username = user.username
         user.delete()
         flash(f'User {username} has been deleted!', category="success")
