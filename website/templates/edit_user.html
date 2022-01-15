@@ -2,17 +2,17 @@
 {% block content %}
 <div class="row">
     <form method="POST" class="col s12 m8 offset-m2 l6 offset-l3" action="{{ url_for('edit_user') }}">
-        {{ edit_user_form.csrf_token }}
+        {{ edit_user_form.hidden_tag() }}
         <div class="card-panel">
             <h1 class="center">Edit {{ current_user.username }}</h1><br>
             <div class="row">
-                <div>{{ render_field(edit_user_form.username, placeholder=edit_user_form.username.label.text) }}</div>
+                <div>{{ render_field(edit_user_form.username, placeholder=current_user_.username.data) }}</div>
             </div>
             <div class="row">
-                <div>{{ render_field(edit_user_form.email, placeholder=edit_user_form.email.label.text) }}</div>
+                <div>{{ render_field(edit_user_form.email, placeholder=current_user_.email.data) }}</div>
             </div>
             <div class="row">
-                <div>{{ render_field(edit_user_form.password, placeholder=edit_user_form.password.label.text) }}</div>
+                <div>{{ render_field(edit_user_form.password, placeholder=edit_user_form.password) }}</div>
             </div>
             <div class="row">
                 <button type="submit" class="btn waves-effect waves-light blue-grey darken-3 z-depth-3 col s6 offset-s3" name="action">

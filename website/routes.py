@@ -18,12 +18,12 @@ login_manager.login_view = 'login'
 
 
 @login_manager.user_loader
-def load_user(email):
+def load_user(id):
     """
     login manager returns a user object and ID to login a user
     """
 
-    user = User.objects.get(email=email)
+    user = User.objects(id=id).first()
 
   
     return user
@@ -113,7 +113,6 @@ def login():
                     f"Login for {existing_user['username']} was successful!".format(request.form.get("email")
                     )
                 )
-
                 login_user(existing_user)
                 return redirect(url_for("get_strong"))
             else:
