@@ -9,7 +9,7 @@ from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
 from website.models import User
 import datetime
-from website.forms import RegistrationForm, LoginForm
+from website.forms import RegistrationForm, LoginForm, EditUserForm
 
 
 login_manager = LoginManager()
@@ -144,8 +144,8 @@ def users():
 
 @app.route("/edit_user")
 def edit_user():
-    
-    return "hello from edit user"
+    edit_user_form = RegistrationForm()
+    return render_template('edit_user.html', users=users, current_user=current_user, edit_user_form=edit_user_form)
 
 
 @app.route("/delete_user")

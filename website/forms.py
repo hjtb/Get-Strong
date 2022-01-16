@@ -20,6 +20,19 @@ class RegistrationForm(FlaskForm):
         Length(min=6, max=30)])
 
 
+class EditUserForm(FlaskForm):
+    """
+    Registration form class for our registration page
+    """
+    username = StringField('Username', validators=[InputRequired(),
+        Length(min=6, max=30)])
+    email = EmailField('Email', validators=[InputRequired(),
+        Length(min=6, max=30)])
+    password = PasswordField('Password', validators=[InputRequired(),
+        Length(min=6, max=30)])
+    is_admin = BooleanField('Is Admin', validators=[InputRequired()])
+
+
 class LoginForm(FlaskForm):
     """
     Login form class for our login page

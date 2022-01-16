@@ -6,10 +6,10 @@
         <div class="card-panel">
             <h1 class="center">Edit {{ current_user.username }}</h1><br>
             <div class="row">
-                <div>{{ render_field(edit_user_form.username, placeholder=current_user_.username.data) }}</div>
+                <div>{{ render_field(edit_user_form.username, placeholder=current_user.username.data) }}</div>
             </div>
             <div class="row">
-                <div>{{ render_field(edit_user_form.email, placeholder=current_user_.email.data) }}</div>
+                <div>{{ render_field(edit_user_form.email, placeholder=current_user.email.data) }}</div>
             </div>
             <div class="row">
                 <div>{{ render_field(edit_user_form.password, placeholder=edit_user_form.password) }}</div>
