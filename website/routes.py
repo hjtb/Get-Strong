@@ -9,7 +9,7 @@ from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
 from website.models import User
 import datetime
-from website.forms import RegistrationForm, LoginForm, EditUserForm
+from website.forms import RegistrationForm, LoginForm
 
 
 login_manager = LoginManager()
@@ -141,9 +141,21 @@ def users():
         print(user.email)
     return render_template('users.html', users=users, current_user=current_user)
 
-
+# Working on this to get the edit user functionality
 @app.route("/edit_user")
 def edit_user():
+
+    try:
+        user_email = request.args.get("email")
+        user = User.objects(email = user_email).first()
+        username = user.username
+        flash(f'User {username} has been updated!', category="success")
+        return redirect(url_for('users'))
+
+    except Exception as err:
+        flash(f'Error, could not delete user error was {err}', category="error")
+        return redirect(url_for('users'))
+
     edit_user_form = RegistrationForm()
     return render_template('edit_user.html', users=users, current_user=current_user, edit_user_form=edit_user_form)
 

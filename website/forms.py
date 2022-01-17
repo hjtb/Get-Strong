@@ -8,29 +8,19 @@ from website.models import User
 from flask_mongoengine.wtf import model_form
 
 
-class RegistrationForm(FlaskForm):
-    """
-    Registration form class for our registration page
-    """
-    username = StringField('Username', validators=[InputRequired(),
-        Length(min=6, max=30)])
-    email = EmailField('Email', validators=[InputRequired(),
-        Length(min=6, max=30)])
-    password = PasswordField('Password', validators=[InputRequired(),
-        Length(min=6, max=30)])
+RegistrationForm = model_form(User)
 
 
-class EditUserForm(FlaskForm):
-    """
-    Registration form class for our registration page
-    """
-    username = StringField('Username', validators=[InputRequired(),
-        Length(min=6, max=30)])
-    email = EmailField('Email', validators=[InputRequired(),
-        Length(min=6, max=30)])
-    password = PasswordField('Password', validators=[InputRequired(),
-        Length(min=6, max=30)])
-    is_admin = BooleanField('Is Admin', validators=[InputRequired()])
+# class RegistrationForm(FlaskForm):
+#     """
+#     Registration form class for our registration page
+#     """
+#     username = StringField('Username', validators=[InputRequired(),
+#         Length(min=6, max=30)])
+#     email = EmailField('Email', validators=[InputRequired(),
+#         Length(min=6, max=30)])
+#     password = PasswordField('Password', validators=[InputRequired(),
+#         Length(min=6, max=30)])
 
 
 class LoginForm(FlaskForm):
@@ -41,6 +31,26 @@ class LoginForm(FlaskForm):
         Length(min=6, max=30)])
     password = PasswordField('Password', validators=[InputRequired(),
         Length(min=6, max=30)])
+
+
+class AddExercise(FlaskForm):
+    exercise_name = StringField(
+        'Exercise name:', validators=[InputRequired(), Length(
+            min=4, max=30,
+            message='Must be 4-30 characters long')])
+
+
+# class EditUserForm(FlaskForm):
+#     """
+#     Registration form class for our registration page
+#     """
+#     username = StringField('Username', validators=[InputRequired(),
+#         Length(min=6, max=30)])
+#     email = EmailField('Email', validators=[InputRequired(),
+#         Length(min=6, max=30)])
+#     password = PasswordField('Password', validators=[InputRequired(),
+#         Length(min=6, max=30)])
+#     is_admin = BooleanField('Is Admin', validators=[InputRequired()])
 
 
 # class AddWorkout(FlaskForm):
@@ -61,10 +71,3 @@ class LoginForm(FlaskForm):
 #         NumberRange(1, 500, message='Choose a value between 1 and 500')])
 #     comments = TextAreaField('comments:', validators=[InputRequired(), Length(
 #         min=8, max=300, message='Must be 8-300 characters long')])
-
-
-class AddExercise(FlaskForm):
-    exercise_name = StringField(
-        'Exercise name:', validators=[InputRequired(), Length(
-            min=4, max=30,
-            message='Must be 4-30 characters long')])
