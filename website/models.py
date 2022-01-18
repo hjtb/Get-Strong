@@ -46,7 +46,13 @@ class User(db.Document, UserMixin):
     def get_id(self):
         object_id = self.id
         return str(object_id)
-    
+
+# Not 100% on if I could make this work but it would be handy
+    # def clean(self):
+    #     # Validate that only published essays have a `pub_date`
+    #     if self.password == '':
+    #         self.password = "11111111"
+
     meta = {
         'collection': 'users'
     }

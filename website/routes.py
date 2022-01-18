@@ -2,6 +2,7 @@ from flask import (
     flash, render_template,
     redirect, request, url_for
 )
+from wtforms import ValidationError
 from flask_login import (
     LoginManager, login_user, login_required, logout_user, current_user
 )
@@ -141,23 +142,48 @@ def users():
         print(user.email)
     return render_template('users.html', users=users, current_user=current_user)
 
-# Working on this to get the edit user functionality
-@app.route("/edit_user")
+# Edit user functionality
+@app.route("/edit_user", methods=['GET', 'POST'])
 def edit_user():
 
     try:
+        # Get the user email we clicked on from the users page and retrieve the user data from the db
         user_email = request.args.get("email")
         user = User.objects(email = user_email).first()
-        username = user.username
-        flash(f'User {username} has been updated!', category="success")
-        return redirect(url_for('users'))
+        old_username = f"{user.username}"
 
     except Exception as err:
+        # Flash our error message if we can't retrieve the data and return to the users page
         flash(f'Error, could not delete user error was {err}', category="error")
         return redirect(url_for('users'))
 
+    # Use our registration form template
     edit_user_form = RegistrationForm()
-    return render_template('edit_user.html', users=users, current_user=current_user, edit_user_form=edit_user_form)
+
+    # Run the validation check on the submitted form but not as a condition
+    valid = edit_user_form.validate_on_submit()
+
+    # Condition to check if our form is submitted
+    if request.method=="POST":
+    #if "password" in edit_user_form.errors:
+        username = edit_user_form.username.data
+        email = edit_user_form.email.data
+        # Check if a new password was entered
+        if edit_user_form.password.data:
+            password_plaintext = edit_user_form.password.data
+            if len(password_plaintext) > 8 and len(password_plaintext) < 30:
+                password= generate_password_hash(password_plaintext)
+        else:
+            password = user.password
+
+        user.update(username=username, email=email, password=password)
+
+        flash(f'User {email}{username} has been updated!', category="success")
+        return redirect(url_for('users'))
+
+    edit_user_form.password.validators = []
+    print(edit_user_form.errors)
+    return render_template('edit_user.html', user=user, current_user=current_user, edit_user_form=edit_user_form)
 
 
 @app.route("/delete_user")
