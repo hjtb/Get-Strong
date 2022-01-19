@@ -8,9 +8,9 @@ from flask_login import (
 )
 from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
-from website.models import User
+from website.models import User, SelectExercise
 import datetime
-from website.forms import RegistrationForm, LoginForm
+from website.forms import RegistrationForm, LoginForm, AddExerciseForm
 
 
 login_manager = LoginManager()
@@ -137,6 +137,11 @@ def logout():
 
 @app.route("/users")
 def users():
+    """
+    Page for an admin to edit and delete users.
+    """
+
+
     users = User.objects.all()
     for user in users:
         print(user.email)
@@ -149,12 +154,11 @@ def edit_user():
     try:
         # Get the user email we clicked on from the users page and retrieve the user data from the db
         user_email = request.args.get("email")
-        user = User.objects(email = user_email).first()
-        old_username = f"{user.username}"
+        user_to_be_edited = User.objects(email = user_email).first()
 
     except Exception as err:
         # Flash our error message if we can't retrieve the data and return to the users page
-        flash(f'Error, could not delete user error was {err}', category="error")
+        flash(f'Error, could not edit user error was {err}', category="error")
         return redirect(url_for('users'))
 
     # Use our registration form template
@@ -163,27 +167,51 @@ def edit_user():
     # Run the validation check on the submitted form but not as a condition
     valid = edit_user_form.validate_on_submit()
 
-    # Condition to check if our form is submitted
+    # Now our form is submitted
+ ###   # Having difficulty getting the user that we initially clicked on so that I can compare the email and username
+ ###   # to ensure the current user is not selecting an email that already exists
     if request.method=="POST":
-    #if "password" in edit_user_form.errors:
+        try:
+            # Get the user email we clicked on from the users page and retrieve the user data from the db
+            user_email = request.form.get("email")
+            user_to_be_edited = User.objects(email = user_email).first()
+
+        except Exception as err:
+            # Flash our error message if we can't retrieve the data and return to the users page
+            flash(f'Error, could not edit user error was {err}', category="error")
+            return redirect(url_for('edit_user'))
+
         username = edit_user_form.username.data
         email = edit_user_form.email.data
+
+        # Check for existing emails and/or usernames
+        existing_email = User.objects().filter(email = edit_user_form.email.data.strip().lower()).first()
+        existing_username = User.objects().filter(username = edit_user_form.username.data.strip().lower()).first()
+
+        if existing_email and existing_email.email != user_to_be_edited.email:
+            flash("An account with this email already exists!!")
+            return redirect(url_for('edit_user'))
+
+        if existing_username and existing_username != user_to_be_edited.username:
+            flash("An account with this username already exists!!")
+            return redirect(url_for('edit_user'))
+
         # Check if a new password was entered
         if edit_user_form.password.data:
             password_plaintext = edit_user_form.password.data
             if len(password_plaintext) > 8 and len(password_plaintext) < 30:
                 password= generate_password_hash(password_plaintext)
         else:
-            password = user.password
+            password = user_to_be_edited.password
 
-        user.update(username=username, email=email, password=password)
+        user_to_be_edited.update(username=username, email=email, password=password)
 
-        flash(f'User {email}{username} has been updated!', category="success")
+        flash(f'User {username} with email {email} has been updated!', category="success")
         return redirect(url_for('users'))
 
     edit_user_form.password.validators = []
     print(edit_user_form.errors)
-    return render_template('edit_user.html', user=user, current_user=current_user, edit_user_form=edit_user_form)
+    return render_template('edit_user.html', user_to_be_edited=user_to_be_edited, current_user=current_user, edit_user_form=edit_user_form)
 
 
 @app.route("/delete_user")
@@ -200,11 +228,44 @@ def delete_user():
         return redirect(url_for('users'))
 
 
-@app.route("/add_exercise")
+
+# Add Exercise Page
+@app.route("/add_exercise", methods=['GET', 'POST'])
+@login_required
 def add_exercise():
+    """
+    page for admin user to add new exercises to database
+    """
+    exercises_for_dropdown = SelectExercise.objects.all()
+    add_exercise_form = AddExerciseForm()
 
-    return "hello"
+    # check if current user is_admin
+    if current_user.is_admin:
 
+        if add_exercise_form.validate_on_submit():
+
+            # check if exercise already exists
+            exercise_exists = SelectExercise.objects(exercise_name = exercise_name).first()
+
+            if exercise_exists:
+                flash('Exercise already in database')
+                return redirect(url_for('add_exercise'))
+
+            exercise = {
+                "exercise_name": add_exercise_form.exercise_name.data
+            }
+
+            flash(f"{exercise['exercise_name']} added to database")
+            db.exercises.insert_one(exercise)
+            return redirect(url_for("add_exercise"))
+
+    if current_user.is_admin:
+        return render_template(
+            "add_exercise.html", add_exercise_form=add_exercise_form,
+            exercises=exercises
+        )
+
+    return redirect(url_for("get_strong"))
 
 @app.route("/add_workout")
 def add_workout():

@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row">
-    <form method="POST" class="col s12 m8 offset-m2 l6 offset-l3" action="">
+    <form method="POST" class="col s12 m8 offset-m2 l6 offset-l3" action="{{ url_for('edit_user') }}?email={{ user_to_be_edited.email }}">
         {{ edit_user_form.hidden_tag() }}
         <div class="card-panel">
-            <h1 class="center">Edit {{ current_user.username }}</h1><br>
+            <h1 class="center">Edit {{ user_to_be_edited.username }}</h1><br>
             <div class="row">
-                <div>{{ render_field(edit_user_form.username, value=user.username) }}</div>
+                <div>{{ render_field(edit_user_form.username, value=user_to_be_edited.username) }}</div>
             </div>
             <div class="row">
-                <div>{{ render_field(edit_user_form.email, value=user.email) }}</div>
+                <div>{{ render_field(edit_user_form.email, value=user_to_be_edited.email) }}</div>
             </div>
             <div class="row">
                 <div class="input-field col s10 offset-s1">

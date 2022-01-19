@@ -4,28 +4,33 @@ from wtforms import (
     PasswordField, StringField, IntegerField, EmailField, HiddenField, 
     SelectField, TextAreaField, BooleanField, FloatField, SubmitField)
 from wtforms.validators import InputRequired, Length, Email, ValidationError, NumberRange
-from website.models import User
+from website.models import SelectExercise, User
 from flask_mongoengine.wtf import model_form
 
 
 RegistrationForm = model_form(User)
 
+AddExerciseForm = model_form(SelectExercise)
 
-class LoginForm(FlaskForm):
-    """
-    Login form class for our login page
-    """
-    email = EmailField('Email', validators=[InputRequired(),
-        Length(min=6, max=30)])
-    password = PasswordField('Password', validators=[InputRequired(),
-        Length(min=6, max=30)])
+LoginForm = model_form(User, exclude=['username'])
+
+# EditUserForm = model_form(User, exclude=['password'])
+
+# class LoginForm(FlaskForm):
+#     """
+#     Login form class for our login page
+#     """
+#     email = EmailField('Email', validators=[InputRequired(),
+#         Length(min=6, max=30)])
+#     password = PasswordField('Password', validators=[InputRequired(),
+#         Length(min=6, max=30)])
 
 
-class AddExercise(FlaskForm):
-    exercise_name = StringField(
-        'Exercise name:', validators=[InputRequired(), Length(
-            min=4, max=30,
-            message='Must be 4-30 characters long')])
+# class AddExercise(FlaskForm):
+#     exercise_name = StringField(
+#         'Exercise name:', validators=[InputRequired(), Length(
+#             min=4, max=30,
+#             message='Must be 4-30 characters long')])
 
 
 # class EditUserForm(FlaskForm):
