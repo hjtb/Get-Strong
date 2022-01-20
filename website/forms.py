@@ -1,18 +1,22 @@
 from flask import Flask
-from flask_wtf import FlaskForm
-from wtforms import (
-    PasswordField, StringField, IntegerField, EmailField, HiddenField, 
-    SelectField, TextAreaField, BooleanField, FloatField, SubmitField)
-from wtforms.validators import InputRequired, Length, Email, ValidationError, NumberRange
 from website.models import SelectExercise, User
 from flask_mongoengine.wtf import model_form
 
 
-RegistrationForm = model_form(User)
+# Using the User class we instantiate the registration form and make sure to 
+# Set the password field to a password field as Flask WTF doesn't include PasswordField 
+# in the models
+RegistrationForm = model_form(User, field_args={'password': {'password': True}})
 
+# Using the SelectExercise class we instantiate the AddExerciseForm
 AddExerciseForm = model_form(SelectExercise)
 
-LoginForm = model_form(User, exclude=['username'])
+# Using the User class with only the email and password fields we instantiate the LoginForm
+LoginForm = model_form(User, only=['email', 'password'], field_args={'password': {'password': True}})
+
+
+
+
 
 # EditUserForm = model_form(User, exclude=['password'])
 

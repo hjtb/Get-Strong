@@ -71,8 +71,12 @@ def register():
         existing_user = User.objects().filter(email = registration_form.email.data.strip().lower()).first()
         username_taken = User.objects().filter(username = registration_form.username.data.strip().lower()).first()
 
-        if existing_user or username_taken:
-            flash("An account with this email/username already exists!!")
+        if existing_user:
+            flash("An account with this email already exists!! Log in!")
+            return redirect(url_for("login"))
+
+        if username_taken:
+            flash("An account with this username already exists!!")
             return redirect(url_for("register"))
 
         username= request.form.get("username").lower().strip()
@@ -179,7 +183,7 @@ def edit_user():
         except Exception as err:
             # Flash our error message if we can't retrieve the data and return to the users page
             flash(f'Error, could not edit user error was {err}', category="error")
-            return redirect(url_for('edit_user'))
+            return redirect(url_for('users'))
 
         username = edit_user_form.username.data
         email = edit_user_form.email.data
@@ -187,14 +191,16 @@ def edit_user():
         # Check for existing emails and/or usernames
         existing_email = User.objects().filter(email = edit_user_form.email.data.strip().lower()).first()
         existing_username = User.objects().filter(username = edit_user_form.username.data.strip().lower()).first()
-
+        
+### This does not work - the user_to_be_edited can't be accessed in the post
         if existing_email and existing_email.email != user_to_be_edited.email:
             flash("An account with this email already exists!!")
-            return redirect(url_for('edit_user'))
+            return redirect(url_for('users'))
 
+### This does not work - the user_to_be_edited can't be accessed in the post
         if existing_username and existing_username != user_to_be_edited.username:
             flash("An account with this username already exists!!")
-            return redirect(url_for('edit_user'))
+            return redirect(url_for('users'))
 
         # Check if a new password was entered
         if edit_user_form.password.data:

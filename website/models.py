@@ -39,7 +39,7 @@ class User(db.Document, UserMixin):
     email = db.EmailField(max_length=30, min_length=6, required=True)
     username = db.StringField(max_length=30, min_length=6, required=True)
     workouts = db.EmbeddedDocumentListField(Workout)
-    password = db.StringField(max_length=200, required=True)
+    password = db.StringField(max_length=200, min_length=8, required=True, field_args={'password': {'password': True}})
     is_admin = db.BooleanField(default=False)
     date = db.DateTimeField(default=datetime.datetime.now)
 
