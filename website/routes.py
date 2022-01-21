@@ -176,9 +176,9 @@ def edit_user():
  ###   # to ensure the current user is not selecting an email that already exists
     if request.method=="POST":
         try:
-            # Get the user email we clicked on from the users page and retrieve the user data from the db
-            user_email = request.form.get("email")
-            user_to_be_edited = User.objects(email = user_email).first()
+            # Get the user ID we clicked on from the users page and retrieve the user data from the db
+            user_id = request.form.get("id")
+            user_to_be_edited = User.objects(id = user_id).first()
 
         except Exception as err:
             # Flash our error message if we can't retrieve the data and return to the users page

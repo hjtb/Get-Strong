@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row">
-    <form method="POST" class="col s12 m8 offset-m2 l6 offset-l3" action="{{ url_for('edit_user') }}?email={{ user_to_be_edited.email }}">
+    <form method="POST" class="col s12 m8 offset-m2 l6 offset-l3" action="">
         {{ edit_user_form.hidden_tag() }}
         <div class="card-panel">
             <h1 class="center">Edit {{ user_to_be_edited.username }}</h1><br>
@@ -18,6 +18,7 @@
                   <span class="helper-text" data-error="must be between 8-30 characters long" data-success="Valid Password">8-30 characters</span>
                 </div>
               </div>
+            <input type="hidden" id="id" name="id" value="{{ user_to_be_edited.id }}">
             <div class="row">
                 <button type="submit" class="btn waves-effect waves-light blue-grey darken-3 z-depth-3 col s6 offset-s3" name="action">
                     Submit Changes<i class="fas fa-paper-plane"></i>
