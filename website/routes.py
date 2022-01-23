@@ -151,14 +151,15 @@ def users():
         print(user.email)
     return render_template('users.html', users=users, current_user=current_user)
 
+
 # Edit user functionality
 @app.route("/edit_user", methods=['GET', 'POST'])
 def edit_user():
 
     try:
         # Get the user email we clicked on from the users page and retrieve the user data from the db
-        user_email = request.args.get("email")
-        user_to_be_edited = User.objects(email = user_email).first()
+        user_id = request.args.get("id")
+        user_to_be_edited = User.objects(id = user_id).first()
 
     except Exception as err:
         # Flash our error message if we can't retrieve the data and return to the users page
@@ -172,12 +173,10 @@ def edit_user():
     valid = edit_user_form.validate_on_submit()
 
     # Now our form is submitted
- ###   # Having difficulty getting the user that we initially clicked on so that I can compare the email and username
- ###   # to ensure the current user is not selecting an email that already exists
     if request.method=="POST":
         try:
-            # Get the user ID we clicked on from the users page and retrieve the user data from the db
-            user_id = request.form.get("id")
+            # Get the user email we clicked on from the users page and retrieve the user data from the db
+            user_id = request.args.get("id")
             user_to_be_edited = User.objects(id = user_id).first()
 
         except Exception as err:
@@ -185,22 +184,41 @@ def edit_user():
             flash(f'Error, could not edit user error was {err}', category="error")
             return redirect(url_for('users'))
 
-        username = edit_user_form.username.data
-        email = edit_user_form.email.data
+        # Get our data from the edit user form
+        form_username = edit_user_form.username.data
+        form_email = edit_user_form.email.data
 
-        # Check for existing emails and/or usernames
-        existing_email = User.objects().filter(email = edit_user_form.email.data.strip().lower()).first()
-        existing_username = User.objects().filter(username = edit_user_form.username.data.strip().lower()).first()
+        # Check for existing emails/usernames
+        existing_email = User.objects().filter(email = form_email.strip().lower()).first()
+        existing_username = User.objects().filter(username = form_username.strip().lower()).first()
         
-### This does not work - the user_to_be_edited can't be accessed in the post
-        if existing_email and existing_email.email != user_to_be_edited.email:
-            flash("An account with this email already exists!!")
-            return redirect(url_for('users'))
+        # Check if the email has been updated
+        if form_email == user_to_be_edited.email:
+            email = user_to_be_edited.email
 
-### This does not work - the user_to_be_edited can't be accessed in the post
-        if existing_username and existing_username != user_to_be_edited.username:
-            flash("An account with this username already exists!!")
-            return redirect(url_for('users'))
+        # Check for existing emails
+        elif existing_email:
+                flash("An account with this email already exists!!")
+#### Unsure if this is the best procedure as it kicks the user off the form
+                return redirect(url_for('users'))
+        
+        # If both checks pass we can update our users email
+        else:
+            email = form_email
+
+        # Check if the username has been updated
+        if form_username == user_to_be_edited.username:
+            username = user_to_be_edited.username
+
+        # Check for existing usernames
+        elif existing_username:
+                flash("An account with this username already exists!!")
+#### Unsure if this is the best procedure as it kicks the user off the form
+                return redirect(url_for('users'))
+
+        # If both checks pass we can update our users email
+        else:
+            username = form_username
 
         # Check if a new password was entered
         if edit_user_form.password.data:
