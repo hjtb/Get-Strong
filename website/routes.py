@@ -138,14 +138,12 @@ def logout():
     logout_user()
     return redirect(url_for("login"))
 
-
+# Users page for admins to manage the users
 @app.route("/users")
 def users():
     """
-    Page for an admin to edit and delete users.
+    Page for an admin to manage users.
     """
-
-
     users = User.objects.all()
     for user in users:
         print(user.email)
@@ -155,7 +153,9 @@ def users():
 # Edit user functionality
 @app.route("/edit_user", methods=['GET', 'POST'])
 def edit_user():
-
+    """
+    Page for an admin to edit and delete users.
+    """
     try:
         # Get the user email we clicked on from the users page and retrieve the user data from the db
         user_id = request.args.get("id")
