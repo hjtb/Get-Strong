@@ -1,5 +1,5 @@
 from flask import Flask
-from website.models import SelectExercise, User
+from website.models import SelectExercise, User, Workout
 from flask_mongoengine.wtf import model_form
 
 
@@ -14,7 +14,8 @@ AddExerciseForm = model_form(SelectExercise)
 # Using the User class with only the email and password fields we instantiate the LoginForm
 LoginForm = model_form(User, only=['email', 'password'], field_args={'password': {'password': True}})
 
-
+# Using the Workout class we instantiate the AddWorkoutForm
+AddWorkoutForm = model_form(Workout, field_args={'comments': {'textarea': True}})
 
 
 

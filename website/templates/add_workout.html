@@ -8,8 +8,8 @@
         <div class="col s12 m6">
             <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
-                    <h1 class="form-header">Add Workout</h1>
-                    <form method="POST" action="{{ url_for('add_workout') }}">
+                    <h1 class="form-header">Add Workout test</h1>
+                    <form method="POST" action="">
                         {{ add_workout_form.csrf_token }}
                         <div class="row">
                             <div class="input-field col s6">
@@ -22,21 +22,21 @@
                                 <label for="exercise">Choose an Exercise</label>
                                 <select name="exercise">
                                     {% for exercise in exercises %}
-                                        <option value="{{ exercise['_id'] }}">{{ add_workout_form.exercise['exercise_name']|title(class="validate") }}</option>
+                                        <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                             <div class="input-field col m3 s6">
-                                {{ add_workout_form.sets(class="validate") }}
+                                <input class="validate" type="integer" name="sets" id="sets">
                                 <label for="sets">Sets:</label>
                             </div>
                             <div class="input-field col m3 s6">
-                                {{ add_workout_form.reps(class="validate") }}
+                                <input class="validate" type="integer" name="reps" id="reps">
                                 <label for="reps">Reps:</label>
                             </div>
                             <div class="input-field col m3 s6">
-                                {{ add_workout_form.weight(class="validate") }}
-                                <label for="Weight(kg):">Weight(kg):</label>
+                                <input class="validate" type="float" name="weight" id="weight">
+                                <label for="weight">Weight(kg):</label>
                             </div>
                         </div>
                         <div class="row">

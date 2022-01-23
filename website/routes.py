@@ -10,7 +10,7 @@ from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
 from website.models import User, SelectExercise
 import datetime
-from website.forms import RegistrationForm, LoginForm, AddExerciseForm
+from website.forms import RegistrationForm, LoginForm, AddExerciseForm, AddWorkoutForm
 
 
 login_manager = LoginManager()
@@ -199,8 +199,7 @@ def edit_user():
         # Check for existing emails
         elif existing_email:
                 flash("An account with this email already exists!!")
-#### Unsure if this is the best procedure as it kicks the user off the form
-                return redirect(url_for('users'))
+                return redirect(url_for('edit_user', id=user_id))
         
         # If both checks pass we can update our users email
         else:
@@ -213,8 +212,7 @@ def edit_user():
         # Check for existing usernames
         elif existing_username:
                 flash("An account with this username already exists!!")
-#### Unsure if this is the best procedure as it kicks the user off the form
-                return redirect(url_for('users'))
+                return redirect(url_for('edit_user', id=user_id))
 
         # If both checks pass we can update our users email
         else:
@@ -268,6 +266,8 @@ def add_exercise():
 
         if add_exercise_form.validate_on_submit():
 
+            exercise_name = add_exercise_form.exercise_name.data
+
             # check if exercise already exists
             exercise_exists = SelectExercise.objects(exercise_name = exercise_name).first()
 
@@ -275,25 +275,74 @@ def add_exercise():
                 flash('Exercise already in database')
                 return redirect(url_for('add_exercise'))
 
-            exercise = {
-                "exercise_name": add_exercise_form.exercise_name.data
-            }
 
-            flash(f"{exercise['exercise_name']} added to database")
-            db.exercises.insert_one(exercise)
+            exercise = SelectExercise(exercise_name=exercise_name)
+            flash(f"{exercise_name} added to database")
+            saved = exercise.save()
             return redirect(url_for("add_exercise"))
 
     if current_user.is_admin:
         return render_template(
             "add_exercise.html", add_exercise_form=add_exercise_form,
-            exercises=exercises
+            exercises_for_dropdown=exercises_for_dropdown
         )
 
+    flash(f'Only admins can add exercises')
     return redirect(url_for("get_strong"))
 
+# Add Workout Page
 @app.route("/add_workout")
+@login_required
 def add_workout():
+    """
+    Enables the user to enter new workouts
+    """
 
-    return "hello"
+    username = current_user.username
+    exercises = SelectExercise.objects.all()
+    add_workout_form = AddWorkoutForm()
+
+    # new_workout = {
+    #     "workout_name": add_workout_form.workout_name.data,
+    #     "exercise": add_workout_form.exercise.data,
+    #     "sets": add_workout_form.sets.data,
+    #     "reps": add_workout_form.reps.data,
+    #     "weight": add_workout_form.weight.data,
+    #     "comments": add_workout_form.comments.data,
+    #     "user": username
+    # }
+
+    if add_workout_form.validate_on_submit():
+        #db.users.insert_one(new_workout)
+
+        # log_exercise_ids = []
+        # for row_index in range(10):
+            # exercise_name = request.form[f"exercise_name_{row_index}"]
+            # if exercise_name = "":
+            #     break
+            # sets = request.form[f"set_{row_index}"]
+            # reps = request.form[f"reps_{row_index}"]
+            # weight = request.form[f"weight_{row_index}"]
+            # log_exercise = LogExercise(exercise_name=exercise_name, reps=reps, sets=sets, weight=weight)
+            # log_exercise.save()
+            # log_exercise_ids.append(log_exercise.id)
+
+        # workout_name = add_workout_form.workout_name.data
+        # workout_comments = add_workout_form.comments.data
+        # user_id = current_user.id
+        # workout = Workout(workout_name=workout_name, comments=workout_comments, exercises=log_exercise_ids, user_id=user_id)
+        # workout.save()
+
+        flash(f"Workout added successfully!")
+        return redirect(url_for("add_workout"))
+
+
+
+    return render_template(
+        "add_workout.html",  username=username,
+        add_workout_form=add_workout_form, exercises=exercises
+    )
+
+
 
 
