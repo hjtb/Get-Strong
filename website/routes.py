@@ -272,7 +272,7 @@ def add_exercise():
             exercise_exists = SelectExercise.objects(exercise_name = exercise_name).first()
 
             if exercise_exists:
-                flash('Exercise already in database')
+                flash('Exercise already exists!')
                 return redirect(url_for('add_exercise'))
 
 
