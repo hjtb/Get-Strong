@@ -13,11 +13,10 @@ class SelectExercise(db.Document):
 
 
 class LogExercise(db.EmbeddedDocument):
-    workout_name = db.StringField
     exercise_name = db.ReferenceField(SelectExercise)
     sets = db.IntField(required=True, min_value=1, max_value=10)
     reps = db.IntField(required=True, min_value=1, max_value=200)
-    weight = db.FloatField(required=True, min_value=1, max_value=500)
+    weight = db.IntField(required=True, min_value=1, max_value=500)
     meta = {
         'collection': 'log_exercises'
     }
@@ -26,9 +25,8 @@ class LogExercise(db.EmbeddedDocument):
 class Workout(db.EmbeddedDocument):
     workout_date = db.DateTimeField(default=datetime.datetime.now)
     workout_name = db.StringField(max_length=30, min_length=6, required=True)
-    exercises = db.ListField(db.StringField(max_length=100))
-    comments = StringField(min_length=8)
-    user_id = StringField()
+    exercises = db.EmbeddedDocumentListField(LogExercise)
+    comments = db.StringField(min_length=8)
     meta = {
         'collection': 'workouts'
     }

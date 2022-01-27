@@ -8,7 +8,7 @@ from flask_login import (
 )
 from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
-from website.models import User, SelectExercise
+from website.models import LogExercise, User, SelectExercise, Workout
 import datetime
 from website.forms import RegistrationForm, LoginForm, AddExerciseForm, AddWorkoutForm
 
@@ -291,7 +291,7 @@ def add_exercise():
     return redirect(url_for("get_strong"))
 
 # Add Workout Page
-@app.route("/add_workout")
+@app.route("/add_workout", methods=['GET', 'POST'])
 @login_required
 def add_workout():
     """
@@ -313,6 +313,28 @@ def add_workout():
     # }
 
     if add_workout_form.validate_on_submit():
+        form_package = request.form.to_dict(flat=False)
+
+        exercises = []
+        for index in range(len(form_package['exercise'])):
+            exercise_id = form_package['exercise'][index]
+            if not exercise_id:
+                continue
+            exercise = SelectExercise.objects(id = exercise_id).first()
+            sets = int(form_package['sets'][index])
+            reps = int(form_package['reps'][index])
+            weight = int(form_package['weight'][index])
+
+            log_exercise = LogExercise(exercise_name=exercise.exercise_name, sets=sets, reps=reps, weight=weight)
+
+            exercises.append(log_exercise)
+
+        workout = Workout(exercises=exercises, workout_name=form_package['workout_name'][0], comments=form_package['comments'][0])
+
+        user = User.objects.filter(id = current_user.id).first()
+        user.workouts.append(workout)
+        user.save()
+
         #db.users.insert_one(new_workout)
 
         # log_exercise_ids = []

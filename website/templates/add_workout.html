@@ -17,34 +17,42 @@
                                 <label for="workout_name">Workout Name:</label>
                             </div>
                         </div>
-                        <div class="row exercise-row">
-                            <div class="input-field col m3 s6">
-                                <label for="exercise">Choose an Exercise</label>
-                                <select name="exercise">
-                                    {% for exercise in exercises %}
-                                        <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
-                                    {% endfor %}
-                                </select>
+                        {% for index in range(10) %}
+                            <div class="row exercise-row">
+                                <div class="input-field col m3 s6">
+                                    <label for="exercise">Choose an Exercise</label>
+                                    <select name="exercise">
+                                        <option value=""></option>
+                                        {% for exercise in exercises %}
+                                            <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="input-field col m3 s6">
+                                    <input class="validate" type="range" min="1" max="10" name="sets" id="sets">
+                                    <label for="sets">Sets:</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+                                </div>
+                                <div class="input-field col m3 s6">
+                                    <input type="range" min="1" max="200" name="reps" id="reps">
+                                    <label for="reps">Reps:</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+                                </div>
+                                <div class="input-field col m3 s6">
+                                    <input class="validate" type="range" min="1" max="500" name="weight" id="weight">
+                                    <label for="weight">Weight(kg):</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+                                </div>
                             </div>
-                            <div class="input-field col m3 s6">
-                                <input class="validate" type="integer" name="sets" id="sets">
-                                <label for="sets">Sets:</label>
+                            
+                        {% endfor %}
+                            
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    {{ add_workout_form.comments(class="materialize-textarea") }}
+                                    <label for="comments">Comments:</label>
+                                </div>
                             </div>
-                            <div class="input-field col m3 s6">
-                                <input class="validate" type="integer" name="reps" id="reps">
-                                <label for="reps">Reps:</label>
-                            </div>
-                            <div class="input-field col m3 s6">
-                                <input class="validate" type="float" name="weight" id="weight">
-                                <label for="weight">Weight(kg):</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <textarea id="comments" class="materialize-textarea"></textarea>
-                                <label for="comments">Comments:</label>
-                            </div>
-                        </div>
                         <button type="submit" class="btn-large orange-btn">Add workout</button>
                     </form>
                 </div>

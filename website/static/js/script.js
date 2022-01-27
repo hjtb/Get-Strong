@@ -2,6 +2,6 @@ $(document).ready(function(){
     $('.sidenav').sidenav();
     $('.flash').delay(2000).fadeOut(5000);
     $('select').formSelect();
-    $('#comments').val('New Text');
+    $('#comments').val('');
     M.textareaAutoResize($('#comments'));
 });
