@@ -365,6 +365,3 @@ def add_workout():
         add_workout_form=add_workout_form, exercises=exercises
     )
 
-
-
-

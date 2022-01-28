@@ -4,4 +4,7 @@ $(document).ready(function(){
     $('select').formSelect();
     $('#comments').val('');
     M.textareaAutoResize($('#comments'));
+    $('.fixed-action-btn').floatingActionButton({
+        toolbarEnabled: true
+      });
 });
