@@ -216,7 +216,7 @@ I used this same [stackoverflow](https://stackoverflow.com/questions/16116319/ho
 ## **Bugs**
 
 * **Bug**  
-
+https://stackoverflow.com/questions/29963847/select-element-doesnt-work-after-clone
 * **Fix**
 
 [Back to Top](#table-of-contents)

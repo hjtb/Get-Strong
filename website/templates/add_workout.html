@@ -23,7 +23,6 @@
                             <li id="exercise-row">
                                 <div class="row">
                                     <div class="input-field col m3 s6">
-                                        <!-- <label for="exercise"></label> -->
                                         <select name="exercise">
                                             <option value=""></option>
                                             {% for exercise in exercises %}
@@ -52,10 +51,9 @@
                             </li>
 
                         </ul>
-  
                         <a id="delete-exercise-button" class="btn-large red"><i class="material-icons">delete</i></a>
                         <a id="next-exercise-button" class="btn-large red"><i class="material-icons">add</i></a>
-
+                        
 
                         <div class="row">
                             <div class="input-field col s12">
@@ -65,10 +63,43 @@
                         </div>
                         <button type="submit" class="btn-large orange-btn">Add workout</button>
                     </form>
-
+                    
                 </div>
             </div>
         </div>
     </div>
 </section>
+<!-- Solution I found on stack overflow because the clone() 
+    function in Jquery doesn't allow select elements to be cloned -->
+<!-- <script id="rowToClone" type="text/template">
+    <li id="exercise-row">
+        <div class="row">
+            <div class="input-field col m3 s6">
+                <select name="exercise">
+                    <option value=""></option>
+                    {% for exercise in exercises %}
+                    <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
+                    {% endfor %}
+                </select>
+                <span class="helper-text white-text" data-error="wrong" data-success="right">Select an Exercise</span>
+                
+            </div>
+            <div class="input-field col m1 s3 offset">
+                <input class="validate white-text" type="number" min="1" max="10" name="sets" id="sets">
+                <label for="sets">Sets:</label>
+                <span class="helper-text white-text" data-error="1-10 Sets"></span>
+            </div>
+            <div class="input-field col m1 s3">
+                <input type="number" class="validate white-text" min="1" max="200" name="reps" id="reps">
+                <label for="reps">Reps:</label>
+                <span class="helper-text white-text" data-error="1-200 Reps"></span>
+            </div>
+            <div class="input-field col m1 s3">
+                <input class="validate white-text" type="number" min="1" max="500" name="weight" id="weight">
+                <label for="weight">Weight(kg):</label>
+                <span class="helper-text white-text" data-error="1-500kg"></span>
+            </div>
+        </div>
+    </li>
+</script> -->
 {% endblock %}

@@ -12,7 +12,7 @@ $(document).ready(function(){
         $(this).hide();
       }
       console.log(counter);
-      $("#exercise-row").clone().addClass('added-exercise').appendTo("#exercises-list");
+      $("#exercise-row").clone().attr('id', 'added-exercise-row' + '_' + counter).addClass('added-exercise').appendTo("#exercises-list");
       $("#delete-exercise-button").show();
     });
     $("#delete-exercise-button").click(function(){
