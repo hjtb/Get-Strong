@@ -26,7 +26,7 @@ class Workout(db.EmbeddedDocument):
     workout_date = db.DateTimeField(default=datetime.datetime.now)
     workout_name = db.StringField(max_length=30, min_length=6, required=True)
     exercises = db.EmbeddedDocumentListField(LogExercise)
-    comments = db.StringField(min_length=8)
+    comments = db.StringField()
     meta = {
         'collection': 'workouts'
     }

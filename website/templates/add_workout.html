@@ -6,85 +6,60 @@
 <section>
     <div class="container white-text">
         <div class="col s12 m6">
-            <div class="card blue-grey darken-1">
+            <div class="card grey darken-3">
                 <div class="card-content white-text">
                     <h1 class="form-header">Add Workout</h1>
                     <form method="POST" action="">
                         {{ add_workout_form.csrf_token }}
                         <div class="row">
                             <div class="input-field col s6">
-                                {{ add_workout_form.workout_name }}
+                                {{ add_workout_form.workout_name(class="white-text") }}
                                 <label for="workout_name">Workout Name:</label>
                             </div>
                         </div>
+                        <ul id="exercises-list">
 
-                        <!-- first initial exercise field -->
-
-                        <div class="row exercise-row">
-                            <div class="input-field col m3 s6">
-                                <!-- <label for="exercise"></label> -->
-                                <select name="exercise">
-                                    <option value=""></option>
-                                    {% for exercise in exercises %}
-                                        <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
-                                    {% endfor %}
-                                </select>
-                                <span class="helper-text" data-error="wrong" data-success="right">Select an Exercise</span>
-
-                            </div>
-                            <div class="input-field col m1 s3 offset">
-                                <input class="validate" type="number" min="1" max="10" name="sets" id="sets">
-                                <label for="sets">Sets:</label>
-                                <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                            </div>
-                            <div class="input-field col m1 s3">
-                                <input type="number" min="1" max="200" name="reps" id="reps">
-                                <label for="reps">Reps:</label>
-                                <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                            </div>
-                            <div class="input-field col m1 s3">
-                                <input class="validate" type="number" min="1" max="500" name="weight" id="weight">
-                                <label for="weight">Weight(kg):</label>
-                                <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                            </div>
-                        </div>
-
-                        <!-- The remaining exercise fields that will be dynamically revealed -->
-
-                        {% for index in range(9) %}
-
-                            <div class="row exercise-row hide">
-                                <div class="input-field col m3 s6">
-                                    <label for="exercise">Choose an Exercise</label>
-                                    <select name="exercise">
-                                        <option value=""></option>
-                                        {% for exercise in exercises %}
+                            <!-- first initial three exercise fields -->
+                            <li id="exercise-row">
+                                <div class="row">
+                                    <div class="input-field col m3 s6">
+                                        <!-- <label for="exercise"></label> -->
+                                        <select name="exercise">
+                                            <option value=""></option>
+                                            {% for exercise in exercises %}
                                             <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
-                                        {% endfor %}
-                                    </select>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="helper-text white-text" data-error="wrong" data-success="right">Select an Exercise</span>
+                                        
+                                    </div>
+                                    <div class="input-field col m1 s3 offset">
+                                        <input class="validate white-text" type="number" min="1" max="10" name="sets" id="sets">
+                                        <label for="sets">Sets:</label>
+                                        <span class="helper-text white-text" data-error="1-10 Sets"></span>
+                                    </div>
+                                    <div class="input-field col m1 s3">
+                                        <input type="number" class="validate white-text" min="1" max="200" name="reps" id="reps">
+                                        <label for="reps">Reps:</label>
+                                        <span class="helper-text white-text" data-error="1-200 Reps"></span>
+                                    </div>
+                                    <div class="input-field col m1 s3">
+                                        <input class="validate white-text" type="number" min="1" max="500" name="weight" id="weight">
+                                        <label for="weight">Weight(kg):</label>
+                                        <span class="helper-text white-text" data-error="1-500kg"></span>
+                                    </div>
                                 </div>
-                                <div class="input-field col m1 s3 offset">
-                                    <input class="validate" type="number" min="1" max="10" name="sets" id="sets">
-                                    <label for="sets">Sets:</label>
-                                    <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                                </div>
-                                <div class="input-field col m1 s3">
-                                    <input type="number" min="1" max="200" name="reps" id="reps">
-                                    <label for="reps">Reps:</label>
-                                    <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                                </div>
-                                <div class="input-field col m1 s3">
-                                    <input class="validate" type="number" min="1" max="500" name="weight" id="weight">
-                                    <label for="weight">Weight(kg):</label>
-                                    <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                                </div>
-                            </div>
+                            </li>
 
-                        {% endfor %}
+                        </ul>
+  
+                        <a id="delete-exercise-button" class="btn-large red"><i class="material-icons">delete</i></a>
+                        <a id="next-exercise-button" class="btn-large red"><i class="material-icons">add</i></a>
+
 
                         <div class="row">
                             <div class="input-field col s12">
-                                {{ add_workout_form.comments(class="materialize-textarea") }}
+                                {{ add_workout_form.comments(class="materialize-textarea white-text") }}
                                 <label for="comments">Comments:</label>
                             </div>
                         </div>

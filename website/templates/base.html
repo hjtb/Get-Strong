@@ -60,7 +60,7 @@
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
-                    <div class="flash blue-grey darken-3">
+                    <div id="flash" class="flash blue-grey darken-3">
                         <h2 class="deep-orange-text text-accent-3 center-align flow-text">{{ message }}</h2>
                     </div>
                 {% endfor %}

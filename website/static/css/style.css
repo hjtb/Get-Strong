@@ -74,6 +74,10 @@ body {
     min-height: 100vh;
 }
 
+input.select-dropdown.dropdown-trigger{
+    color: white; 
+}
+
 .footer-copyright {
     padding-inline: 50px !important;
 }
