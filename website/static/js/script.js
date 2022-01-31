@@ -1,9 +1,10 @@
 $(document).ready(function(){
     $('.sidenav').sidenav();
     $('.flash').fadeIn('slow').delay(2000).fadeOut(5000);
-    $('select').formSelect();
+    $('#exercise-row select').formSelect();
     $('#comments').val('');
     $("#delete-exercise-button").hide();
+    $("#template-1").hide();
     M.textareaAutoResize($('#comments'));
     var counter = 0;
     $("#next-exercise-button").click(function(){
@@ -12,8 +13,13 @@ $(document).ready(function(){
         $(this).hide();
       }
       console.log(counter);
-      $("#exercise-row").clone().attr('id', 'added-exercise-row' + '_' + counter).addClass('added-exercise').appendTo("#exercises-list");
+      var rowId = 'added-exercise-row' + '_' + counter;
+      $("#template-1").clone().attr('id', rowId).addClass('added-exercise').appendTo("#exercises-list").show();
       $("#delete-exercise-button").show();
+      console.log('options');
+      var $newRow = $(`#${rowId}`);
+      console.log($newRow.contents());
+      $(`#${rowId} select`).formSelect();
     });
     $("#delete-exercise-button").click(function(){
       counter--;
