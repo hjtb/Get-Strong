@@ -44,11 +44,18 @@ def get_strong():
     """
     Displays the users profile
     """
+    workout_1 = []
+    workout_2 = []
+    workout_3 = []
 
     username = current_user.username
-    workouts = list(
+    workouts = list(current_user.workouts)
 
-        )
+    for index, workout in enumerate(workouts, start=1):
+        workout_name = workout.workout_name
+        exercises = list(workout.exercises)
+        for exercise in exercises:
+            print(f'workout:{workout_name, index} reps:{exercise.reps} sets:{exercise.sets} weight:{exercise.weight}')
 
     return render_template(
         "get_strong.html", workouts=workouts, username=username

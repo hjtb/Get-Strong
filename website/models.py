@@ -24,7 +24,7 @@ class LogExercise(db.EmbeddedDocument):
 
 class Workout(db.EmbeddedDocument):
     workout_date = db.DateTimeField(default=datetime.datetime.now)
-    workout_name = db.StringField(max_length=30, min_length=6, required=True)
+    workout_name = db.StringField(max_length=30, min_length=4, required=True)
     exercises = db.EmbeddedDocumentListField(LogExercise)
     comments = db.StringField()
     meta = {
