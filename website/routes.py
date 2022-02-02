@@ -42,23 +42,21 @@ def index():
 @login_required
 def get_strong():
     """
-    Displays the users profile
+    Displays the users profile and their 3 most recent workouts
     """
-    workout_1 = []
-    workout_2 = []
-    workout_3 = []
 
+    squats_progress = 0
     username = current_user.username
     workouts = list(current_user.workouts)
 
-    for index, workout in enumerate(workouts, start=1):
+    for workout in enumerate(workouts, start=1):
         workout_name = workout.workout_name
         exercises = list(workout.exercises)
         for exercise in exercises:
-            print(f'workout:{workout_name, index} reps:{exercise.reps} sets:{exercise.sets} weight:{exercise.weight}')
+            print(f'workout:{workout_name, index} exercise name:{exercise._data["exercise_name"].id} reps:{exercise.reps} sets:{exercise.sets} weight:{exercise.weight}')
 
     return render_template(
-        "get_strong.html", workouts=workouts, username=username
+        "get_strong.html", workouts=workouts, username=username, squats_progress=squats_progress
     )
 
 
@@ -246,8 +244,8 @@ def edit_user():
 @app.route("/delete_user")
 def delete_user():
     try:
-        user_email = request.args.get("email")
-        user = User.objects(email = user_email).first()
+        user_id = request.args.get("id")
+        user = User.objects().filter(id = user_id).first()
         username = user.username
         user.delete()
         flash(f'User {username} has been deleted!', category="success")
@@ -309,28 +307,18 @@ def add_workout():
     exercises = SelectExercise.objects.all()
     add_workout_form = AddWorkoutForm()
 
-    # new_workout = {
-    #     "workout_name": add_workout_form.workout_name.data,
-    #     "exercise": add_workout_form.exercise.data,
-    #     "sets": add_workout_form.sets.data,
-    #     "reps": add_workout_form.reps.data,
-    #     "weight": add_workout_form.weight.data,
-    #     "comments": add_workout_form.comments.data,
-    #     "user": username
-    # }
-
     if add_workout_form.validate_on_submit():
         form_package = request.form.to_dict(flat=False)
 
         exercises = []
-        for index in range(len(form_package['exercise'])):
-            exercise_id = form_package['exercise'][index]
+        for current_index in range(len(form_package['exercise'])):
+            exercise_id = form_package['exercise'][current_index]
             if not exercise_id:
                 continue
             exercise = SelectExercise.objects(id = exercise_id).first()
-            sets = int(form_package['sets'][index])
-            reps = int(form_package['reps'][index])
-            weight = int(form_package['weight'][index])
+            sets = int(form_package['sets'][current_index])
+            reps = int(form_package['reps'][current_index])
+            weight = int(form_package['weight'][current_index])
 
             log_exercise = LogExercise(exercise_name=exercise.exercise_name, sets=sets, reps=reps, weight=weight)
 
@@ -342,25 +330,6 @@ def add_workout():
         user.workouts.append(workout)
         user.save()
 
-        #db.users.insert_one(new_workout)
-
-        # log_exercise_ids = []
-        # for row_index in range(10):
-            # exercise_name = request.form[f"exercise_name_{row_index}"]
-            # if exercise_name = "":
-            #     break
-            # sets = request.form[f"set_{row_index}"]
-            # reps = request.form[f"reps_{row_index}"]
-            # weight = request.form[f"weight_{row_index}"]
-            # log_exercise = LogExercise(exercise_name=exercise_name, reps=reps, sets=sets, weight=weight)
-            # log_exercise.save()
-            # log_exercise_ids.append(log_exercise.id)
-
-        # workout_name = add_workout_form.workout_name.data
-        # workout_comments = add_workout_form.comments.data
-        # user_id = current_user.id
-        # workout = Workout(workout_name=workout_name, comments=workout_comments, exercises=log_exercise_ids, user_id=user_id)
-        # workout.save()
 
         flash(f"Workout added successfully!")
         return redirect(url_for("add_workout"))
