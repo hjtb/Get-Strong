@@ -13,11 +13,11 @@
             <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">{{ workout.workout_name }}</span>
-                    {% for exercise in workout.exercises %}
-                    <p>exercise name: {{ exercise._data["exercise_name"].id }}</p>
-                        <p>sets: {{ exercise.sets }}</p>
-                        <p>reps: {{ exercise.reps }}</p>
-                        <p>weight: {{ exercise.weight }}</p>
+                    {% for log_exercise in workout.exercises %}
+                    <p>exercise name: {{ log_exercise.exercise.exercise_name }}</p>
+                        <p>sets: {{ log_exercise.sets }}</p>
+                        <p>reps: {{ log_exercise.reps }}</p>
+                        <p>weight: {{ log_exercise.weight }}</p>
                     {% endfor %}
                 </div>
                 <div class="card-action">

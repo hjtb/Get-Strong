@@ -49,11 +49,11 @@ def get_strong():
     username = current_user.username
     workouts = list(current_user.workouts)
 
-    for workout in enumerate(workouts, start=1):
+    for workout in workouts:
         workout_name = workout.workout_name
         exercises = list(workout.exercises)
-        for exercise in exercises:
-            print(f'workout:{workout_name, index} exercise name:{exercise._data["exercise_name"].id} reps:{exercise.reps} sets:{exercise.sets} weight:{exercise.weight}')
+        for log_exercise in exercises:
+            print(f'workout:{workout_name} exercise name:{log_exercise.exercise.exercise_name} reps:{log_exercise.reps} sets:{log_exercise.sets} weight:{log_exercise.weight}')
 
     return render_template(
         "get_strong.html", workouts=workouts, username=username, squats_progress=squats_progress
@@ -320,7 +320,7 @@ def add_workout():
             reps = int(form_package['reps'][current_index])
             weight = int(form_package['weight'][current_index])
 
-            log_exercise = LogExercise(exercise_name=exercise.exercise_name, sets=sets, reps=reps, weight=weight)
+            log_exercise = LogExercise(exercise=exercise, sets=sets, reps=reps, weight=weight)
 
             exercises.append(log_exercise)
 

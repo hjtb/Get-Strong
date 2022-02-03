@@ -6,9 +6,32 @@ $(document).ready(function(){
   $("#delete-exercise-button").hide();
   $("#template-1").hide();
   M.textareaAutoResize($('#comments'));
+  $("#add-workout-submit-button").prop('disabled', true);
+  $("#add-workout-submit-div").mouseover(function(){
+    //var form = $("#add-workout-form");
+    // for(field in form.fields){
+    //   console.log(field);
+    // }
+    var formOk = true;
+    var form = document.getElementById("add-workout-form");
+    for (let index = 0; index < form.elements.length; index++) {
+      const input = form.elements[index];
+      if (!input.value){
+        formOk = false;
+        console.log("It's not ok");
+      }
+      console.log("value ", input.value, "name ", input.name);
+    }
+
+    if(formOk == true){
+      $("#add-workout-submit-button").prop('disabled', false);
+      console.log("It's OK!!!");
+    };
+  });
   // generate our exercise rows dynamically using buttons
   var counter = 0;
   $("#next-exercise-button").click(function(){
+    $("#add-workout-submit-button").prop('disabled', true);
     counter++;
     // set the limit of rows that can be generated
     if (counter >= 10){

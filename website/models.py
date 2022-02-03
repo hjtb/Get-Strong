@@ -13,7 +13,7 @@ class SelectExercise(db.Document):
 
 
 class LogExercise(db.EmbeddedDocument):
-    exercise_name = db.ReferenceField(SelectExercise)
+    exercise = db.ReferenceField(SelectExercise)
     sets = db.IntField(required=True, min_value=1, max_value=10)
     reps = db.IntField(required=True, min_value=1, max_value=200)
     weight = db.IntField(required=True, min_value=1, max_value=500)
