@@ -8,10 +8,7 @@ $(document).ready(function(){
   M.textareaAutoResize($('#comments'));
   $("#add-workout-submit-button").prop('disabled', true);
   $("#add-workout-submit-div").mouseover(function(){
-    //var form = $("#add-workout-form");
-    // for(field in form.fields){
-    //   console.log(field);
-    // }
+
     var formOk = true;
     var form = document.getElementById("add-workout-form");
     for (let index = 0; index < form.elements.length; index++) {
@@ -21,6 +18,7 @@ $(document).ready(function(){
         console.log("It's not ok");
       }
       console.log("value ", input.value, "name ", input.name);
+      console.log(input);
     }
 
     if(formOk == true){

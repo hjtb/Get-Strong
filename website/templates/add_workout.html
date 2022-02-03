@@ -11,31 +11,32 @@
                     <h1 class="form-header">Add Workout</h1>
                     <div id="template-1">
                         <div class="row">
-                            <div class="input-field col m3 s6">
-                                <select name="exercise" required="required" min="1">
-                                    <option value="" disabled selected></option>
+                            <div class="input-field col m4 s12">
+                                <select name="exercise">
+                                    <option value=""></option>
                                     {% for exercise in exercises %}
                                     <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
                                     {% endfor %}
                                 </select>
                                 <span class="helper-text white-text" data-error="wrong" data-success="right">Select an Exercise</span>
                             </div>
-                            <div class="input-field col m1 s3 offset">
-                                <input class="validate white-text" type="number" required="required" min="1" max="10" name="sets" id="sets">
+                            <div class="input-field col m1 push-m1 s2">
+                                <input class="validate white-text" type="number" min="1" max="10" name="sets" id="sets">
                                 <label for="sets">Sets:</label>
                                 <span class="helper-text white-text" data-error="1-10 Sets"></span>
                             </div>
-                            <div class="input-field col m1 s3">
-                                <input type="number" class="validate white-text" required="required" min="1" max="200" name="reps" id="reps">
+                            <div class="input-field col m1 push-m2 s2">
+                                <input type="number" class="validate white-text" min="1" max="200" name="reps" id="reps">
                                 <label for="reps">Reps:</label>
                                 <span class="helper-text white-text" data-error="1-200 Reps"></span>
                             </div>
-                            <div class="input-field col m1 s3">
-                                <input class="validate white-text" required="required" type="number" min="1" max="500" name="weight" id="weight">
+                            <div class="input-field col m1 push-m3 s2">
+                                <input class="validate white-text" type="number" min="1" max="500" name="weight" id="weight">
                                 <label for="weight">Weight(kg):</label>
                                 <span class="helper-text white-text" data-error="1-500kg"></span>
                             </div>
                         </div>
+                        <div class="divider green"></div>
                     </div>
                     <form id="add-workout-form" method="POST" action="">
                         {{ add_workout_form.csrf_token }}
@@ -49,7 +50,7 @@
                             <!-- first initial exercise fields -->
                             <div id="exercise-row">
                                 <div class="row">
-                                    <div class="input-field col m3 s6">
+                                    <div class="input-field validate col m4 s12">
                                         <select name="exercise">
                                             <option value=""></option>
                                             {% for exercise in exercises %}
@@ -58,34 +59,37 @@
                                         </select>
                                         <span class="helper-text white-text" data-error="wrong" data-success="right">Select an Exercise</span>
                                     </div>
-                                    <div class="input-field col m1 s3 offset">
+                                    <div class="input-field col m1 push-m1 s2">
                                         <input class="validate white-text" type="number" min="1" max="10" name="sets" id="sets">
                                         <label for="sets">Sets:</label>
                                         <span class="helper-text white-text" data-error="1-10 Sets"></span>
                                     </div>
-                                    <div class="input-field col m1 s3">
+                                    <div class="input-field col m1 push-m2 s2">
                                         <input type="number" class="validate white-text" min="1" max="200" name="reps" id="reps">
                                         <label for="reps">Reps:</label>
                                         <span class="helper-text white-text" data-error="1-200 Reps"></span>
                                     </div>
-                                    <div class="input-field col m1 s3">
+                                    <div class="input-field col m1 push-m3 s2">
                                         <input class="validate white-text" type="number" min="1" max="500" name="weight" id="weight">
                                         <label for="weight">Weight(kg):</label>
                                         <span class="helper-text white-text" data-error="1-500kg"></span>
                                     </div>
                                 </div>
+                                <div class="divider green"></div>
                             </div>
                         </div>
-                        <a id="delete-exercise-button" class="btn-large red"><i class="material-icons">delete</i></a>
-                        <a id="next-exercise-button" class="btn-large red"><i class="material-icons">add</i></a>
+                        <a id="delete-exercise-button" class="btn-floating btn-large waves-effect waves-light red right offset-s3"><i class="material-icons">delete</i></a>
+                        <a id="next-exercise-button" class="btn-floating btn-large waves-effect waves-light green offset-s3"><i class="material-icons">add</i></a>
                         <div class="row">
                             <div class="input-field col s12">
                                 {{ add_workout_form.comments(class="materialize-textarea white-text") }}
                                 <label for="comments">Comments:</label>
                             </div>
                         </div>
-                        <div id="add-workout-submit-div">
-                            <button name="submit-add-workout" value="true" id="add-workout-submit-button" type="submit" class="btn-large orange-btn">Add workout</button>
+                        <div id="add-workout-submit-div">  
+                            <button id="add-workout-submit-button" class="btn waves-effect waves-light deep-orange accent-3" type="submit" value="true" name="submit-add-workout">Add workout
+                                <i class="material-icons right">send</i>
+                            </button>
                         </div>
                     </form>
                     

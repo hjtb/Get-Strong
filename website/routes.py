@@ -310,6 +310,8 @@ def add_workout():
     if add_workout_form.validate_on_submit():
         form_package = request.form.to_dict(flat=False)
 
+        workout_name=form_package['workout_name'][0]
+        comments=form_package['comments'][0]
         exercises = []
         for current_index in range(len(form_package['exercise'])):
             exercise_id = form_package['exercise'][current_index]
@@ -324,7 +326,7 @@ def add_workout():
 
             exercises.append(log_exercise)
 
-        workout = Workout(exercises=exercises, workout_name=form_package['workout_name'][0], comments=form_package['comments'][0])
+        workout = Workout(exercises=exercises, workout_name=workout_name, comments=comments)
 
         user = User.objects.filter(id = current_user.id).first()
         user.workouts.append(workout)
@@ -341,3 +343,31 @@ def add_workout():
         add_workout_form=add_workout_form, exercises=exercises
     )
 
+
+@app.route("/delete_workout")
+def delete_workout():
+    # Need to find a way to add Ids to workouts
+    try:
+        workout_id = request.args.get("id")
+        workout = Workout.objects().filter(id = workout_id).first()
+        workout_name = workout.workout_name
+        workout.delete()
+        flash(f'User {workout_name} has been deleted!', category="success")
+        return redirect(url_for('get_strong'))
+    except Exception as err:
+        flash(f'Error, could not delete workout error was {err}', category="error")
+        return redirect(url_for('get_strong'))
+
+
+@app.route("/edit_workout")
+def edit_workout():
+    # try:
+    #     workout_id = request.args.get("id")
+    #     workout = Workout.objects().filter(id = workout_id).first()
+    #     workout_name = workout.workout_name
+    #     workout.delete()
+    #     flash(f'User {workout_name} has been deleted!', category="success")
+    #     return redirect(url_for('get_strong'))
+    # except Exception as err:
+    #     flash(f'Error, could not delete workout error was {err}', category="error")
+        return redirect(url_for('get_strong'))
