@@ -36,7 +36,7 @@ def index():
     return "hello"
 
 
-# Profile Page
+# Home Page
 @app.route("/")
 @app.route("/get_strong")
 @login_required
@@ -57,6 +57,52 @@ def get_strong():
 
     return render_template(
         "get_strong.html", workouts=workouts, username=username, squats_progress=squats_progress
+    )
+
+
+# Profile Page
+@app.route("/")
+@app.route("/profile")
+@login_required
+def profile():
+    """
+    Displays the users profile and their 3 most recent workouts
+    """
+
+    squats_progress = 0
+    username = current_user.username
+    workouts = list(current_user.workouts)
+
+    for workout in workouts:
+        workout_name = workout.workout_name
+        exercises = list(workout.exercises)
+        for log_exercise in exercises:
+            print(f'workout:{workout_name} exercise name:{log_exercise.exercise.exercise_name} reps:{log_exercise.reps} sets:{log_exercise.sets} weight:{log_exercise.weight}')
+
+    return render_template(
+        "profile.html", workouts=workouts, username=username, squats_progress=squats_progress
+    )
+
+
+# All workouts page Page
+@app.route("/workouts")
+@login_required
+def workouts():
+    """
+    Displays the users workouts
+    """
+
+    username = current_user.username
+    workouts = list(current_user.workouts)
+
+    for workout in workouts:
+        workout_name = workout.workout_name
+        exercises = list(workout.exercises)
+        for log_exercise in exercises:
+            print(f'workout:{workout_name} exercise name:{log_exercise.exercise.exercise_name} reps:{log_exercise.reps} sets:{log_exercise.sets} weight:{log_exercise.weight}')
+
+    return render_template(
+        "workouts.html", workouts=workouts, username=username
     )
 
 

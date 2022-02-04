@@ -8,8 +8,6 @@ load_dotenv(os.path.join(basedir, '.env'),override=True)
 
 class Config:
 
-    # first the safe ones that we know the answer to
-
     # The application entry point
     FLASK_APP = 'wsgi.py'
 

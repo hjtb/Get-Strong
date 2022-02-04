@@ -28,11 +28,13 @@
             <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
             <ul class="right hide-on-med-and-down">
                 {% if current_user.is_authenticated %}
-                    <li><a href="{{ url_for('get_strong') }}">Profile</a></li>
+                    <li><a href="{{ url_for('get_strong') }}">Home</a></li>
+                    <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                    <li><a href="{{ url_for('workouts') }}">Workouts</a></li>
                     <li><a href="{{ url_for('add_workout') }}">Add Workout</a></li>
-                    <li><a href="{{ url_for('add_exercise') }}">Add Exercise</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                {% elif current_user.is_admin %}
+                    {% elif current_user.is_admin %}
+                    <li><a href="{{ url_for('add_exercise') }}">Add Exercise</a></li>
                     <li><a href="{{ url_for('edit_user') }}">Edit User</a></li>
                 {% else %}
                     <li><a href="{{ url_for('login') }}">Login</a></li>
@@ -44,11 +46,13 @@
         
     <ul class="sidenav deep-orange accent-3 flow-text" id="mobile-nav">
         {% if current_user.is_authenticated %}
-            <li><a href="{{ url_for('get_strong') }}">Profile</a></li>
+            <li><a href="{{ url_for('get_strong') }}">Home</a></li>
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('workouts') }}">Workouts</a></li>
             <li><a href="{{ url_for('add_workout') }}">Add Workout</a></li>
-            <li><a href="{{ url_for('add_exercise') }}">Add Exercises</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
-        {% elif current_user.is_admin %}
+            {% elif current_user.is_admin %}
+            <li><a href="{{ url_for('add_exercise') }}">Add Exercises</a></li>
             <li><a href="{{ url_for('edit_user') }}">Edit User</a></li>
         {% else %}
             <li><a href="{{ url_for('login') }}">Login</a></li>
