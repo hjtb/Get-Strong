@@ -2,7 +2,6 @@ from flask import (
     flash, render_template,
     redirect, request, url_for
 )
-from wtforms import ValidationError
 from flask_login import (
     LoginManager, login_user, login_required, logout_user, current_user
 )
@@ -148,8 +147,6 @@ def users():
     Page for an admin to manage users.
     """
     users = User.objects.all()
-    for user in users:
-        print(user.email)
     return render_template('users.html', users=users, current_user=current_user)
 
 
@@ -308,6 +305,8 @@ def add_workout():
     if add_workout_form.validate_on_submit():
         form_package = request.form.to_dict(flat=False)
 
+        workout_id = add_workout_form.workout_id.data
+        workout_name=form_package['workout_name'][0]
         workout_name=form_package['workout_name'][0]
         comments=form_package['comments'][0]
         exercises = []
@@ -324,7 +323,7 @@ def add_workout():
 
             exercises.append(log_exercise)
 
-        workout = Workout(exercises=exercises, workout_name=workout_name, comments=comments)
+        workout = Workout(workout_id=workout_id, exercises=exercises, workout_name=workout_name, comments=comments)
 
         user = User.objects.filter(id = current_user.id).first()
         user.workouts.append(workout)
