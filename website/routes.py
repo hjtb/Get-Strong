@@ -53,7 +53,7 @@ def profile():
             print(f'workout:{workout_name} exercise name:{log_exercise.exercise.exercise_name} reps:{log_exercise.reps} sets:{log_exercise.sets} weight:{log_exercise.weight}')
 
     return render_template(
-        "profile.html", workouts=workouts, username=username
+        "profile.html", workouts=workouts, username=username, current_user=current_user
     )
 
 
@@ -81,11 +81,11 @@ def register():
             flash("An account with this username already exists!!")
             return redirect(url_for("register"))
 
-        username= request.form.get("username").lower().strip()
-        email= request.form.get("email").lower().strip()
-        password= generate_password_hash(request.form.get("password"))
-        workouts= []
-        date=datetime.datetime.now
+        username = request.form.get("username").lower().strip()
+        email = request.form.get("email").lower().strip()
+        password = generate_password_hash(request.form.get("password"))
+        workouts = []
+        date = datetime.datetime.now
 
 
         user = User(username=username, email=email, password=password, workouts=workouts, date=date)
@@ -241,6 +241,7 @@ def edit_user():
 @app.route("/delete_user")
 @login_required
 def delete_user():
+    user = User.objects
     try:
         user_id = request.args.get("id")
         user = User.objects().filter(id = user_id).first()
@@ -347,12 +348,14 @@ def add_workout():
 @app.route("/delete_workout")
 @login_required
 def delete_workout():
-    # Need to find a way to add Ids to workouts
+    user = User.objects.filter(id = current_user.id).first()
     try:
-        workout_id = request.args.get("id")
-        workout = Workout.objects().filter(workout_id = workout_id).first()
+        workout_id = request.args.get("workout_id")
+        user_workouts = user.workouts
+        workout = user.workouts.filter(workout_id=workout_id).first()
         workout_name = workout.workout_name
-        workout.delete()
+        user_workouts.remove(workout)
+        user.save()
         flash(f'User {workout_name} has been deleted!', category="success")
         return redirect(url_for('profile'))
     except Exception as err:

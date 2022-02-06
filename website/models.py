@@ -11,7 +11,9 @@ db = MongoEngine()
 
 class SelectExercise(db.Document):
     exercise_name = db.StringField(max_length=30, min_length=6, required=True)
-
+    meta = {
+        'collection': 'select_exercises'
+    }
 
 class LogExercise(db.EmbeddedDocument):
     exercise = db.ReferenceField(SelectExercise)
@@ -24,7 +26,7 @@ class LogExercise(db.EmbeddedDocument):
 
 
 class Workout(db.EmbeddedDocument):
-    workout_id = db.StringField(default=uuid.uuid4().hex)
+    workout_id = db.StringField(primary_key=True, default=uuid.uuid4().hex)
     workout_date = db.DateTimeField(default=datetime.datetime.now)
     workout_name = db.StringField(max_length=30, min_length=4, required=True)
     exercises = db.EmbeddedDocumentListField(LogExercise)
