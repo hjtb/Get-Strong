@@ -9,7 +9,7 @@ from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
 from website.models import LogExercise, User, SelectExercise, Workout
 import datetime
-from website.forms import RegistrationForm, LoginForm, AddExerciseForm, AddWorkoutForm
+from website.forms import RegistrationForm, LoginForm, AddExerciseForm, AddWorkoutForm, EditWorkoutForm
 
 
 login_manager = LoginManager()
@@ -159,7 +159,7 @@ def edit_user():
     Page for an admin to edit and delete users.
     """
     try:
-        # Get the user email we clicked on from the users page and retrieve the user data from the db
+        # Get the user id we clicked on from the users page and retrieve the user data from the db
         user_id = request.args.get("id")
         user_to_be_edited = User.objects(id = user_id).first()
 
@@ -301,7 +301,7 @@ def add_workout():
     """
     Enables the user to enter new workouts
     """
-
+### Put a try in here
     username = current_user.username
     exercises = SelectExercise.objects.all()
     add_workout_form = AddWorkoutForm()
@@ -310,7 +310,6 @@ def add_workout():
         form_package = request.form.to_dict(flat=False)
 
         workout_id = add_workout_form.workout_id.data
-        workout_name=form_package['workout_name'][0]
         workout_name=form_package['workout_name'][0]
         comments=form_package['comments'][0]
         exercises = []
@@ -345,34 +344,93 @@ def add_workout():
     )
 
 
+# Edit Workout Page
+@app.route("/edit_workout", methods=['GET', 'POST'])
+@login_required
+def edit_workout():
+    """
+    Page for an admin to edit workouts.
+    """
+    edit_workout_form = EditWorkoutForm()
+    workout_id = request.args.get("workout_id")
+    try:
+        # Get the user id we clicked on from the users page and retrieve the user data from the db
+        user = User.objects.filter(id = current_user.id).first()
+        username = current_user.username
+        exercises = SelectExercise.objects.all()
+        workout = user.workouts.filter(workout_id=workout_id).first()
+
+    except Exception as err:
+        # Flash our error message if we can't retrieve the data and return to the users page
+        flash(f'Error, could not retrieve User: {username} error was {err}', category="error")
+        return redirect(url_for('profile'))
+
+    if edit_workout_form.validate_on_submit():
+        form_package = request.form.to_dict(flat=False)
+
+        workout_id = edit_workout_form.workout_id.data
+        workout_name=form_package['workout_name'][0]
+        comments=form_package['comments'][0]
+        exercises = []
+        for current_index in range(len(form_package['exercise'])):
+            exercise_id = form_package['exercise'][current_index]
+            if not exercise_id:
+                continue
+            exercise = SelectExercise.objects(id = exercise_id).first()
+            sets = int(form_package['sets'][current_index])
+            reps = int(form_package['reps'][current_index])
+            weight = int(form_package['weight'][current_index])
+
+            log_exercise = LogExercise(exercise=exercise, sets=sets, reps=reps, weight=weight)
+
+            exercises.append(log_exercise)
+
+        workout = Workout(workout_id=workout_id, exercises=exercises, workout_name=workout_name, comments=comments)
+
+        user = User.objects.filter(id = current_user.id).first()
+        user.workouts.append(workout)
+        user.save()
+
+
+        flash(f"Workout added successfully!")
+        return redirect(url_for("edit_workout"))
+
+
+
+    return render_template(
+        "add_workout.html",  username=username,
+        edit_workout_form=edit_workout_form, exercises=exercises, workout=workout
+    )
+
+
 @app.route("/delete_workout")
 @login_required
 def delete_workout():
-    user = User.objects.filter(id = current_user.id).first()
     try:
+        user = User.objects.filter(id = current_user.id).first()
         workout_id = request.args.get("workout_id")
         user_workouts = user.workouts
         workout = user.workouts.filter(workout_id=workout_id).first()
         workout_name = workout.workout_name
         user_workouts.remove(workout)
         user.save()
-        flash(f'User {workout_name} has been deleted!', category="success")
+        flash(f'Workout:{workout_name} has been deleted!', category="success")
         return redirect(url_for('profile'))
     except Exception as err:
         flash(f'Error, could not delete workout error was {err}', category="error")
         return redirect(url_for('profile'))
 
 
-@app.route("/edit_workout")
-@login_required
-def edit_workout():
-    # try:
-    #     workout_id = request.args.get("id")
-    #     workout = Workout.objects().filter(id = workout_id).first()
-    #     workout_name = workout.workout_name
-    #     workout.delete()
-    #     flash(f'User {workout_name} has been deleted!', category="success")
-    #     return redirect(url_for('profile'))
-    # except Exception as err:
-    #     flash(f'Error, could not delete workout error was {err}', category="error")
-        return redirect(url_for('profile'))
+# @app.route("/edit_workout")
+# @login_required
+# def edit_workout():
+#     # try:
+#     #     workout_id = request.args.get("id")
+#     #     workout = Workout.objects().filter(id = workout_id).first()
+#     #     workout_name = workout.workout_name
+#     #     workout.delete()
+#     #     flash(f'User {workout_name} has been deleted!', category="success")
+#     #     return redirect(url_for('profile'))
+#     # except Exception as err:
+#     #     flash(f'Error, could not delete workout error was {err}', category="error")
+#         return redirect(url_for('profile'))

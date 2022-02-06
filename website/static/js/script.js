@@ -18,10 +18,6 @@ $(document).ready(function(){
       if (!input.value){
         formOk = false;
       }
-      // console.log("value ", input.value, "name ", input.name);
-      // console.log(input);
-    }
-
     if(formOk == true){
       $("#add-workout-submit-button").prop('disabled', false);
     };

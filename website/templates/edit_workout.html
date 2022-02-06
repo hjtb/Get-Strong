@@ -3,12 +3,12 @@
 <div class="row">
     <h1 class="white-text">Logged in as: {{ username }}</h1>
 </div>
-<section>
+<!-- <section>
     <div class="container white-text">
         <div class="col s12 m6">
             <div class="card grey darken-3">
                 <div class="card-content white-text">
-                    <h1 class="form-header">Add Workout</h1>
+                    <h1 class="form-header">Edit Workout</h1>
                     <div id="template-1">
                         <div class="row add-exercises">
                             <div class="input-field col m4 s12">
@@ -39,6 +39,7 @@
                         <div class="divider green"></div>
                     </div>
                     <form id="add-workout-form" method="POST" action="">
+                        {{ add_workout_form.csrf_token }}
                         <div class="row">
                             <div class="input-field col s6">
                                 {{ add_workout_form.workout_name(class="white-text") }}
@@ -46,14 +47,14 @@
                             </div>
                         </div>
                         <div id="exercises-list">
-                            <!-- first initial exercise fields -->
+                            {% for exercise_row in exercise_rows %}
                             <div id="exercise-row">
                                 <div class="row add-exercises">
                                     <div class="input-field validate col m4 s12">
                                         <select name="exercise">
                                             <option value=""></option>
-                                            {% for exercise in exercises %}
-                                            <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
+                                            {% for exercise in select_exercises %}
+                                                <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
                                             {% endfor %}
                                         </select>
                                         <span class="helper-text white-text" data-error="wrong" data-success="right">Select an Exercise</span>
@@ -77,6 +78,7 @@
                                 <div class="divider green"></div>
                             </div>
                         </div>
+                        {% endfor %}
                         <a id="delete-exercise-button" class="btn-floating btn-large waves-effect waves-light red right offset-s3"><i class="material-icons">delete</i></a>
                         <a id="next-exercise-button" class="btn-floating btn-large waves-effect waves-light green offset-s3"><i class="material-icons">add</i></a>
                         <div class="row">
@@ -96,5 +98,5 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 {% endblock %}
