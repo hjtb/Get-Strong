@@ -142,6 +142,7 @@ def logout():
 
 # Users page for admins to manage the users
 @app.route("/users")
+@login_required
 def users():
     """
     Page for an admin to manage users.
@@ -152,6 +153,7 @@ def users():
 
 # Edit user functionality
 @app.route("/edit_user", methods=['GET', 'POST'])
+@login_required
 def edit_user():
     """
     Page for an admin to edit and delete users.
@@ -237,6 +239,7 @@ def edit_user():
 
 
 @app.route("/delete_user")
+@login_required
 def delete_user():
     try:
         user_id = request.args.get("id")
@@ -342,11 +345,12 @@ def add_workout():
 
 
 @app.route("/delete_workout")
+@login_required
 def delete_workout():
     # Need to find a way to add Ids to workouts
     try:
         workout_id = request.args.get("id")
-        workout = Workout.objects().filter(id = workout_id).first()
+        workout = Workout.objects().filter(workout_id = workout_id).first()
         workout_name = workout.workout_name
         workout.delete()
         flash(f'User {workout_name} has been deleted!', category="success")
@@ -357,6 +361,7 @@ def delete_workout():
 
 
 @app.route("/edit_workout")
+@login_required
 def edit_workout():
     # try:
     #     workout_id = request.args.get("id")
