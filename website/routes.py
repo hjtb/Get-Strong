@@ -9,7 +9,7 @@ from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
 from website.models import LogExercise, User, SelectExercise, Workout
 import datetime
-from website.forms import RegistrationForm, LoginForm, AddExerciseForm, AddWorkoutForm, EditWorkoutForm
+from website.forms import RegistrationForm, LoginForm, AddExerciseForm, AddWorkoutForm
 
 
 login_manager = LoginManager()

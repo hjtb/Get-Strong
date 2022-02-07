@@ -15,7 +15,7 @@
                                 <select name="exercise">
                                     <option value=""></option>
                                     {% for exercise in exercises %}
-                                    <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
+                                        <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
                                     {% endfor %}
                                 </select>
                                 <span class="helper-text white-text" data-error="wrong" data-success="right">Select an Exercise</span>
@@ -39,6 +39,7 @@
                         <div class="divider green"></div>
                     </div>
                     <form id="add-workout-form" method="POST" action="">
+                        {{ add_workout_form.hidden_tag() }}
                         <div class="row">
                             <div class="input-field col s6">
                                 {{ add_workout_form.workout_name(class="white-text") }}
@@ -91,6 +92,13 @@
                             </button>
                         </div>
                     </form>
+                    {% if add_workout_form.errors %}
+                        <ul class="errors">
+                            {% for error in add_workout_form.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}                    
                     
                 </div>
             </div>

@@ -10,17 +10,21 @@ $(document).ready(function(){
   // being submitted without all values filled in
   $("#add-workout-submit-button").prop('disabled', true);
   // function to check if all rows have been filled out
-  $("#add-workout-form").mouseover(function(){
+  $("#add-workout-submit-div").mouseover(function(){
     var formOk = true;
     var form = document.getElementById("add-workout-form");
     for (let index = 0; index < form.elements.length; index++) {
       const input = form.elements[index];
       if (!input.value){
         formOk = false;
+        console.log("It's not ok");
       }
-      if(formOk == true){
-        $("#add-workout-submit-button").prop('disabled', false);
-      };
+      console.log("value ", input.value, "name ", input.name);
+    }
+
+    if(formOk == true){
+      $("#add-workout-submit-button").prop('disabled', false);
+      console.log("It's OK!!!");
     };
   });
   // generate our exercise rows dynamically using buttons

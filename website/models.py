@@ -1,11 +1,8 @@
 import datetime
 import uuid
 from flask import current_app as app
-from mongoengine.fields import ReferenceField
 from flask_login import UserMixin
 from flask_mongoengine import MongoEngine
-from wtforms import (
-    PasswordField, StringField, IntegerField, EmailField, HiddenField, BooleanField, FloatField, SubmitField)
 db = MongoEngine()
 
 
@@ -26,7 +23,7 @@ class LogExercise(db.EmbeddedDocument):
 
 
 class Workout(db.EmbeddedDocument):
-    workout_id = db.StringField(primary_key=True, default=uuid.uuid4().hex)
+    workout_id = db.StringField(default=uuid.uuid4().hex)
     workout_date = db.DateTimeField(default=datetime.datetime.now)
     workout_name = db.StringField(max_length=30, min_length=4, required=True)
     exercises = db.EmbeddedDocumentListField(LogExercise)
