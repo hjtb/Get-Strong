@@ -11,7 +11,7 @@ So, I will create it here.
 ## **Goal for this project**
 
 To create an easy to use workout logging app which allows the creation of personalised workouts.
-Users will be able to review their progress over time and customise their workouts to fit their own objectives.
+User will be able to review their progress over time and customise their workouts to fit their own objectives.
 <a></a>
 
 ## Table of contents 
@@ -113,7 +113,7 @@ The types of data that are stored in the  database.
 - Binary
 
 
-Workouts Collection:
+Workout Collection:
 **Title**|**Key in Collection**|**Data Type**
 :-----:|:-----:|:-----:
 Workout Id|_id|ObjectId
@@ -132,13 +132,13 @@ Type ID|_id|ObjectID
 Exercise|exercise|String
 
 
-Users Collection:
+User Collection:
 **Title**|**Key in Collection**|**Data Type**
 :-----:|:-----:|:-----:
 User ID|_id|ObjectID
 Name|name|String
 Password|password|Binary
-Workouts|workouts|array
+Workout|workouts|array
 Admin|admin|boolean
 
 
@@ -216,11 +216,7 @@ I used this same [stackoverflow](https://stackoverflow.com/questions/16116319/ho
 ## **Bugs**
 
 * **Bug**  
-
-ImportError: cannot import name 'AddExercise' from partially initialized module 'forms' (most likely due to a circular import) (/workspace/Get-Strong/forms.py)
-When trying to add exercises dropdown list  
-
-
+https://stackoverflow.com/questions/29963847/select-element-doesnt-work-after-clone
 * **Fix**
 
 [Back to Top](#table-of-contents)

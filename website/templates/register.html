@@ -2,7 +2,7 @@
 {% block content %}
 <div class="row">
     <form method="POST" class="col s12 m8 offset-m2 l6 offset-l3" action="{{ url_for('register') }}">
-        {{ registration_form.csrf_token }}
+        {{ registration_form.hidden_tag() }}
         <div class="card-panel">
             <h1 class="center">Register</h1><br>
             <div class="row">

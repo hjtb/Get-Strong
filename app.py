@@ -4,7 +4,8 @@ from flask import (
     redirect, request, url_for
 )
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_pymongo import PyMongo
+#from flask_pymongo import PyMongo
+from flask_mongoengine import MongoEngine
 from flask_login import (
     LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 )
@@ -19,11 +20,20 @@ import datetime
 
 app = Flask(__name__)
 
-app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
-app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+#app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+#app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
-mongo = PyMongo(app)
+app.config['MONGODB_SETTINGS'] = dict(host = os.environ.get("MONGO_URI"))
+#app.config['MONGODB_DB'] = os.environ.get("MONGO_DBNAME")
+#app.config['MONGODB_HOST'] = '192.168.1.35'
+#app.config['MONGODB_PORT'] = 12345
+#app.config['MONGODB_USERNAME'] = 'webapp'
+#app.config['MONGODB_PASSWORD'] = 'pwd123'
+
+
+#mongo = PyMongo(app)
+db = MongoEngine(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -35,7 +45,7 @@ def load_user(user_id):
     """
     login manager returns a user object and ID to login a user
     """
-    user_obj = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    user_obj = db.users.find_one({'_id': ObjectId(user_id)})
     if not user_obj:
         user_obj = dict(email=None, username=None, _id=None)
     print(user_id)
@@ -53,7 +63,7 @@ def get_strong():
 
     username = current_user.username
     workouts = list(
-        mongo.db.workouts.find({'user': current_user.username}))
+        db.workouts.find({'user': current_user.username}))
 
     return render_template(
         "get_strong.html", workouts=workouts, username=username
@@ -72,9 +82,9 @@ def register():
     registration_form = RegistrationForm()
 
     if registration_form.validate_on_submit():
-        existing_user = mongo.db.users.find_one(
+        existing_user = db.users.find_one(
             {"email": request.form.get("email").lower()})
-        username_taken = mongo.db.users.find_one(
+        username_taken = db.users.find_one(
             {"username": request.form.get("username").lower()})
 
         if existing_user or username_taken:
@@ -89,7 +99,7 @@ def register():
             "is_admin": True,
         }
 
-        mongo.db.users.insert_one(new_user)
+        db.users.insert_one(new_user)
 
         flash("Sign up Successful!")
         return redirect(url_for("get_strong"))
@@ -111,7 +121,7 @@ def login():
     #session["global_exercises"] = global_exercises
     if login_form.validate_on_submit():
         # Check for existing user in DB
-        existing_user = mongo.db.users.find_one(
+        existing_user = db.users.find_one(
             {"email": request.form.get("email").lower()})
 
         if existing_user:
@@ -152,64 +162,9 @@ def add_workout():
 
     # retrieve the username so we can query the associated objects from the db
     username = current_user.username
-
-    # retrieve the current users workouts so we can ensure no dupe is created
-    user_workouts_names = []
-    user_workouts = list(
-        mongo.db.workouts.find({'user': current_user.username}))
-    for user_workout in user_workouts:
-        user_workouts_names.append(user_workout["workout_name"])
-
-    print(user_workouts_names)
-
-    # One way or another, we now have a workout
-    add_workout_form = AddWorkout()
-
-    # retrieve the exercises from the db and set them as our choices in the SelectField in our form
-    db_list_exercises = list(mongo.db.exercises.find())
-    add_workout_form.exercise_name.choices = [
-        (exercise["exercise_name"].lower(),
-            exercise["exercise_name"].title()) for exercise in db_list_exercises
-    ]
-
-    # add validation to check if the workout name already exists
-    # add_workout_form.workout_name.validators = [InputRequired(), NoneOf(
-    #     user_workouts_names, message='Workout name already exists'),
     #     Length(min=4, max=30, message='Length must be 4-30 characters long')]
-
     if add_workout_form.validate_on_submit():
-        # validate_type_name(add_workout_form, request.form['workout_name'])
-        new_workout = {}
-        new_workout['workout_name'] = request.form['workout_name'].lower().strip()
-        new_workout['comments'] = request.form['comments']
-        new_workout["user"] = username
-        new_workout["time"] = datetime.datetime.now()
-
-        # This is a very disruptive way of ensuring no duplicates.
-        # Above validators method is far better but 
-        # it won't display the message for some reason
-        print(request.form['workout_name'])
-        workout_already_exists = request.form['workout_name'].lower() in (
-            user_workouts_names)
-
-        if workout_already_exists:
-            flash(f"A workout named {request.form['workout_name']} exists!")
-            return redirect(url_for("add_workout"))
-
-        exercises = []
-
-        exercise_row = {
-            "exercise_name": add_workout_form.exercise_name.data,
-            "sets": add_workout_form.sets.data,
-            "reps": add_workout_form.reps.data,
-            "weight": add_workout_form.weight.data
-        }
-
-        print(f"New Exercise Row: {exercise_row}")
-        exercises.append(exercise_row)
-
-        # Add exercises to the new workout dict
-        new_workout["exercises"] = exercises
+        db.users.insert_one(new_workout)
 
         mongo.db.workouts.insert_one(new_workout)
 
@@ -321,7 +276,7 @@ def add_exercise():
     """
     page for admin user to add new exercises to database
     """
-    exercises = list(mongo.db.exercises.find())
+    exercises = list(db.exercises.find())
     add_exercise_form = AddExercise()
 
     # check if current user is_admin
@@ -330,7 +285,7 @@ def add_exercise():
         if add_exercise_form.validate_on_submit():
 
             # check if exercise already exists
-            exercise_exists = mongo.db.exercises.find_one(
+            exercise_exists = db.exercises.find_one(
                 {"exercise_name": request.form.get("exercise_name")}
             )
 
@@ -343,7 +298,7 @@ def add_exercise():
             }
 
             flash(f"{exercise['exercise_name']} added to database")
-            mongo.db.exercises.insert_one(exercise)
+            db.exercises.insert_one(exercise)
             return redirect(url_for("add_exercise"))
 
     if current_user.is_admin:
