@@ -9,7 +9,7 @@ from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
 from website.models import LogExercise, User, SelectExercise, Workout
 import datetime
-from website.forms import RegistrationForm, LoginForm, AddExerciseForm, AddWorkoutForm
+from website.forms import RegistrationForm, LoginForm, AddExerciseForm, AddWorkoutForm, EditWorkoutForm
 
 
 login_manager = LoginManager()
@@ -304,7 +304,7 @@ def add_workout():
     """
 ### Put a try in here
     username = current_user.username
-    exercises = SelectExercise.objects.all()
+    select_exercises = SelectExercise.objects.all()
     add_workout_form = AddWorkoutForm()
 
     if add_workout_form.validate_on_submit():
@@ -341,7 +341,7 @@ def add_workout():
 
     return render_template(
         "add_workout.html",  username=username,
-        add_workout_form=add_workout_form, exercises=exercises
+        add_workout_form=add_workout_form, select_exercises=select_exercises
     )
 
 
@@ -358,8 +358,10 @@ def edit_workout():
         # Get the user id we clicked on from the users page and retrieve the user data from the db
         user = User.objects.filter(id = current_user.id).first()
         username = current_user.username
-        exercises = SelectExercise.objects.all()
-        workout = user.workouts.filter(workout_id=workout_id).first()
+        select_exercises = SelectExercise.objects.all()
+        workout_to_be_edited = user.workouts.filter(workout_id=workout_id).first()
+        exercises_to_be_edited = workout_to_be_edited.exercises
+        edit_workout_form.workout_name.data = workout_to_be_edited.workout_name
 
     except Exception as err:
         # Flash our error message if we can't retrieve the data and return to the users page
@@ -369,7 +371,6 @@ def edit_workout():
     if edit_workout_form.validate_on_submit():
         form_package = request.form.to_dict(flat=False)
 
-        workout_id = edit_workout_form.workout_id.data
         workout_name=form_package['workout_name'][0]
         comments=form_package['comments'][0]
         exercises = []
@@ -386,10 +387,11 @@ def edit_workout():
 
             exercises.append(log_exercise)
 
-        workout = Workout(workout_id=workout_id, exercises=exercises, workout_name=workout_name, comments=comments)
+        workout_edited = Workout(workout_id=workout_id, exercises=exercises, workout_name=workout_name, comments=comments)
 
         user = User.objects.filter(id = current_user.id).first()
-        user.workouts.append(workout)
+        workout_deleted = user.workouts.remove(workout_to_be_edited)
+        workout_updated = user.workouts.append(workout_edited)
         user.save()
 
 
@@ -399,8 +401,9 @@ def edit_workout():
 
 
     return render_template(
-        "add_workout.html",  username=username,
-        edit_workout_form=edit_workout_form, exercises=exercises, workout=workout
+        "edit_workout.html",  username=username,
+        edit_workout_form=edit_workout_form, select_exercises=select_exercises, 
+        workout_to_be_edited=workout_to_be_edited, exercises_to_be_edited=exercises_to_be_edited
     )
 
 

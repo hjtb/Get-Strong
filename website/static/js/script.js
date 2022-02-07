@@ -60,4 +60,5 @@ $(document).ready(function(){
     };
     $(".added-exercise:last-of-type").remove();
   });
+  $(".edit-exercises select").formSelect();
 });
