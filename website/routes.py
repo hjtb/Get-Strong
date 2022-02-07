@@ -36,6 +36,7 @@ def index():
 
 
 # Profile Page
+@app.route("/")
 @app.route("/profile")
 @login_required
 def profile():

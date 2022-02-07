@@ -18,8 +18,9 @@ $(document).ready(function(){
       if (!input.value){
         formOk = false;
       }
-    if(formOk == true){
-      $("#add-workout-submit-button").prop('disabled', false);
+      if(formOk == true){
+        $("#add-workout-submit-button").prop('disabled', false);
+      };
     };
   });
   // generate our exercise rows dynamically using buttons
@@ -41,6 +42,7 @@ $(document).ready(function(){
     // initialise the select dropdown for materialize on each of the new rows
     $(`#${rowId} select`).formSelect();
   });
+
   // delete row functionality on the delete button
   $("#delete-exercise-button").click(function(){
     counter--;
