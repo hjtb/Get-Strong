@@ -8,8 +8,9 @@ from flask_login import (
 from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
 from website.models import LogExercise, User, SelectExercise, Workout
-import datetime
 from website.forms import RegistrationForm, LoginForm, AddExerciseForm, AddWorkoutForm, EditWorkoutForm
+import datetime
+import uuid
 
 
 login_manager = LoginManager()
@@ -310,7 +311,7 @@ def add_workout():
     if add_workout_form.validate_on_submit():
         form_package = request.form.to_dict(flat=False)
 
-        workout_id = add_workout_form.workout_id.data
+        workout_id = uuid.uuid4().hex
         workout_name=form_package['workout_name'][0]
         comments=form_package['comments'][0]
         exercises = []
@@ -354,6 +355,8 @@ def edit_workout():
     """
     edit_workout_form = EditWorkoutForm()
     workout_id = request.args.get("workout_id")
+
+    
     try:
         # Get the user id we clicked on from the users page and retrieve the user data from the db
         user = User.objects.filter(id = current_user.id).first()
@@ -368,6 +371,7 @@ def edit_workout():
         # Flash our error message if we can't retrieve the data and return to the users page
         flash(f'Error, could not retrieve User: {username} error was {err}', category="error")
         return redirect(url_for('profile'))
+
 
     if edit_workout_form.validate_on_submit():
         form_package = request.form.to_dict(flat=False)
@@ -396,8 +400,8 @@ def edit_workout():
         user.save()
 
 
-        flash(f"Workout added successfully!")
-        return redirect(url_for("edit_workout"))
+        flash(f"Workout updated successfully!")
+        return redirect(url_for("profile"))
 
 
 

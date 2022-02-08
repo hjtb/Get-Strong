@@ -12,7 +12,7 @@ $(document).ready(function(){
   // function to check if all rows have been filled out
   $("#add-workout-submit-div").mouseover(function(){
     var formOk = true;
-    var form = document.getElementById("add-workout-form");
+    var form = document.getElementById("workout-form");
     for (let index = 0; index < form.elements.length; index++) {
       const input = form.elements[index];
       if (!input.value){
