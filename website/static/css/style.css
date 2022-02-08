@@ -40,7 +40,6 @@ nav li>a:hover{
     max-height: 50px;
     margin-left: 20px;
     margin-top: 10px;
-    display: none;
 }
 
 #title {
@@ -108,6 +107,6 @@ footer {
 
 @media (max-width: 1200px) {
     .brand-logo img {
-        display: none !important;
+        display: none;
     }
 }
