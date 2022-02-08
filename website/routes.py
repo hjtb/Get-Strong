@@ -362,6 +362,7 @@ def edit_workout():
         workout_to_be_edited = user.workouts.filter(workout_id=workout_id).first()
         exercises_to_be_edited = workout_to_be_edited.exercises
         edit_workout_form.workout_name.data = workout_to_be_edited.workout_name
+        edit_workout_form.comments.data = workout_to_be_edited.comments
 
     except Exception as err:
         # Flash our error message if we can't retrieve the data and return to the users page
@@ -390,8 +391,8 @@ def edit_workout():
         workout_edited = Workout(workout_id=workout_id, exercises=exercises, workout_name=workout_name, comments=comments)
 
         user = User.objects.filter(id = current_user.id).first()
-        workout_deleted = user.workouts.remove(workout_to_be_edited)
-        workout_updated = user.workouts.append(workout_edited)
+        old_workout_deleted = user.workouts.remove(workout_to_be_edited)
+        new_workout_added = user.workouts.append(workout_edited)
         user.save()
 
 
@@ -423,18 +424,3 @@ def delete_workout():
     except Exception as err:
         flash(f'Error, could not delete workout error was {err}', category="error")
         return redirect(url_for('profile'))
-
-
-# @app.route("/edit_workout")
-# @login_required
-# def edit_workout():
-#     # try:
-#     #     workout_id = request.args.get("id")
-#     #     workout = Workout.objects().filter(id = workout_id).first()
-#     #     workout_name = workout.workout_name
-#     #     workout.delete()
-#     #     flash(f'User {workout_name} has been deleted!', category="success")
-#     #     return redirect(url_for('profile'))
-#     # except Exception as err:
-#     #     flash(f'Error, could not delete workout error was {err}', category="error")
-#         return redirect(url_for('profile'))
