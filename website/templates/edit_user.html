@@ -11,14 +11,17 @@
             <div class="row">
                 <div>{{ render_field(edit_user_form.email, value=user_to_be_edited.email) }}</div>
             </div>
-            <div class="row">
-                <div class="input-field col s10 offset-s1">
-                  <input id="password" type="password" maxlength="30" minlength="8" class="validate">
-                  <label for="password">Password (Optional)</label>
-                  <span class="helper-text" data-error="must be between 8-30 characters long" data-success="Valid Password">8-30 characters</span>
+            {% if user_to_be_edited.email == current_user.email %}
+                <div class="row">
+                    <div class="input-field col s10 offset-s1">
+                    <input id="password" type="password" maxlength="30" minlength="8" class="validate">
+                    <label for="password">Password (Optional)</label>
+                    <span class="helper-text" data-error="must be between 8-30 characters long" data-success="Valid Password">8-30 characters</span>
+                    </div>
                 </div>
-              </div>
+            {% endif %}
             <input type="hidden" id="id" name="id" value="{{ user_to_be_edited.id }}">
+            
             <div class="row">
                 <button type="submit" class="btn waves-effect waves-light blue-grey darken-3 z-depth-3 col s6 offset-s3" name="action">
                     Submit Changes<i class="fas fa-paper-plane"></i>

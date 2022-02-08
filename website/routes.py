@@ -95,7 +95,7 @@ def register():
         if saved:
             flash("Sign up Successful!")
             login_user(saved)
-            return redirect(url_for('users'))
+            return redirect(url_for('manage_users'))
     return render_template('register.html', registration_form=registration_form)
 
 
@@ -142,15 +142,16 @@ def logout():
     logout_user()
     return redirect(url_for("login"))
 
+
 # Users page for admins to manage the users
-@app.route("/users")
+@app.route("/manage_users")
 @login_required
-def users():
+def manage_users():
     """
     Page for an admin to manage users.
     """
     users = User.objects.all()
-    return render_template('users.html', users=users, current_user=current_user)
+    return render_template('manage_users.html', users=users, current_user=current_user)
 
 
 # Edit user functionality
@@ -168,7 +169,7 @@ def edit_user():
     except Exception as err:
         # Flash our error message if we can't retrieve the data and return to the users page
         flash(f'Error, could not edit user error was {err}', category="error")
-        return redirect(url_for('users'))
+        return redirect(url_for('manage_users'))
 
     # Use our registration form template
     edit_user_form = RegistrationForm()
@@ -186,7 +187,7 @@ def edit_user():
         except Exception as err:
             # Flash our error message if we can't retrieve the data and return to the users page
             flash(f'Error, could not edit user error was {err}', category="error")
-            return redirect(url_for('users'))
+            return redirect(url_for('manage_users'))
 
         # Get our data from the edit user form
         form_username = edit_user_form.username.data
@@ -233,7 +234,7 @@ def edit_user():
         user_to_be_edited.update(username=username, email=email, password=password)
 
         flash(f'User {username} with email {email} has been updated!', category="success")
-        return redirect(url_for('users'))
+        return redirect(url_for('manage_users'))
 
     edit_user_form.password.validators = []
     print(edit_user_form.errors)
@@ -250,10 +251,10 @@ def delete_user():
         username = user.username
         user.delete()
         flash(f'User {username} has been deleted!', category="success")
-        return redirect(url_for('users'))
+        return redirect(url_for('manage_users'))
     except Exception as err:
         flash(f'Error, could not delete user error was {err}', category="error")
-        return redirect(url_for('users'))
+        return redirect(url_for('manage_users'))
 
 
 
