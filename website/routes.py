@@ -337,7 +337,7 @@ def add_workout():
 
 
         flash(f"Workout added successfully!")
-        return redirect(url_for("add_workout"))
+        return redirect(url_for("profile"))
 
 
 
