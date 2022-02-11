@@ -48,12 +48,13 @@
                             <div id="exercises-list">
                                 <!-- first initial exercises to be edited -->
                                 {% for exercise in exercises_to_be_edited %}
+                                <div class="edit-exercise">
                                     <div class="row added-exercise">
                                         <div class="input-field col m4 s12">
                                             <select name="exercise">
                                                 <option value="{{ exercise.exercise.id }}">{{ exercise.exercise.exercise_name|title }}</option>
                                                 {% for select_exercise in select_exercises if not select_exercise.exercise_name == exercise.exercise.exercise_name %}
-                                                        <option value="{{ exercise.id }}">{{ select_exercise.exercise_name|title }}</option>
+                                                <option value="{{ exercise.id }}">{{ select_exercise.exercise_name|title }}</option>
                                                 {% endfor %}
                                             </select>
                                             <span class="helper-text white-text" data-error="wrong" data-success="right">Select an Exercise</span>
@@ -74,6 +75,7 @@
                                             <span class="helper-text white-text" data-error="1-500kg"></span>
                                         </div>
                                     </div>
+                                </div>
                                 {% endfor %}
                             </div>
                             <a id="delete-exercise-button" class="btn-floating btn-large waves-effect waves-light red right offset-s3"><i class="material-icons">delete</i></a>

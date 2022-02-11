@@ -6,6 +6,7 @@ $(document).ready(function(){
   $('.sidenav').sidenav();
   $('.flash').fadeIn('slow').delay(2000).fadeOut(5000);
   $('#exercise-row select').formSelect();
+  $('.edit-exercise select').formSelect();
   $('#comments').val('');
   $("#delete-exercise-button").hide();
   $("#template-1").hide();
@@ -65,7 +66,7 @@ $(document).ready(function(){
     if (counter <= 1){
       $("#delete-exercise-button").hide();
     };
-    $(".added-exercise:last-of-type").remove();
+    $(".added-exercise").last().remove();
     console.log($(".added-exercise:last-of-type"))
   });
   // $(".added-exercise select").formSelect();
