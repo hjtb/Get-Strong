@@ -10,7 +10,7 @@
                 <div class="card-content">
                     <h1 class="form-header">Add Workout</h1>
                     <div id="template-1">
-                        <div class="row add-exercises">
+                        <div class="row">
                             <div class="input-field col m4 s12">
                                 <select name="exercise">
                                     <option value=""></option>
@@ -36,7 +36,6 @@
                                 <span class="helper-text white-text" data-error="1-500kg"></span>
                             </div>
                         </div>
-                        <div class="divider green"></div>
                     </div>
                     <form id="workout-form" method="POST" action="">
                         {{ add_workout_form.hidden_tag() }}
@@ -49,7 +48,7 @@
                         <div id="exercises-list">
                             <!-- first initial exercise fields -->
                             <div id="exercise-row">
-                                <div class="row add-exercises">
+                                <div class="row added-exercise">
                                     <div class="input-field col m4 s12">
                                         <select name="exercise">
                                             <option value=""></option>
@@ -75,7 +74,6 @@
                                         <span class="helper-text white-text" data-error="1-500kg"></span>
                                     </div>
                                 </div>
-                                <div class="divider green"></div>
                             </div>
                         </div>
                         <a id="delete-exercise-button" class="btn-floating btn-large waves-effect waves-light red right offset-s3"><i class="material-icons">delete</i></a>

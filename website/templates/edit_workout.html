@@ -9,6 +9,34 @@
                 <div class="card grey darken-3">
                     <div class="card-content">
                         <h1 class="form-header">Edit Workout</h1>
+                        <div id="template-1">
+                            <div class="row">
+                                <div class="input-field col m4 s12">
+                                    <select name="exercise">
+                                        <option value=""></option>
+                                        {% for exercise in select_exercises %}
+                                            <option value="{{ exercise.id }}">{{ exercise.exercise_name|title }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <span class="helper-text white-text" data-error="wrong" data-success="right">Select an Exercise</span>
+                                </div>
+                                <div class="input-field col m1 push-m1 s2">
+                                    <input class="validate white-text" type="number" min="1" max="10" name="sets">
+                                    <label for="sets">Sets:</label>
+                                    <span class="helper-text white-text" data-error="1-10 Sets"></span>
+                                </div>
+                                <div class="input-field col m1 push-m2 s2">
+                                    <input class="validate white-text" type="number" min="1" max="200" name="reps">
+                                    <label for="reps">Reps:</label>
+                                    <span class="helper-text white-text" data-error="1-200 Reps"></span>
+                                </div>
+                                <div class="input-field col m1 push-m3 s2">
+                                    <input class="validate white-text" type="number" min="1" max="500" name="weight">
+                                    <label for="weight">Weight(kg):</label>
+                                    <span class="helper-text white-text" data-error="1-500kg"></span>
+                                </div>
+                            </div>
+                        </div>
                         <form id="workout-form" method="POST" action="">
                             {{ edit_workout_form.hidden_tag() }}
                             <div class="row">
@@ -46,7 +74,6 @@
                                             <span class="helper-text white-text" data-error="1-500kg"></span>
                                         </div>
                                     </div>
-                                    <div class="divider green"></div>
                                 {% endfor %}
                             </div>
                             <a id="delete-exercise-button" class="btn-floating btn-large waves-effect waves-light red right offset-s3"><i class="material-icons">delete</i></a>
