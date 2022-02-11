@@ -91,7 +91,7 @@ footer {
     left: 0;
     bottom: 0;
     width: 100%;
-  }
+}
 
 @media (max-width: 400px) {
     .footer-copyright a {

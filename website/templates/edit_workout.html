@@ -10,7 +10,7 @@
                     <div class="card-content">
                         <h1 class="form-header">Edit Workout</h1>
                         <div id="template-1">
-                            <div class="row add-exercises">
+                            <div class="row">
                                 <div class="input-field col m4 s12">
                                     <select name="exercise">
                                         <option value=""></option>
@@ -36,7 +36,6 @@
                                     <span class="helper-text white-text" data-error="1-500kg"></span>
                                 </div>
                             </div>
-                            <div class="divider green"></div>
                         </div>
                         <form id="workout-form" method="POST" action="">
                             {{ edit_workout_form.hidden_tag() }}
@@ -49,12 +48,13 @@
                             <div id="exercises-list">
                                 <!-- first initial exercises to be edited -->
                                 {% for exercise in exercises_to_be_edited %}
-                                    <div class="row edit-exercises">
+                                <div class="edit-exercise">
+                                    <div class="row added-exercise">
                                         <div class="input-field col m4 s12">
                                             <select name="exercise">
                                                 <option value="{{ exercise.exercise.id }}">{{ exercise.exercise.exercise_name|title }}</option>
                                                 {% for select_exercise in select_exercises if not select_exercise.exercise_name == exercise.exercise.exercise_name %}
-                                                        <option value="{{ exercise.id }}">{{ select_exercise.exercise_name|title }}</option>
+                                                <option value="{{ exercise.id }}">{{ select_exercise.exercise_name|title }}</option>
                                                 {% endfor %}
                                             </select>
                                             <span class="helper-text white-text" data-error="wrong" data-success="right">Select an Exercise</span>
@@ -75,7 +75,7 @@
                                             <span class="helper-text white-text" data-error="1-500kg"></span>
                                         </div>
                                     </div>
-                                    <div class="divider green"></div>
+                                </div>
                                 {% endfor %}
                             </div>
                             <a id="delete-exercise-button" class="btn-floating btn-large waves-effect waves-light red right offset-s3"><i class="material-icons">delete</i></a>
@@ -91,15 +91,7 @@
                                     <i class="material-icons right">send</i>
                                 </button>
                             </div>
-                        </form>
-                        {% if edit_workout_form.errors %}
-                            <ul class="errors">
-                                {% for error in edit_workout_form.errors %}
-                                    <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}                    
-                        
+                        </form>                                       
                     </div>
                 </div>
             </div>
