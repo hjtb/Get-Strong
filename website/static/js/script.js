@@ -1,3 +1,5 @@
+const form =  document.querySelector("#workout-form");
+var counter = 0;
 $(document).ready(function(){
   $('.sidenav').sidenav();
   $('.flash').fadeIn('slow').delay(2000).fadeOut(5000);
@@ -6,13 +8,18 @@ $(document).ready(function(){
   $("#delete-exercise-button").hide();
   $("#template-1").hide();
   M.textareaAutoResize($('#comments'));
+  counter = $(".added-exercise").length - 1;
+  console.log(counter);
+  if (counter >= 1){
+    $("#delete-exercise-button").show();
+  };
   // initially disable the submit button to prevent a form
   // being submitted without all values filled in
   $("#add-workout-submit-button").prop('disabled', true);
   // function to check if all rows have been filled out
   $("#add-workout-submit-div").mouseover(function(){
     var formOk = true;
-    var form = document.getElementById("workout-form");
+    //var form = document.getElementById("workout-form");
     for (let index = 0; index < form.elements.length; index++) {
       const input = form.elements[index];
       if (!input.value){
@@ -21,14 +28,12 @@ $(document).ready(function(){
       }
       console.log("value ", input.value, "name ", input.name);
     }
-
     if(formOk == true){
       $("#add-workout-submit-button").prop('disabled', false);
       console.log("It's OK!!!");
     };
   });
   // generate our exercise rows dynamically using buttons
-  var counter = 0;
   $("#next-exercise-button").click(function(){
     // ensure the submit button stays disabled when we add a new row
     $("#add-workout-submit-button").prop('disabled', true);
@@ -46,7 +51,6 @@ $(document).ready(function(){
     // initialise the select dropdown for materialize on each of the new rows
     $(`#${rowId} select`).formSelect();
   });
-
   // delete row functionality on the delete button
   $("#delete-exercise-button").click(function(){
     counter--;
@@ -59,6 +63,7 @@ $(document).ready(function(){
       $("#delete-exercise-button").hide();
     };
     $(".added-exercise:last-of-type").remove();
+    console.log($(".added-exercise:last-of-type"));
   });
-  $(".edit-exercises select").formSelect();
+  $(".added-exercise select").formSelect();
 });
