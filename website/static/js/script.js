@@ -1,5 +1,5 @@
 var form =  document.querySelector("#workout-form");
-var exerciseList =  document.querySelector("#exercises-list");
+const exerciseList =  document.querySelector("#exercises-list");
 var rowLimit = 10;
 function getCounter(){
   var numberOfChildren = exerciseList.childElementCount;
