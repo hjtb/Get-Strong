@@ -304,10 +304,17 @@ def add_workout():
     """
     Enables the user to enter new workouts
     """
-### Put a try in here
-    username = current_user.username
-    select_exercises = SelectExercise.objects.all()
-    add_workout_form = AddWorkoutForm()
+    
+    try:
+        # get the username, exercise list and form ready
+        username = current_user.username
+        select_exercises = SelectExercise.objects.all()
+        add_workout_form = AddWorkoutForm()
+    except Exception as err:
+        flash(f'Error, could not load add workout page, error was {err}', category="error")
+        return redirect(url_for('profile'))
+
+
 
     if add_workout_form.validate_on_submit():
         form_package = request.form.to_dict(flat=False)
@@ -367,6 +374,7 @@ def edit_workout():
         exercises_to_be_edited = workout_to_be_edited.exercises
         edit_workout_form.workout_name.data = workout_to_be_edited.workout_name
         edit_workout_form.comments.data = workout_to_be_edited.comments
+        edit_workout_form.workout_date.data = workout_to_be_edited.workout_date
 
     except Exception as err:
         # Flash our error message if we can't retrieve the data and return to the users page
@@ -378,6 +386,7 @@ def edit_workout():
         form_package = request.form.to_dict(flat=False)
 
         workout_name=form_package['workout_name'][0]
+        workout_date=form_package['workout_date'][0]
         comments=form_package['comments'][0]
         exercises = []
         for current_index in range(len(form_package['exercise'])):
@@ -393,7 +402,7 @@ def edit_workout():
 
             exercises.append(log_exercise)
 
-        workout_edited = Workout(workout_id=workout_id, exercises=exercises, workout_name=workout_name, comments=comments)
+        workout_edited = Workout(workout_id=workout_id, workout_date=workout_date, exercises=exercises, workout_name=workout_name, comments=comments)
 
         user = User.objects.filter(id = current_user.id).first()
         old_workout_deleted = user.workouts.remove(workout_to_be_edited)

@@ -39,6 +39,7 @@
                         </div>
                         <form id="workout-form" method="POST" action="">
                             {{ edit_workout_form.hidden_tag() }}
+                            <div class="hide">{{ edit_workout_form.workout_date }}</div>
                             <div class="row">
                                 <div class="input-field col s6">
                                     {{ edit_workout_form.workout_name(class="white-text active") }}
@@ -82,12 +83,13 @@
                             <a id="next-exercise-button" class="btn-floating btn-large waves-effect waves-light green offset-s3"><i class="material-icons">add</i></a>
                             <div class="row">
                                 <div class="input-field col s12">
+                                    <i class="material-icons prefix">mode_edit</i>
                                     {{ edit_workout_form.comments(class="materialize-textarea white-text") }}
                                     <label class="active" for="comments">Comments:</label>
                                 </div>
                             </div>
                             <div id="add-workout-submit-div">  
-                                <button id="add-workout-submit-button" class="btn waves-effect waves-light deep-orange accent-3" type="submit" value="true" name="submit-add-workout">Add workout
+                                <button id="add-workout-submit-button" class="btn waves-effect waves-light deep-orange accent-3" type="submit" value="true" name="submit-add-workout">Update workout
                                     <i class="material-icons right">send</i>
                                 </button>
                             </div>
