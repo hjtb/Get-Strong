@@ -18,6 +18,7 @@
     {% block styles %}
     {% endblock %}
     <title>Get Strong</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/get_strong_logo.png') }}">
 </head>
 <body>
 <header>
@@ -63,19 +64,23 @@
     </ul>
 </header>
 <section>
+    <div class="flash-container">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
-                    <div id="flash" class="flash blue-grey darken-3">
-                        <h2 class="deep-orange-text text-accent-3 center-align flow-text">{{ message }}</h2>
+                    <div class="flash deep-orange accent-3">
+                        <div class="white-text accent-3 center-align flow-text">{{ message }}</div>
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
+    </div>
 </section>
 <main>
-    {% block content %}
-    {% endblock %}
+    <div class="container white-text">
+        {% block content %}
+        {% endblock %}
+    </div>
 </main>
 <footer class="page-footer deep-orange accent-3 blue-grey-text text-darken-3">
     <div class="footer-copyright">

@@ -6,7 +6,7 @@ db = MongoEngine()
 
 
 class SelectExercise(db.Document):
-    exercise_name = db.StringField(max_length=30, min_length=6, required=True)
+    exercise_name = db.StringField(max_length=30, min_length=4, required=True)
     meta = {
         'collection': 'select_exercises'
     }

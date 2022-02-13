@@ -18,4 +18,4 @@ LoginForm = model_form(User, only=['email', 'password'], field_args={'password':
 AddWorkoutForm = model_form(Workout, field_args={'comments': {'textarea': True}})
 
 # Using the Workout class we instantiate the EditWorkoutForm
-EditWorkoutForm = model_form(Workout, exclude=['workout_date'], field_args={'comments': {'textarea': True}})
+EditWorkoutForm = model_form(Workout, field_args={'comments': {'textarea': True}})

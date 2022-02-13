@@ -2,25 +2,39 @@
 {% block content %}
 <div class="row">
     <div class="col s10 offset-s1">
-        <h5 class="white-text">{{ username }}'s Profile</h5>
+        <h2 class="white-text">Manage Users</h2>
     </div>
 </div>
 
 <div class="row">
     {% for user in users %}
-        <div class="col s12 m6 l4">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">{{ user.username }}</span>
-                    <span class="card-title">{{ user.email }}</span>
-                    <span class="card-title">{{ user.date }}</span>
-                    <p></p>
+        <div class="col s12 m6 l4 center-align">
+            <div class="card workout-card flow-text white-text medium grey darken-3">
+                <div class="card-content center-align deep-orange-text text-accent-3">
+                    <div class="card-title">{{ user.username|title }}</div>
+                    <p class="flow-text"><b>Date Joined:</b></p>
+                    <p class="white-text">  {{ user.date.strftime("%x") }}</p>
+                    <p class="flow-text"><b>Email:</b></p> 
+                    <p class="white-text">{{ user.email }}</p>
+                    <p class="flow-text"><b>User ID:</b></p>
+                    <p class="white-text">  {{ user.id }}</p>
                 </div>
                 <div class="card-action">
-
-                    <a href="{{ url_for('edit_user') }}?id={{ user.id }}" class="waves-effect waves-light btn-small">Edit</a>
-                    <a href="{{ url_for('delete_user') }}?id={{ user.id }}" class="waves-effect waves-light btn-small">Delete</a>
-                            
+                    <a href="{{ url_for('edit_user') }}?id={{ user.id }}" class="deep-orange accent-3 btn btn-small">Edit</a>                            
+                    <a class="waves-effect waves-light btn-small deep-orange accent-3 modal-trigger" href="#delete-user-warning-modal">Delete</a>
+                </div>
+                <div class="modal fade card grey darken-3" id="delete-user-warning-modal">
+                    <div class="modal-content center-align">
+                        <h5 class="modal-title">Deleting User Permanently</h5>
+                        <div class="modal-body">
+                        <h3>{{ user.username|title }}??</h3>
+                        <p>Are you sure?</p>
+                        </div>
+                        <div class="modal-footer  grey darken-3">
+                        <a href="#!" class="modal-close waves-effect waves-light btn-small  grey darken-2">Cancel</a>
+                        <a class="waves-effect waves-light btn-small red accent-4" href="{{ url_for('delete_user') }}?id={{ user.id }}">Delete</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

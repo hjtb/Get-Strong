@@ -1,38 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row">
-    <h1 class="white-text">Logged in as: {{ username }}</h1>
-</div>
-<section>
-    <div class="container">
-        <div class="col s12 m6">
+    <div class="row">
+        <div class="col s12 m10 offset-m1">
             <div class="card grey darken-3">
-                <div class="card-content white-text">
+                <div class="card-content center-align white-text">
                     <h1 class="form-header">Add Exercise</h1>
                     <form method="POST" action="{{ url_for('add_exercise') }}">
-                        {{ add_exercise_form.hidden_tag() }}                        <div class="row">
-                            <div class="input-field col s6">
+                        {{ add_exercise_form.hidden_tag() }}                        
+                        <div class="row">
+                            <div class="input-field col s10 offset-s1 m8 offset-m2 l6 offset-l3">
                                 {{ add_exercise_form.exercise_name(class="white-text") }}
                                 <label for="exercise_name">Exercise Name:</label>
                             </div>
                         </div>
-                        <button type="submit" class="btn-large orange-btn">Add Exercise</button>
+                        <button type="submit" class="btn waves-effect waves-light deep-orange accent-3">Add Exercise</button>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col s12 m8 offset-m2 l6 offset-l3">
-                <div class="card grey darken-3  white-text">
-                    <h3>Exercises</h3>
+    </div>
+    <div class="row">
+        <div class="col s12 m10 offset-m1">
+            <div class="exercises-card grey darken-3 s12 white-text">
+                <h1>Existing Exercises</h1>
+                <div class="row">
                     {% for exercise in exercises_for_dropdown %}
-                        <div class="card-content white-text">
-                            <span class="card-title">{{ exercise['exercise_name']|title }}</span>
+                        <div class="col s10 offset-s1 m6 l4 ">
+                            <p class="flow-text add-exercise-cell ">
+                                <span><a class="red-text" href="{{ url_for('delete_exercise') }}?exercise_id={{ exercise.id }}"><i class="material-icons tiny prefix">clear</i></a></span>     {{ exercise.exercise_name|title }}
+                            </p>
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-</section>
 {% endblock %}
