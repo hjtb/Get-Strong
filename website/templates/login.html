@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container row">
+<div class="row">
     <form method="POST" action="{{ url_for('login') }}">
         {{ login_form.hidden_tag() }}
-        <div class="card col s12 m10 offset-m1 l8 offset-l2"">
+        <div class="card col s12 m10 offset-m1 l8 offset-l2 grey-text text-darken-3">
             <h1 class="center">Login</h1><br>
             <div class="row">
                 <div>{{ render_field(login_form.email, placeholder=login_form.email.label.text) }}</div>

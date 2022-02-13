@@ -1,8 +1,8 @@
-* {
+*{
     box-sizing: border-box;
 }
 
-nav {
+nav{
     margin-bottom: 20px;
     text-shadow: 3px 5px 3px rgba(0,0,0,0.6);
     -webkit-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
@@ -10,13 +10,13 @@ nav {
     box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
 }
 
-h1 {
+h1{
     font-family: condiment, Arial, Helvetica, sans-serif;
     font-size:4vw;
     text-shadow: 2px 2px 2px rgba(255,255,255,0.6);
 }
 
-#mobile-nav {
+#mobile-nav{
     text-shadow: 3px 5px 3px rgba(0,0,0,0.6);
 }
 
@@ -30,7 +30,7 @@ nav li>a:hover{
     text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 
-.sidenav li>a {
+.sidenav li>a{
     font-family: iceberg, Arial, Helvetica, sans-serif;
     font-size: 2rem;
     color: white;
@@ -40,7 +40,7 @@ nav li>a:hover{
     text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 
-.brand-logo img {
+.brand-logo img{
     height: auto;
     width: auto;
     max-height: 50px;
@@ -48,7 +48,7 @@ nav li>a:hover{
     margin-top: 10px;
 }
 
-#title {
+#title{
     font-family: condiment, Arial, Helvetica, sans-serif;
     text-shadow: 2px 2px 2px rgba(255,255,255);
     position: absolute;
@@ -56,13 +56,14 @@ nav li>a:hover{
 }
 
 .container{   
-    padding: 50px;
+    padding: 50px 30px;
     margin-top: -20px;
     margin-bottom: -20px;
     font-family: iceberg, Arial, Helvetica, sans-serif;
     font-size: 1.5rem;
     border-radius: 5px;
     width: 95%;
+    height: 95%;
     text-align: center;
     background-color: rgba(0,0,0,0.6);
     -webkit-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
@@ -70,22 +71,22 @@ nav li>a:hover{
     box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
 }
 
-.card-content {
+.card-content{
     overflow: auto !important;
 }
 
-.modal-content {
+.modal-content{
     color: white;
     font-family: iceberg, Arial, Helvetica, sans-serif;
     text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 
-.tooltipped {
+.tooltipped{
     margin-top: 5px;
     margin-bottom: 100px;
 }
 
-.material-tooltip {
+.material-tooltip{
     max-width: 30%;
     -webkit-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
     -moz-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
@@ -102,7 +103,7 @@ nav li>a:hover{
     text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 
-.btn {
+.btn{
     font-family: iceberg, Arial, Helvetica, sans-serif;
     text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
@@ -110,6 +111,32 @@ nav li>a:hover{
 .workout-card{
     font-family: iceberg, Arial, Helvetica, sans-serif;
     text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
+.exercises-card{
+    margin-bottom: 70px;
+    font-family: iceberg, Arial, Helvetica, sans-serif;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0); 
+    padding: 10px !important;
+    border-radius: 15px !important;
+    -webkit-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
+    -moz-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
+    box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
+}
+
+.add-exercise-cell{
+    font-size:1.25vw;
+    border-radius: 10px;
+    border: 2px;
+    border-style: groove;
+}
+
+.added-exercise{
+    margin-bottom: 0px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 2px;
+    border-style: groove;
 }
 
 .card{
@@ -123,7 +150,7 @@ nav li>a:hover{
     box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
 }
 
-.flash {
+.flash{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -143,7 +170,7 @@ nav li>a:hover{
     position: relative;
 }
 
-body {
+body{
     background: url('../images/get_strong_background.jpg') ;
     background-position: center center;
     background-repeat: no-repeat; 
@@ -159,43 +186,50 @@ input.select-dropdown.dropdown-trigger{
     color: white; 
 }
 
-.footer-copyright {
+.footer-copyright{
     padding-inline: 50px !important;
 }
 
-footer {
+footer{
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
 }
 
-@media (max-width: 400px) {
-    .footer-copyright a {
+@media (max-width: 400px){
+    .footer-copyright a{
         display: none;
     }
 }
 
-@media (max-width: 600px) {
-    #title {
+@media (max-width: 600px){
+    #title{
         display: none;
     }
     .container{
         padding: 10px;
     }
-    .material-tooltip {
+    .material-tooltip{
         max-width: 90%;
+    }
+    .add-exercise-cell{
+        font-size:1rem;
     }
 }
 
-@media (max-width: 1200px) {
-    .brand-logo img {
+@media (max-width: 1200px){
+    .brand-logo img{
         display: none !important;
     }
-    h1 {
+    h1{
         font-size:3.5rem;
     }
-    .material-tooltip {
+    .material-tooltip{
         max-width: 50%;
     }
+    .add-exercise-cell{
+        font-size:1.5rem;
+    }
+    
 }

@@ -3,8 +3,9 @@
 <div class="row">
     <form method="POST" class="col s12 m8 offset-m2 l6 offset-l3" action="">
         {{ edit_user_form.hidden_tag() }}
-        <div class="card-panel">
-            <h1 class="center">Edit {{ user_to_be_edited.username }}'s Profile</h1><br>
+        <div class="card deep-orange-text text-accent-3">
+            <h1 class="center card-title">EDIT USER:</h1><br>
+            <h2 class="center card-title">{{ user_to_be_edited.username|title }}'s Profile</h2><br>
             <div class="row">
                 <div>{{ render_field(edit_user_form.username, value=user_to_be_edited.username) }}</div>
             </div>

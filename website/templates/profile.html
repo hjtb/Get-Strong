@@ -1,76 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <div class="col s10 offset-s1">
-        <h1 class="white-text">{{ username|title }}'s Profile</h1>
-        <a href="{{ url_for('edit_user') }}?id={{ current_user.id }}" class="waves-effect waves-light btn btn-large deep-orange accent-3">Edit Profile</a>
-        <a class="waves-effect waves-light btn btn-large deep-orange accent-3 modal-trigger" href="#delete-user-warning-modal">Delete Profile</a>
-      </div>
-      <div class="modal fade card grey darken-3" id="delete-user-warning-modal">
-        <div class="modal-content">
-          <h5 class="modal-title">Deleting Your Profile Permanently</h5>
-          <div class="modal-body">
-            <h3>{{ username|title }}??</h3>
-            <p>Are you sure?</p>
-          </div>
-          <div class="modal-footer grey darken-3">
-            <a href="#!" class="modal-close waves-effect waves-light btn-small  grey darken-2">Cancel</a>
-            <a class="waves-effect waves-light btn-small red accent-4" href="{{ url_for('delete_user') }}?id={{ current_user.id }}">Delete</a>
-          </div>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col s10 offset-s1">
+      <h1 class="white-text">{{ username|title }}'s Profile</h1>
+      <a href="{{ url_for('edit_user') }}?id={{ current_user.id }}" class="waves-effect waves-light btn btn-large deep-orange accent-3">Edit Profile</a>
+      <a class="waves-effect waves-light btn btn-large deep-orange accent-3" href="{{ url_for('delete_user') }}?id={{ current_user.id }}">Delete Profile</a>
     </div>
-    <div class="row">
-      <!-- Display the users created workouts -->
-      {% for workout in workouts %}
-        <div class="col s12 l6 xl4">
-          <div class="card workout-card flow-text white-text large grey darken-3">
-            <div class="card-title deep-orange-text text-accent-3">{{ workout.workout_name }}</div>
-            <div class="card-content">
-              <p>Created: {{ workout.workout_date.strftime("%x") }}</p>
-              <table class="striped centered activator">
-                <thead>
+  </div>
+  <div class="row">
+    <!-- Display the users created workouts -->
+    {% for workout in workouts %}
+      <div class="col s12 l6 xl4">
+        <div class="card workout-card flow-text white-text large grey darken-3">
+          <div class="card-title deep-orange-text text-accent-3">{{ workout.workout_name }}</div>
+          <div class="card-content">
+            <p>Created: {{ workout.workout_date.strftime("%x") }}</p>
+            <table class="striped centered activator">
+              <thead>
+                <tr>
+                  <th>Exercise Name</th>
+                  <th>Sets</th>
+                  <th>Reps</th>
+                  <th>Weight</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for log_exercise in workout.exercises %}
                   <tr>
-                    <th>Exercise Name</th>
-                    <th>Sets</th>
-                    <th>Reps</th>
-                    <th>Weight</th>
+                    <td>{{ log_exercise.exercise.exercise_name }}</td>
+                    <td>{{ log_exercise.sets }}</td>
+                    <td>{{ log_exercise.reps }}</td>
+                    <td>{{ log_exercise.weight }}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {% for log_exercise in workout.exercises %}
-                    <tr>
-                      <td>{{ log_exercise.exercise.exercise_name }}</td>
-                      <td>{{ log_exercise.sets }}</td>
-                      <td>{{ log_exercise.reps }}</td>
-                      <td>{{ log_exercise.weight }}</td>
-                    </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-              <a class="waves-effect waves-light btn-small grey darken-3 tooltipped" data-position="top" data-tooltip="{{ workout.comments }}" href="#">Hover for Comments</a>
-            </div>
-            <div class="card-action">
-              <a class="waves-effect waves-light btn-small deep-orange accent-3" href="{{ url_for('edit_workout') }}?workout_id={{ workout.workout_id }}">Edit</a>
-              <a class="waves-effect waves-light btn-small deep-orange accent-3 modal-trigger" href="#delete-workout-warning-modal">Delete</a>
-            </div>
-            <div class="modal fade card grey darken-3" id="delete-workout-warning-modal">
-              <div class="modal-content">
-                <h5 class="modal-title">Deleting Workout Permanently</h5>
-                <div class="modal-body">
-                  <h3>{{ workout.workout_name }}??</h3>
-                  <p>Are you sure?</p>
-                </div>
-                <div class="modal-footer grey darken-3">
-                  <a href="#!" class="modal-close waves-effect waves-light btn-small  grey darken-2">Cancel</a>
-                  <a class="waves-effect waves-light btn-small red accent-4" href="{{ url_for('delete_workout') }}?workout_id={{ workout.workout_id }}">Delete</a>
-                </div>
-              </div>
-            </div>
+                {% endfor %}
+              </tbody>
+            </table>
+            <a class="waves-effect waves-light btn-small grey darken-3 tooltipped" data-position="top" data-tooltip="{{ workout.comments }}" href="#">Hover for Comments</a>
+          </div>
+          <div class="card-action">
+            <a class="waves-effect waves-light btn-small deep-orange accent-3" href="{{ url_for('edit_workout') }}?workout_id={{ workout.workout_id }}">Edit</a>
+            <a class="waves-effect waves-light btn-small deep-orange accent-3" href="{{ url_for('delete_workout') }}?workout_id={{ workout.workout_id }}">Delete</a>
           </div>
         </div>
-      {% endfor %}
-    </div>
+      </div>
+    {% endfor %}
   </div>
 {% endblock %}

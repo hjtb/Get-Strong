@@ -265,7 +265,7 @@ def add_exercise():
     """
     page for admin user to add new exercises to database
     """
-    exercises_for_dropdown = SelectExercise.objects.all()
+    exercises_for_dropdown = list(SelectExercise.objects.all())
     add_exercise_form = AddExerciseForm()
 
     # check if current user is_admin
@@ -438,3 +438,18 @@ def delete_workout():
     except Exception as err:
         flash(f'Error, could not delete workout error was {err}', category="error")
         return redirect(url_for('profile'))
+
+
+@app.route("/delete_exercise")
+@login_required
+def delete_exercise():
+    try:
+        exercise_id = request.args.get("exercise_id")
+        exercise = SelectExercise.objects.filter(id=exercise_id).first()
+        exercise_name = exercise.exercise_name
+        exercise.delete()
+        flash(f'Exercise: {exercise_name} has been deleted!', category="success")
+        return redirect(url_for('add_exercise'))
+    except Exception as err:
+        flash(f'Error, could not delete exercise error was {err}', category="error")
+        return redirect(url_for('add_exercise'))
