@@ -1,5 +1,4 @@
 import datetime
-from flask import current_app as app
 from flask_login import UserMixin
 from flask_mongoengine import MongoEngine
 db = MongoEngine()

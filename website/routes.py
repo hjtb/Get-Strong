@@ -30,12 +30,6 @@ def load_user(id):
     return user
 
 
-@app.route("/landing")
-def index():
-
-    return "hello"
-
-
 # Profile Page
 @app.route("/")
 @app.route("/profile")
@@ -244,6 +238,9 @@ def edit_user():
 @app.route("/delete_user")
 @login_required
 def delete_user():
+    """
+    Route that deletes profiles
+    """
     user = User.objects
     try:
         user_id = request.args.get("id")
@@ -425,6 +422,9 @@ def edit_workout():
 @app.route("/delete_workout")
 @login_required
 def delete_workout():
+    """
+    Route that deletes workouts
+    """
     try:
         user = User.objects.filter(id = current_user.id).first()
         workout_id = request.args.get("workout_id")
@@ -443,6 +443,9 @@ def delete_workout():
 @app.route("/delete_exercise")
 @login_required
 def delete_exercise():
+    """
+    Route that deletes exercises
+    """
     try:
         exercise_id = request.args.get("exercise_id")
         exercise = SelectExercise.objects.filter(id=exercise_id).first()

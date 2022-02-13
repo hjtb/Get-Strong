@@ -1,4 +1,3 @@
-from flask import Flask
 from website.models import SelectExercise, User, Workout
 from flask_mongoengine.wtf import model_form
 
