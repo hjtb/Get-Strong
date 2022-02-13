@@ -55,10 +55,10 @@ nav li>a:hover{
     left: 100px;
 }
 
-.container{
-    height: 90vh;
+.container{   
     padding: 50px;
-    margin-top: -10px;
+    margin-top: -20px;
+    margin-bottom: -20px;
     font-family: iceberg, Arial, Helvetica, sans-serif;
     font-size: 1.5rem;
     border-radius: 5px;
@@ -72,6 +72,12 @@ nav li>a:hover{
 
 .card-content {
     overflow: auto !important;
+}
+
+.modal-content {
+    color: white;
+    font-family: iceberg, Arial, Helvetica, sans-serif;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 
 .tooltipped {
@@ -108,13 +114,13 @@ nav li>a:hover{
 
 .card{
     padding-top: 20px;
+    margin-top: 50px;
+    margin-bottom: 30px;
     border-radius: 15px !important;
     overflow:hidden;
     -webkit-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
     -moz-box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
     box-shadow: -1px 6px 13px 0px rgba(255, 255, 255, 0.44);
-    margin-top: 50px;
-    margin-bottom: 30px;
 }
 
 .flash {
