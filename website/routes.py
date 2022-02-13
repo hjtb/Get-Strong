@@ -254,7 +254,6 @@ def delete_user():
         return redirect(url_for('manage_users'))
 
 
-
 # Add Exercise Page
 @app.route("/add_exercise", methods=['GET', 'POST'])
 @login_required
@@ -293,6 +292,7 @@ def add_exercise():
 
     flash(f'Only admins can add exercises')
     return redirect(url_for("profile"))
+
 
 # Add Workout Page
 @app.route("/add_workout", methods=['GET', 'POST'])
