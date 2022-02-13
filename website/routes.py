@@ -446,13 +446,15 @@ def delete_exercise():
     """
     Route that deletes exercises
     """
-    try:
-        exercise_id = request.args.get("exercise_id")
-        exercise = SelectExercise.objects.filter(id=exercise_id).first()
-        exercise_name = exercise.exercise_name
-        exercise.delete()
-        flash(f'Exercise: {exercise_name} has been deleted!', category="success")
-        return redirect(url_for('add_exercise'))
-    except Exception as err:
-        flash(f'Error, could not delete exercise error was {err}', category="error")
-        return redirect(url_for('add_exercise'))
+    # check if current user is_admin
+    if current_user.is_admin:
+        try:
+            exercise_id = request.args.get("exercise_id")
+            exercise = SelectExercise.objects.filter(id=exercise_id).first()
+            exercise_name = exercise.exercise_name
+            exercise.delete()
+            flash(f'Exercise: {exercise_name} has been deleted!', category="success")
+            return redirect(url_for('add_exercise'))
+        except Exception as err:
+            flash(f'Error, could not delete exercise error was {err}', category="error")
+            return redirect(url_for('add_exercise'))
