@@ -10,7 +10,8 @@ $(document).ready(function(){
   $('.flash').fadeIn('slow').delay(2000).fadeOut(5000);
   $('#exercise-row select').formSelect();
   $('.edit-exercise select').formSelect();
-  $('#comments').val('');
+  $('.tooltipped').tooltip();
+  $('.modal').modal();
   $("#delete-exercise-button").hide();
   $("#template-1").hide();
   if (exerciseList != null) {

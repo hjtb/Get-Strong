@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="row">
-        <h1 class="white-text">Logged in as: {{ username }}</h1>
-    </div>
     <section>
         <div class="container white-text">
             <div class="col s12 m6">
-                <div class="card grey darken-3">
+                <div class="card grey darken-3 z-depth-5">
                     <div class="card-content">
                         <h1 class="form-header">Edit Workout</h1>
                         <div id="template-1">
@@ -60,17 +57,17 @@
                                             </select>
                                             <span class="helper-text white-text" data-error="wrong" data-success="right">Select an Exercise</span>
                                         </div>
-                                        <div class="input-field col m1 push-m1 s2">
+                                        <div class="input-field col l1 push-l1 m2 push-m2 push-s1 s3">
                                             <input class="validate white-text" type="number" value="{{ exercise.sets }}" min="1" max="10" name="sets">
                                             <label for="sets">Sets:</label>
                                             <span class="helper-text white-text" data-error="1-10 Sets"></span>
                                         </div>
-                                        <div class="input-field col m1 push-m2 s2">
+                                        <div class="input-field col l1 push-l2 m2 push-m2 push-s2 s3">
                                             <input type="number" class="validate white-text" value="{{ exercise.reps }}" min="1" max="200" name="reps">
                                             <label for="reps">Reps:</label>
                                             <span class="helper-text white-text" data-error="1-200 Reps"></span>
                                         </div>
-                                        <div class="input-field col m1 push-m3 s2">
+                                        <div class="input-field col l1 push-l3 m2 push-m2 push-s3 s3">
                                             <input class="validate white-text" type="number" value="{{ exercise.weight }}" min="1" max="500" name="weight">
                                             <label for="weight">Weight(kg):</label>
                                             <span class="helper-text white-text" data-error="1-500kg"></span>
@@ -84,8 +81,8 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">mode_edit</i>
-                                    {{ edit_workout_form.comments(class="materialize-textarea white-text") }}
-                                    <label class="active" for="comments">Comments:</label>
+                                    {{ edit_workout_form.comments(class="materialize-textarea white-text active", maxlength="100") }}
+                                    <label for="comments">Comments:</label>
                                 </div>
                             </div>
                             <div id="add-workout-submit-div">  

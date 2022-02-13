@@ -27,5 +27,8 @@
    },
    "[jsonc]": {
       "editor.defaultFormatter": "vscode.json-language-features"
+   },
+   "[django-html]": {
+      "editor.defaultFormatter": "monosans.djlint"
    }
 }

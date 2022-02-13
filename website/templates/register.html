@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row">
-    <form method="POST" class="col s12 m8 offset-m2 l6 offset-l3" action="{{ url_for('register') }}">
+<div class="container row">
+    <form method="POST" action="{{ url_for('register') }}">
         {{ registration_form.hidden_tag() }}
-        <div class="card-panel">
+        <div class="card col s12 m10 offset-m1 l8 offset-l2">
             <h1 class="center">Register</h1><br>
             <div class="row">
                 <div>{{ render_field(registration_form.username, placeholder=registration_form.username.label.text) }}</div>
