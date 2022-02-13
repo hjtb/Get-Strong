@@ -38,22 +38,22 @@
                   {% endfor %}
                 </tbody>
               </table>
-              <a class="waves-effect waves-light btn-small blue-grey darken-3 tooltipped" data-position="top" data-tooltip="{{ workout.comments }}" href="#">Hover for Comments</a>
+              <a class="waves-effect waves-light btn-small grey darken-3 tooltipped" data-position="top" data-tooltip="{{ workout.comments }}" href="#">Hover for Comments</a>
             </div>
             <div class="card-action">
               <a class="waves-effect waves-light btn-small deep-orange accent-3" href="{{ url_for('edit_workout') }}?workout_id={{ workout.workout_id }}">Edit</a>
               <a class="waves-effect waves-light btn-small deep-orange accent-3 modal-trigger" href="#warning-modal">Delete</a>
             </div>
-            <div class="modal fade" id="warning-modal">
+            <div class="modal fade card grey darken-3" id="warning-modal">
               <div class="modal-content">
                 <h5 class="modal-title">Deleting Workout Permanently</h5>
                   <div class="modal-body">
                     <h3>{{ workout.workout_name }}??</h3>
                     <p>Are you sure?</p>
                   </div>
-                  <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-                    <a class="waves-effect waves-light btn-small deep-orange accent-3" href="{{ url_for('delete_workout') }}?workout_id={{ workout.workout_id }}">Delete</a>
+                  <div class="modal-footer grey darken-3">
+                    <a href="#!" class="modal-close waves-effect waves-light btn-small  grey darken-2">Cancel</a>
+                    <a class="waves-effect waves-light btn-small red accent-4" href="{{ url_for('delete_workout') }}?workout_id={{ workout.workout_id }}">Delete</a>
                   </div>
                 </div>
               </div>
