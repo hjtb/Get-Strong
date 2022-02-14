@@ -399,6 +399,9 @@ This project relies heavily on third party modules for key functionality, and th
 5. [Werkzeug](https://werkzeug.palletsprojects.com/en/1.0.x/utils/) is used to debug during development and to generate hashed passwords - it comes as part of Flask so no extra installation commands are necessary
 6. [dnspython](https://pypi.org/project/dnspython/) is to enable usage of MongoDB connection string - in the terminal use: ```$ pip3 install dnspython```
 
+#### Admin Account Login
+email:bobtb@gmail.com    
+password:11111111
 
 [Back to Top](#table-of-contents)
 
