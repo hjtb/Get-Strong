@@ -93,18 +93,18 @@ The app has a simple structure with only a few pages to navigate. The design is 
 
 #### Desktop Wireframes
 
-![Dashboard desktop](website\static\wireframes\dashboard_desktop.png)  
-![Log workout desktop](website\static\wireframes\log_workout_desktop.png)
+![Dashboard desktop](https://github.com/hjtb/Get-Strong/blob/master/website/static/wireframes/dashboard_desktop.png?raw=true)
+![Log workout desktop](https://github.com/hjtb/Get-Strong/blob/master/website/static/wireframes/log_workout_desktop.png?raw=true)
 
 #### Tablet Wireframes
 
-![Dashboard tablet](website\static\wireframes\dashboard_tablet.png)  
-![Log workout tablet](website\static\wireframes\log_workout_tablet.png)
+![Dashboard tablet](https://github.com/hjtb/Get-Strong/blob/master/website/static/wireframes/dashboard_tablet.png?raw=true)  
+![Log workout tablet](https://github.com/hjtb/Get-Strong/blob/master/website/static/wireframes/log_workout_tablet.png?raw=true)
 
 #### Mobile Wireframes
 
-![Dashboard mobile](website\static\wireframes\dashboard_mobile.png)   
-![Log workout mobile](website\static\wireframes\log_workout_mobile.png)  
+![Dashboard mobile](https://github.com/hjtb/Get-Strong/blob/master/website/static/wireframes/dashboard_mobile.png?raw=true)   
+![Log workout mobile](https://github.com/hjtb/Get-Strong/blob/master/website/static/wireframes/log_workout_mobile.png?raw=true)  
 
 
 
