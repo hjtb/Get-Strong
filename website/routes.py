@@ -31,7 +31,6 @@ def load_user(id):
 
 
 # Profile Page
-@app.route("/")
 @app.route("/profile")
 @login_required
 def profile():
@@ -87,6 +86,8 @@ def register():
     return render_template('register.html', registration_form=registration_form)
 
 
+# Login Page
+@app.route("/")
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     """
