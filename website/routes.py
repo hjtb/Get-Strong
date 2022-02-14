@@ -42,12 +42,6 @@ def profile():
     username = current_user.username
     workouts = list(current_user.workouts)
 
-    for workout in workouts:
-        workout_name = workout.workout_name
-        exercises = list(workout.exercises)
-        for log_exercise in exercises:
-            print(f'workout:{workout_name} exercise name:{log_exercise.exercise.exercise_name} reps:{log_exercise.reps} sets:{log_exercise.sets} weight:{log_exercise.weight}')
-
     return render_template(
         "profile.html", workouts=workouts, username=username, current_user=current_user
     )
