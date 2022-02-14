@@ -295,8 +295,6 @@ I created a branch to pursue this further.
 
 Throughout the development process, defensive design has been a key consideration. I have, so far, been unable to trigger any errors or unexpected behaviours by using the app normally or by attempting to get around the defensive measures.
 
-The app relies on several third party packages for security, a full list can be found in the requirements.txt file.
-
 Below is a table that details the key defensive design tests performed on the app and their outcomes. 
 
 | Element/function to test | Expected outcome | Result |
@@ -308,7 +306,7 @@ Below is a table that details the key defensive design tests performed on the ap
 
 ### Responsiveness/Ease of use
 
-The app has been tested on a variety of different devices and browsers. One currently unfixable problem, however, is that I haven't been able to find a solution that locks the website in vertical orientation on mobile devices. It doesn't work properly or look good currently in horizontal orientation - this will be addressed in future updates
+The app has been tested on a variety of different devices and browsers.
 
 1. iPhone XR
 
@@ -329,7 +327,7 @@ The app has been tested on a variety of different devices and browsers. One curr
 ### Code Validation
 
 All HTML and CSS was validated on the [W3C Markup Validation service](https://validator.w3.org/).   
-All Python code was checked for syntax on [ExtendsClass](https://extendsclass.com/python-tester.html).  
+All Python code was checked for syntax on [PythonChecker](https://www.pythonchecker.com/).  
 javascript code was tested on [Esprima](https://esprima.org/demo/validate.html).  
 No errors were shown in the HTML, CSS, JS or Python code.  
 

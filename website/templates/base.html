@@ -25,7 +25,7 @@
     <nav class="nav-extended deep-orange accent-3">
         <div class="nav-wrapper">
             <a href="{{ url_for('profile') }}"><h4 class="blue-grey-text text-darken-3" id="title">GET STRONG</h4></a>
-            <a href="{{ url_for('profile') }}" class="brand-logo center"><img class="responsive-img" src="{{ url_for('static', filename='images/get_strong_logo.png') }}" alt="get strong logo"></a>
+            <a href="{{ url_for('profile') }}" class="brand-logo center"><img class="responsive-img" src="{{ url_for('static', filename='images/get_strong_logo.png') }}" alt=""></a>
             <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
             <ul class="right hide-on-med-and-down">
                 {% if current_user.is_admin and current_user.is_authenticated %}
