@@ -94,6 +94,8 @@ The app has a simple structure with only a few pages to navigate. The design is 
 #### Desktop Wireframes
 
 ![Dashboard desktop](https://github.com/hjtb/Get-Strong/blob/master/website/static/wireframes/dashboard_desktop.png?raw=true)
+<img src="https://github.com/hjtb/Get-Strong/blob/master/website/static/wireframes/dashboard_desktop.png?raw=true" height="500">
+
 ![Log workout desktop](https://github.com/hjtb/Get-Strong/blob/master/website/static/wireframes/log_workout_desktop.png?raw=true)
 
 #### Tablet Wireframes
