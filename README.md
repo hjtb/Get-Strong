@@ -206,10 +206,6 @@ Admin|admin|boolean
 
 ## **Features**
 
-[Back to Top](#table-of-contents)
-
-<a></a>
-
 ### **Current Features**
 
 #### Navbar
@@ -410,6 +406,10 @@ This project relies heavily on third party modules for key functionality, and th
 
 ## **Credits**
 
+Pretty Printed and freecodecamp on Youtube were instrumental in helping me understand backend form validation and mongoengine
+Miguel Grinbergs The Flask Mega-Tutorial helped me understand the correct way to create an app with flask
+Huge thanks to [Peter](https://github.com/pbs-websuntangled) from [dt-squad](https://www.dt-squad.com/) who was always there on hand for when things were falling apart, especially after git merges that go terribly wrong.
+Thank you to my Code Institute mentor, Brian Macharia, he cleared up some of the complicated issues I was running into at the start. Thanks, Brian.
 [Back to Top](#table-of-contents)
 
 <a></a>
